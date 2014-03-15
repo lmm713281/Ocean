@@ -1,4 +1,4 @@
 Ocean
 =====
 
-Powerful but simple CMS
+Powerful but simple web framework for Go.
