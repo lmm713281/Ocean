@@ -1,4 +1,4 @@
 Ocean
 =====
 
-Powerful but simple web framework for Go.
+Powerful but simple Go application server and web framework.
