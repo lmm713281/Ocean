@@ -1,0 +1,38 @@
+package ConfigurationDB
+
+import "labix.org/v2/mgo"
+import "github.com/SommerEngineering/Ocean/Configuration"
+import "github.com/SommerEngineering/Ocean/Log"
+import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+
+func init() {
+
+	config := Configuration.Read()
+
+	// Connect to MongoDB:
+	if newSession, errDial := mgo.Dial(config.ConfigDBHostname); errDial != nil {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `It was not possible to connect to the MongoDB host `+config.ConfigDBHostname, errDial.Error())
+		return
+	} else {
+		session = newSession
+	}
+
+	// Use the correct database:
+	db = session.DB(config.ConfigDBDatabase)
+
+	// Login:
+	if errLogin := db.Login(config.ConfigDBConfigurationCollectionUsername, config.ConfigDBConfigurationCollectionPassword); errLogin != nil {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `It was not possible to login the user `+config.ConfigDBConfigurationCollectionUsername, errLogin.Error())
+		return
+	}
+
+	// Get the collection:
+	collection = db.C(config.ConfigDBConfigurationCollection)
+
+	// Take care about the index:
+	collection.EnsureIndexKey(`Name`)
+	collection.EnsureIndexKey(`Value`)
+
+	checkConfiguration()
+	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `The configuration database is now ready.`)
+}

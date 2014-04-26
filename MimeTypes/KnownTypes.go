@@ -1,0 +1,34 @@
+package MimeTypes
+
+var TypeWebHTML = MimeType{MimeType: "text/html", FileExtension: []string{".html", ".htm"}}
+var TypeWebCSS = MimeType{MimeType: "text/css", FileExtension: []string{".css"}}
+var TypeWebJavaScript = MimeType{MimeType: "text/javascript", FileExtension: []string{".js"}}
+var TypeXML = MimeType{MimeType: "text/xml", FileExtension: []string{".xml"}}
+var TypeArchiveZIP = MimeType{MimeType: "application/zip", FileExtension: []string{".zip"}}
+var TypeArchiveGZ = MimeType{MimeType: "application/gzip", FileExtension: []string{".gz"}}
+var TypeWebOCTET = MimeType{MimeType: "application/octet-stream", FileExtension: []string{".bin", ".exe", ".dll", ".class"}}
+var TypeDocumentPDF = MimeType{MimeType: "application/pdf", FileExtension: []string{".pdf"}}
+var TypeDocumentLaTeX = MimeType{MimeType: "application/x-latex", FileExtension: []string{".tex", ".latex"}}
+var TypeShockwave = MimeType{MimeType: "application/x-shockwave-flash", FileExtension: []string{".swf"}}
+var TypeArchiveTAR = MimeType{MimeType: "application/x-tar", FileExtension: []string{".tar"}}
+var TypeAudioWAV = MimeType{MimeType: "application/x-wav", FileExtension: []string{".wav"}}
+var TypeAudioMP3 = MimeType{MimeType: "audio/mpeg", FileExtension: []string{".mp3"}}
+var TypeAudioAAC = MimeType{MimeType: "audio/aac", FileExtension: []string{".aac", ".m4a"}}
+var TypeAudioOGG = MimeType{MimeType: "audio/ogg", FileExtension: []string{"vogg", ".oga"}}
+var TypeAudioWMA = MimeType{MimeType: "audio/x-ms-wma", FileExtension: []string{".wma"}}
+var TypeImageGIF = MimeType{MimeType: "image/gif", FileExtension: []string{".gif"}}
+var TypeImageCommon = MimeType{MimeType: "image", FileExtension: []string{}}
+var TypeUnknown = MimeType{MimeType: "application/octet-stream", FileExtension: []string{}}
+var TypeImageJPEG = MimeType{MimeType: "image/jpeg", FileExtension: []string{".jpg", ".jpeg"}}
+var TypeImagePNG = MimeType{MimeType: "image/png", FileExtension: []string{".png"}}
+var TypePlainText = MimeType{MimeType: "text/plain", FileExtension: []string{".txt"}}
+var TypeVideoMPEG = MimeType{MimeType: "video/mpeg", FileExtension: []string{".mpeg", ".mpg"}}
+var TypeVideoMOV = MimeType{MimeType: "video/quicktime", FileExtension: []string{".mov", ".qt"}}
+var TypeVideoAVI = MimeType{MimeType: "video/x-msvideo", FileExtension: []string{".avi"}}
+var TypeVideoMP4 = MimeType{MimeType: "video/mp4", FileExtension: []string{".mp4"}}
+var TypeFontEOT = MimeType{MimeType: "application/vnd.ms-fontobject", FileExtension: []string{".eot"}}
+var TypeFontOTF = MimeType{MimeType: "application/font-sfnt", FileExtension: []string{".otf"}}
+var TypeImageSVG = MimeType{MimeType: "image/svg+xml", FileExtension: []string{".svg"}}
+var TypeFontTTF = MimeType{MimeType: "application/font-sfnt", FileExtension: []string{".ttf"}}
+var TypeFontWOFF = MimeType{MimeType: "application/font-woff", FileExtension: []string{".woff"}}
+var TypeWebJSON = MimeType{MimeType: "application/json", FileExtension: []string{".json"}}
