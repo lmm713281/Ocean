@@ -78,11 +78,17 @@ func initSystem() {
 	Log.LoggingIsReady()
 
 	// Register all system shutdown handlers:
+	//
+	// Please notice: If the shutdown event occurs ...
+	//		* all application handlers are called (order: last comed, first served)
+	//		* then, these system handlers are called (order: last comed, first served)
+	//		* and finally, the logging device / system gets closed
 	Shutdown.InitShutdown()
 	Shutdown.AddShutdownHandler(ICCC.ShutdownFunction{})
 	Shutdown.AddShutdownHandler(NumGen.ShutdownFunction{})
 	Shutdown.AddShutdownHandler(ConfigurationDB.ShutdownFunction{})
 	Shutdown.AddShutdownHandler(CustomerDB.ShutdownFunction{})
+
 	// The logging subsystem is not registered here, because it will be automated called at the end
 
 	// Register all system ICCC commands:

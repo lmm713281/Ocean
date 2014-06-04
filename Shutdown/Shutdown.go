@@ -9,7 +9,7 @@ type ShutdownHandler interface {
 }
 
 func AddShutdownHandler(handler ShutdownHandler) {
-	shutdownHandlers.PushBack(handler)
+	shutdownHandlers.PushFront(handler)
 }
 
 func executeShutdown() {

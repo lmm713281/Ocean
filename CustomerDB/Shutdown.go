@@ -14,6 +14,4 @@ This function is called if the Ocean server is shutting down.
 */
 func (a ShutdownFunction) Shutdown() {
 	Log.LogShort(senderName, LM.CategoryAPP, LM.LevelWARN, LM.MessageNameSHUTDOWN, `Close now the customer database connection.`)
-	db.Logout()
-	session.Close()
 }

@@ -26,5 +26,7 @@ func (a ShutdownFunction) Shutdown() {
 		collectionListener.Update(selectionUpdate, entry)
 	}
 
+	db.Logout()
+	dbSession.Close()
 	Log.LogShort(senderName, LM.CategoryAPP, LM.LevelWARN, LM.MessageNameSHUTDOWN, `Done shutting down now all ICCC listener for this host.`)
 }

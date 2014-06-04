@@ -21,5 +21,6 @@ func init() {
 
 	initDB()
 	registerHost2Database()
+	cacheTimerLogic(false)
 	initCacheTimer()
 }

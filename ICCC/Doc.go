@@ -1,4 +1,4 @@
 /*
-This is the "[I]nter Data [C]enter Se[c]ure [C]ommunication" :)
+This is the "[I]nter Data [C]enter and Appli[c]ation [C]ommunication"
 */
 package ICCC

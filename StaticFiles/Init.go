@@ -26,7 +26,9 @@ func init() {
 	logStaticFileRequests = ConfigurationDB.Read(`LogStaticFileRequests`) == `true`
 
 	// Read the static files' data from GridFS:
-	gridFS := CustomerDB.GridFS()
+	dbSession, gridFS := CustomerDB.GridFS()
+	defer dbSession.Close()
+
 	if gridFile, errGridFile := gridFS.Open(`staticFiles.zip`); errGridFile != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to open the static files out of the GridFS!`, errGridFile.Error())
 		return

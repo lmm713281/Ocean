@@ -17,7 +17,8 @@ func init() {
 	}
 
 	filename = ConfigurationDB.Read(`FilenameWebResources`)
-	gridFS := CustomerDB.GridFS()
+	dbSession, gridFS := CustomerDB.GridFS()
+	defer dbSession.Close()
 
 	if gridFile, errGridFile := gridFS.Open(filename); errGridFile != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to open the web content out of the GridFS!`, filename, errGridFile.Error())

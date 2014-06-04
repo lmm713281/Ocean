@@ -3,6 +3,7 @@ package MimeTypes
 var TypeWebHTML = MimeType{MimeType: "text/html", FileExtension: []string{".html", ".htm"}}
 var TypeWebCSS = MimeType{MimeType: "text/css", FileExtension: []string{".css"}}
 var TypeWebJavaScript = MimeType{MimeType: "text/javascript", FileExtension: []string{".js"}}
+var TypeWebDart = MimeType{MimeType: "application/dart", FileExtension: []string{".dart"}}
 var TypeXML = MimeType{MimeType: "text/xml", FileExtension: []string{".xml"}}
 var TypeArchiveZIP = MimeType{MimeType: "application/zip", FileExtension: []string{".zip"}}
 var TypeArchiveGZ = MimeType{MimeType: "application/gzip", FileExtension: []string{".gz"}}

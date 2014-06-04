@@ -10,6 +10,7 @@ var (
 	isActive          bool                  = false
 	getHandler        string                = ``
 	db                *mgo.Database         = nil
+	dbSession         *mgo.Session          = nil
 	collectionNumGen  *mgo.Collection       = nil
 	channelBufferSize int                   = 10
 	channelList       map[string]chan int64 = nil

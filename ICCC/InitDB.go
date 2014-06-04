@@ -10,7 +10,7 @@ func initDB() {
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Done init the ICCC collection.`)
 
 	// Get the database:
-	db = CustomerDB.DB()
+	dbSession, db = CustomerDB.DB()
 
 	if db == nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to get the customer database.`)

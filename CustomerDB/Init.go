@@ -10,20 +10,20 @@ func init() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `Init the customer database.`)
 
 	databaseHost := ConfigurationDB.Read(`CustomerDBHost`)
-	databaseDB := ConfigurationDB.Read(`CustomerDBDatabase`)
-	databaseUsername := ConfigurationDB.Read(`CustomerDBUsername`)
-	databasePassword := ConfigurationDB.Read(`CustomerDBPassword`)
+	databaseDB = ConfigurationDB.Read(`CustomerDBDatabase`)
+	databaseUsername = ConfigurationDB.Read(`CustomerDBUsername`)
+	databasePassword = ConfigurationDB.Read(`CustomerDBPassword`)
 
 	// Connect to MongoDB:
 	if newSession, errDial := mgo.Dial(databaseHost); errDial != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `It was not possible to connect to the MongoDB host `+databaseHost, errDial.Error())
 		return
 	} else {
-		session = newSession
+		mainSession = newSession
 	}
 
 	// Use the correct database:
-	db = session.DB(databaseDB)
+	db := mainSession.DB(databaseDB)
 	if db == nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to get the customer database.`)
 		return
@@ -35,8 +35,15 @@ func init() {
 		return
 	}
 
+	// In case of write operations, wait for the majority of servers to be done:
+	mainSession.SetSafe(&mgo.Safe{WMode: "majority"})
+
+	// Set the consistency mode to read from any secondary server and write to the primary.
+	// Copied sessions can overwrite this setting of necessary.
+	mainSession.SetMode(mgo.Eventual, true)
+
 	// Get the GridFS:
-	gridFS = db.GridFS(`fs`)
+	gridFS := db.GridFS(`fs`)
 	if gridFS == nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to get the GridFS from the database.`)
 		return

@@ -13,7 +13,9 @@ func init() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Starting the template engine.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Starting the template engine done.`)
 
-	gridFS := CustomerDB.GridFS()
+	dbSession, gridFS := CustomerDB.GridFS()
+	defer dbSession.Close()
+
 	if gridFile, errGridFile := gridFS.Open(`templates.zip`); errGridFile != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to open the templates out of the GridFS!`, errGridFile.Error())
 		return

@@ -16,6 +16,7 @@ const (
 var (
 	senderName                LM.Sender                                 = `ICCC`
 	db                        *mgo.Database                             = nil
+	dbSession                 *mgo.Session                              = nil
 	collectionListener        *mgo.Collection                           = nil
 	collectionHosts           *mgo.Collection                           = nil
 	reservedSystemChannels    []string                                  = []string{ChannelSYSTEM, ChannelNUMGEN, ChannelSHUTDOWN, ChannelSTARTUP, ChannelICCC}
