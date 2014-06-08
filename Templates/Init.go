@@ -6,6 +6,7 @@ import "html/template"
 import "io/ioutil"
 import "archive/zip"
 import "github.com/SommerEngineering/Ocean/CustomerDB"
+import "github.com/SommerEngineering/Ocean/Tools"
 import "github.com/SommerEngineering/Ocean/Log"
 import LM "github.com/SommerEngineering/Ocean/Log/Meta"
 
@@ -21,6 +22,7 @@ func init() {
 		return
 	} else {
 		defer gridFile.Close()
+		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, `Read the templates.zip file from the grid file system.`, `Upload time UTC: `+Tools.FormatTime(gridFile.UploadDate().UTC()))
 		if data, ioError := ioutil.ReadAll(gridFile); ioError != nil {
 			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to read the templates.`, ioError.Error())
 			return

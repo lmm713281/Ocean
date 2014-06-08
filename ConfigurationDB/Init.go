@@ -26,6 +26,12 @@ func init() {
 		return
 	}
 
+	// In case of write operations, wait for the majority of servers to be done:
+	session.SetSafe(&mgo.Safe{WMode: "majority"})
+
+	// Set the consistency mode to read from any secondary server and write to the primary.
+	session.SetMode(mgo.Eventual, true)
+
 	// Get the collection:
 	collection = db.C(config.ConfigDBConfigurationCollection)
 

@@ -24,5 +24,7 @@ var (
 	listenersLock             sync.RWMutex                              = sync.RWMutex{}
 	cacheListenerDatabase     *list.List                                = nil
 	cacheListenerDatabaseLock sync.RWMutex                              = sync.RWMutex{}
+	startCacheTimerLock       sync.Mutex                                = sync.Mutex{}
+	cacheTimerRunning         bool                                      = false
 	correctAddressWithPort    string                                    = ``
 )

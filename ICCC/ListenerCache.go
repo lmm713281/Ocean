@@ -8,7 +8,31 @@ import "github.com/SommerEngineering/Ocean/ICCC/Scheme"
 import "github.com/SommerEngineering/Ocean/Log"
 import LM "github.com/SommerEngineering/Ocean/Log/Meta"
 
+func InitCacheNow() {
+	startCacheTimerLock.Lock()
+	defer startCacheTimerLock.Unlock()
+
+	if cacheTimerRunning {
+		return
+	}
+
+	cacheTimerLogic(false)
+}
+
+func StartCacheTimer() {
+	initCacheTimer()
+}
+
 func initCacheTimer() {
+	startCacheTimerLock.Lock()
+	defer startCacheTimerLock.Unlock()
+
+	if cacheTimerRunning {
+		return
+	} else {
+		cacheTimerRunning = true
+	}
+
 	go func() {
 		for {
 			cacheTimerLogic(true)

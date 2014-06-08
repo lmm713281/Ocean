@@ -1,9 +1,7 @@
 package ICCC
 
-import "strings"
 import "container/list"
 import "github.com/SommerEngineering/Ocean/Tools"
-import "github.com/SommerEngineering/Ocean/ConfigurationDB"
 import "github.com/SommerEngineering/Ocean/Log"
 import LM "github.com/SommerEngineering/Ocean/Log/Meta"
 
@@ -14,13 +12,9 @@ func init() {
 	cacheListenerDatabase = list.New()
 	listeners = make(map[string]func(data map[string][]string))
 
-	allHostsIPAddresses := Tools.ReadAllIPAddresses4ThisHost()
-	oceanHostnameAndPort := ConfigurationDB.Read(`OceanHostnameAndPort`)
-	port := oceanHostnameAndPort[strings.Index(oceanHostnameAndPort, `:`):]
-	correctAddressWithPort = allHostsIPAddresses[0] + port
+	// Using the local IP address and NOT the configuration "OceanHostnameAndPort":
+	correctAddressWithPort = Tools.LocalIPAddressAndPort()
 
 	initDB()
 	registerHost2Database()
-	cacheTimerLogic(false)
-	initCacheTimer()
 }

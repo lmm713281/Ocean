@@ -5,17 +5,16 @@ import "reflect"
 import "strconv"
 
 func message2Data(channel, command string, message interface{}) (data map[string][]string) {
+	data = make(map[string][]string)
+	data[`command`] = []string{command}
+	data[`channel`] = []string{channel}
+
 	if message == nil {
-		data = make(map[string][]string)
 		return
 	}
 
 	element := reflect.ValueOf(message)
 	elementType := element.Type()
-
-	data = make(map[string][]string)
-	data[`command`] = []string{command}
-	data[`channel`] = []string{channel}
 
 	for i := 0; i < element.NumField(); i++ {
 		field := element.Field(i)

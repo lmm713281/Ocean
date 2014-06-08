@@ -24,4 +24,9 @@ func init() {
 
 	// Set the seed for random:
 	rand.Seed(time.Now().Unix())
+
+	// Build the local IP address and port:
+	allHostsIPAddresses := ReadAllIPAddresses4ThisHost()
+	port := ConfigurationDB.Read(`OceanServerPort`)
+	localIPAddressAndPort = allHostsIPAddresses[0] + `:` + port
 }

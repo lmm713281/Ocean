@@ -84,13 +84,17 @@ func initSystem() {
 	//		* then, these system handlers are called (order: last comed, first served)
 	//		* and finally, the logging device / system gets closed
 	Shutdown.InitShutdown()
-	Shutdown.AddShutdownHandler(ICCC.ShutdownFunction{})
-	Shutdown.AddShutdownHandler(NumGen.ShutdownFunction{})
 	Shutdown.AddShutdownHandler(ConfigurationDB.ShutdownFunction{})
 	Shutdown.AddShutdownHandler(CustomerDB.ShutdownFunction{})
+	Shutdown.AddShutdownHandler(ICCC.ShutdownFunction{})
+	Shutdown.AddShutdownHandler(NumGen.ShutdownFunction{})
 
 	// The logging subsystem is not registered here, because it will be automated called at the end
 
 	// Register all system ICCC commands:
 	ICCC.Registrar(ICCC.ChannelSYSTEM, `System::Start`, icccSystemStart)
+
+	// Start the ICCC Listener Cache:
+	ICCC.InitCacheNow() // Blocking, until the job is done
+	ICCC.StartCacheTimer()
 }

@@ -14,6 +14,13 @@ func ICCCHandler(response http.ResponseWriter, request *http.Request) {
 	}
 
 	messageData := map[string][]string(request.PostForm)
+
+	if len(messageData) < 3 {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameNETWORK, `The ICCC message contains not enough data: At least the channel, command and password is required!`)
+		http.NotFound(response, request)
+		return
+	}
+
 	channel := messageData[`channel`][0]
 	command := messageData[`command`][0]
 	password := messageData[`InternalCommPassword`][0]

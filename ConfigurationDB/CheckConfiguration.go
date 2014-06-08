@@ -30,6 +30,7 @@ func checkConfiguration() {
 	CheckSingleConfigurationPresentsAndAddIfMissing(`NumGenGetHandler`, `http://localhost:80/next/number`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`NumGenBufferSize`, `12`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`OceanHostnameAndPort`, `:60000`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`OceanServerPort`, `60000`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`OceanUtilizeCPUs`, `2`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`FilenameWebResources`, `web.zip`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`MapStaticFiles2Root`, `false`)
