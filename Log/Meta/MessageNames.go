@@ -31,4 +31,8 @@ const (
 	MessageNamePRODUCER      = `Producer`
 	MessageNameCONSUMER      = `Consumer`
 	MessageNamePASSWORD      = `Password`
+	MessageNamePARSE         = `Parse`
+	MessageNameUSER          = `User`
+	MessageNameREQUEST       = `Request`
+	MessageNameRESPONSE      = `Response`
 )

@@ -37,7 +37,6 @@ func init() {
 
 	// Take care about the index:
 	collection.EnsureIndexKey(`Name`)
-	collection.EnsureIndexKey(`Value`)
 
 	checkConfiguration()
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `The configuration database is now ready.`)

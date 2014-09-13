@@ -4,8 +4,11 @@ import "container/list"
 import "os/signal"
 import "os"
 
-func InitShutdown() {
+func init() {
 	shutdownHandlers = list.New()
+}
+
+func InitShutdown() {
 
 	// Apply the shutdown handler:
 	signal.Notify(shutdownSignal, os.Interrupt, os.Kill)
