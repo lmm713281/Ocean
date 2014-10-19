@@ -1,8 +1,10 @@
 package ICCC
 
-import "fmt"
-import "reflect"
-import "strconv"
+import (
+	"fmt"
+	"reflect"
+	"strconv"
+)
 
 func message2Data(channel, command string, message interface{}) (data map[string][]string) {
 	data = make(map[string][]string)

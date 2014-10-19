@@ -1,13 +1,15 @@
 package Log
 
-import "github.com/SommerEngineering/Ocean/Log/Meta"
-import "strconv"
-import "container/list"
-import "sync"
-import "path/filepath"
-import "os"
-import "io/ioutil"
-import "strings"
+import (
+	"container/list"
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+	"io/ioutil"
+	"os"
+	"path/filepath"
+	"strconv"
+	"strings"
+	"sync"
+)
 
 func readProjectName() {
 	if currentDir, dirError := os.Getwd(); dirError != nil {

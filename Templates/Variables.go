@@ -1,7 +1,9 @@
 package Templates
 
-import "html/template"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"html/template"
+)
 
 var (
 	templates  *template.Template = nil

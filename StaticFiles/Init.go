@@ -1,10 +1,12 @@
 package StaticFiles
 
-import "io/ioutil"
-import "github.com/SommerEngineering/Ocean/CustomerDB"
-import "github.com/SommerEngineering/Ocean/ConfigurationDB"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
+	"github.com/SommerEngineering/Ocean/CustomerDB"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"io/ioutil"
+)
 
 func init() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Starting now the static files component.`)

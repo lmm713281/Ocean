@@ -1,10 +1,12 @@
 package System
 
-import "github.com/SommerEngineering/Ocean/Log/DeviceConsole"
-import "github.com/SommerEngineering/Ocean/Log/DeviceDatabase"
-import "github.com/SommerEngineering/Ocean/ConfigurationDB"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
+	"github.com/SommerEngineering/Ocean/Log"
+	"github.com/SommerEngineering/Ocean/Log/DeviceConsole"
+	"github.com/SommerEngineering/Ocean/Log/DeviceDatabase"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 func initLoggingDevices() {
 

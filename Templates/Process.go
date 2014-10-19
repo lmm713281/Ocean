@@ -1,9 +1,11 @@
 package Templates
 
-import "net/http"
-import "github.com/SommerEngineering/Ocean/MimeTypes"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/MimeTypes"
+	"net/http"
+)
 
 func ProcessHTML(templateName string, response http.ResponseWriter, data interface{}) {
 

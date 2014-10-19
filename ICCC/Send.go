@@ -1,11 +1,13 @@
 package ICCC
 
-import "net/http"
-import "net/url"
-import "github.com/SommerEngineering/Ocean/Tools"
-import "github.com/SommerEngineering/Ocean/ICCC/Scheme"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/ICCC/Scheme"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/Tools"
+	"net/http"
+	"net/url"
+)
 
 func sendMessage(listener Scheme.Listener, data map[string][]string) {
 

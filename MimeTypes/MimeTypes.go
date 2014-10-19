@@ -1,6 +1,8 @@
 package MimeTypes
 
-import "strings"
+import (
+	"strings"
+)
 
 type MimeType struct {
 	MimeType      string

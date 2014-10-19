@@ -1,7 +1,9 @@
 package DeviceDatabase
 
-import "time"
-import "github.com/SommerEngineering/Ocean/Shutdown"
+import (
+	"github.com/SommerEngineering/Ocean/Shutdown"
+	"time"
+)
 
 // Case: The cache is full
 func cacheFull() {

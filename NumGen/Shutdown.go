@@ -1,7 +1,9 @@
 package NumGen
 
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 type ShutdownFunction struct {
 }

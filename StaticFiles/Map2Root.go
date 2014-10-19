@@ -1,7 +1,9 @@
 package StaticFiles
 
-import "net/http"
-import "github.com/SommerEngineering/Ocean/Shutdown"
+import (
+	"github.com/SommerEngineering/Ocean/Shutdown"
+	"net/http"
+)
 
 func HandlerMapStaticFiles2Root(response http.ResponseWriter, request *http.Request) {
 	if Shutdown.IsDown() {

@@ -1,9 +1,11 @@
 package Meta
 
-import "fmt"
-import "time"
-import "strconv"
-import "strings"
+import (
+	"fmt"
+	"strconv"
+	"strings"
+	"time"
+)
 
 func (entry Entry) Format() (result string) {
 
@@ -23,18 +25,18 @@ func (entry Entry) Format() (result string) {
 	}
 
 	messageDescription := entry.MessageDescription
-	messageDescription = strings.Replace(messageDescription, `\n`, ` `, -1)
-	messageDescription = strings.Replace(messageDescription, `\t`, ` `, -1)
-	messageDescription = strings.Replace(messageDescription, `\r`, ` `, -1)
+	messageDescription = strings.Replace(messageDescription, "\n", ` `, -1)
+	messageDescription = strings.Replace(messageDescription, "\t", ` `, -1)
+	messageDescription = strings.Replace(messageDescription, "\r", ` `, -1)
 
 	result = fmt.Sprintf(` [■] P:%10s [■] %s [■] %10s [■] %11s [■] %10s [■] %10s [■] sender: %-40s [■] name: %-26s [■] %s [■]`, entry.Project[:lenProject], formatTime(entry.Time), FormatCategory(entry.Category), FormatLevel(entry.Level), FormatSeverity(entry.Severity), FormatImpact(entry.Impact), entry.Sender[:lenSender], entry.MessageName[:lenMessageName], messageDescription)
 
 	for _, param := range entry.Parameters {
 
 		paramText := param
-		paramText = strings.Replace(paramText, `\n`, ` `, -1)
-		paramText = strings.Replace(paramText, `\t`, ` `, -1)
-		paramText = strings.Replace(paramText, `\r`, ` `, -1)
+		paramText = strings.Replace(paramText, "\n", ` `, -1)
+		paramText = strings.Replace(paramText, "\t", ` `, -1)
+		paramText = strings.Replace(paramText, "\r", ` `, -1)
 
 		result = fmt.Sprintf(`%s %s [■]`, result, paramText)
 	}

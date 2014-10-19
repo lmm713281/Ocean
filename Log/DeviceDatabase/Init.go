@@ -1,10 +1,12 @@
 package DeviceDatabase
 
-import "strconv"
-import "fmt"
-import "github.com/SommerEngineering/Ocean/ConfigurationDB"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"fmt"
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"strconv"
+)
 
 func init() {
 

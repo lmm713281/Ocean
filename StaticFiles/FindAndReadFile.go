@@ -1,11 +1,13 @@
 package StaticFiles
 
-import "io/ioutil"
-import "bytes"
-import "archive/zip"
-import "github.com/SommerEngineering/Ocean/Shutdown"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"archive/zip"
+	"bytes"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/Shutdown"
+	"io/ioutil"
+)
 
 func FindAndReadFile(filename string) (result []byte) {
 	if Shutdown.IsDown() {

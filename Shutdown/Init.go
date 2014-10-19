@@ -1,8 +1,10 @@
 package Shutdown
 
-import "container/list"
-import "os/signal"
-import "os"
+import (
+	"container/list"
+	"os"
+	"os/signal"
+)
 
 func init() {
 	shutdownHandlers = list.New()

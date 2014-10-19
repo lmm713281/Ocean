@@ -1,7 +1,9 @@
 package Log
 
-import "time"
-import "github.com/SommerEngineering/Ocean/Log/Device"
+import (
+	"github.com/SommerEngineering/Ocean/Log/Device"
+	"time"
+)
 
 /*
 Please do not call this function your self! This function allows Ocean to flush the logging at the shutting down case.

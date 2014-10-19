@@ -1,8 +1,10 @@
 package DeviceDatabase
 
-import "sync"
-import "labix.org/v2/mgo"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"gopkg.in/mgo.v2"
+	"sync"
+)
 
 var (
 	senderName                 LM.Sender       = `System::Logger::Database`

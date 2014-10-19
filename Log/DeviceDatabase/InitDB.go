@@ -1,9 +1,11 @@
 package DeviceDatabase
 
-import "labix.org/v2/mgo"
-import "github.com/SommerEngineering/Ocean/ConfigurationDB"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"gopkg.in/mgo.v2"
+)
 
 func initDatabase() {
 

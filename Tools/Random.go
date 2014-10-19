@@ -1,6 +1,8 @@
 package Tools
 
-import "math/rand"
+import (
+	"math/rand"
+)
 
 func RandomInteger(max int) (rnd int) {
 	rnd = rand.Intn(max)

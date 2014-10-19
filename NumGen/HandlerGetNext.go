@@ -1,10 +1,12 @@
 package NumGen
 
-import "fmt"
-import "net/http"
-import "github.com/SommerEngineering/Ocean/Shutdown"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"fmt"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/Shutdown"
+	"net/http"
+)
 
 func HandlerGetNext(response http.ResponseWriter, request *http.Request) {
 	if Shutdown.IsDown() {

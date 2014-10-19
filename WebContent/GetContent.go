@@ -1,11 +1,13 @@
 package WebContent
 
-import "errors"
-import "archive/zip"
-import "io/ioutil"
-import "bytes"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"archive/zip"
+	"bytes"
+	"errors"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"io/ioutil"
+)
 
 func GetContent(path string) (content []byte, err error) {
 

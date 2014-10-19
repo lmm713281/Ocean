@@ -1,10 +1,12 @@
 package NumGen
 
-import "time"
-import "labix.org/v2/mgo/bson"
-import "github.com/SommerEngineering/Ocean/Shutdown"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/Shutdown"
+	"gopkg.in/mgo.v2/bson"
+	"time"
+)
 
 func producer(name string) {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `The NumGen producer is now starting.`, `name=`+name)

@@ -1,8 +1,10 @@
 package Shutdown
 
-import "os"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"os"
+)
 
 type ShutdownHandler interface {
 	Shutdown()

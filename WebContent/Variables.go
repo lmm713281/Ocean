@@ -1,6 +1,8 @@
 package WebContent
 
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 var (
 	isInit               = false

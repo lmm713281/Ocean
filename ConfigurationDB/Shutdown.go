@@ -1,7 +1,9 @@
 package ConfigurationDB
 
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 /*
 Do not use this type by your own! It is a Ocean internal type to provide a shutdown function for the configuration database.

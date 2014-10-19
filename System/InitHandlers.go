@@ -1,14 +1,16 @@
 package System
 
-import "net/http"
-import "github.com/SommerEngineering/Ocean/ICCC"
-import "github.com/SommerEngineering/Ocean/WebContent"
-import "github.com/SommerEngineering/Ocean/StaticFiles"
-import "github.com/SommerEngineering/Ocean/NumGen"
-import "github.com/SommerEngineering/Ocean/Robots"
-import "github.com/SommerEngineering/Ocean/ConfigurationDB"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
+	"github.com/SommerEngineering/Ocean/ICCC"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/NumGen"
+	"github.com/SommerEngineering/Ocean/Robots"
+	"github.com/SommerEngineering/Ocean/StaticFiles"
+	"github.com/SommerEngineering/Ocean/WebContent"
+	"net/http"
+)
 
 func InitHandlers() {
 

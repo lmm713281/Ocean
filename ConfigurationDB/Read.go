@@ -1,8 +1,10 @@
 package ConfigurationDB
 
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
-import "labix.org/v2/mgo/bson"
+import (
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"gopkg.in/mgo.v2/bson"
+)
 
 /*
 This function reads the current configuration value.

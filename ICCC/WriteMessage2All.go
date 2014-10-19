@@ -1,8 +1,10 @@
 package ICCC
 
-import "github.com/SommerEngineering/Ocean/ICCC/Scheme"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/ICCC/Scheme"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 func WriteMessage2All(channel, command string, message interface{}) {
 	cacheListenerDatabaseLock.RLock()

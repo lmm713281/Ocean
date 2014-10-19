@@ -1,7 +1,9 @@
 package Tools
 
-import "net"
-import "strings"
+import (
+	"net"
+	"strings"
+)
 
 func ReadAllIPAddresses4ThisHost() (addresses4Host []string) {
 	addresses4Host = ipAddresses

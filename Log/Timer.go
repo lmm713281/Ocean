@@ -1,9 +1,11 @@
 package Log
 
-import "time"
-import "fmt"
-import "github.com/SommerEngineering/Ocean/Log/Device"
-import "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"fmt"
+	"github.com/SommerEngineering/Ocean/Log/Device"
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+	"time"
+)
 
 func initTimer() {
 

@@ -1,14 +1,16 @@
 package Templates
 
-import "fmt"
-import "bytes"
-import "html/template"
-import "io/ioutil"
-import "archive/zip"
-import "github.com/SommerEngineering/Ocean/CustomerDB"
-import "github.com/SommerEngineering/Ocean/Tools"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"archive/zip"
+	"bytes"
+	"fmt"
+	"github.com/SommerEngineering/Ocean/CustomerDB"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/Tools"
+	"html/template"
+	"io/ioutil"
+)
 
 func init() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Starting the template engine.`)

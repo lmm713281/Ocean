@@ -1,8 +1,10 @@
 package Tools
 
-import "time"
-import "fmt"
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+	"time"
+)
 
 func FormatTime(t1 time.Time) (result string) {
 	var year int = t1.Year()

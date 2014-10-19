@@ -1,10 +1,12 @@
 package WebContent
 
-import "net/http"
-import "strings"
-import "github.com/SommerEngineering/Ocean/Shutdown"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/Shutdown"
+	"net/http"
+	"strings"
+)
 
 func HandlerDeliverFramework(response http.ResponseWriter, request *http.Request) {
 	if Shutdown.IsDown() {

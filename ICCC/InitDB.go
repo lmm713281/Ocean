@@ -1,9 +1,11 @@
 package ICCC
 
-import "labix.org/v2/mgo"
-import "github.com/SommerEngineering/Ocean/CustomerDB"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/CustomerDB"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"gopkg.in/mgo.v2"
+)
 
 func initDB() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Start init of the ICCC collections.`)

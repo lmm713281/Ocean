@@ -1,9 +1,11 @@
 package ICCC
 
-import "sync"
-import "container/list"
-import "labix.org/v2/mgo"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"container/list"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"gopkg.in/mgo.v2"
+	"sync"
+)
 
 const (
 	ChannelSYSTEM   string = `System`

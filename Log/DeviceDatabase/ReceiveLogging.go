@@ -1,6 +1,8 @@
 package DeviceDatabase
 
-import "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 type Database struct {
 }

@@ -1,6 +1,8 @@
 package CustomerDB
 
-import "labix.org/v2/mgo"
+import (
+	"gopkg.in/mgo.v2"
+)
 
 /*
 Get the database instance of the MGo Mongo driver.

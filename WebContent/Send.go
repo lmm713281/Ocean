@@ -1,12 +1,14 @@
 package WebContent
 
-import "net/http"
-import "bytes"
-import "errors"
-import "fmt"
-import "github.com/SommerEngineering/Ocean/MimeTypes"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"bytes"
+	"errors"
+	"fmt"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/MimeTypes"
+	"net/http"
+)
 
 func SendContent(response http.ResponseWriter, path string) (err error) {
 

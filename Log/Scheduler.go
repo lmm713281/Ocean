@@ -1,7 +1,9 @@
 package Log
 
-import "github.com/SommerEngineering/Ocean/Log/Meta"
-import "time"
+import (
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+	"time"
+)
 
 // Note: The scheduler is the consumer for the logging channel!
 func scheduler(logBuffer chan Meta.Entry) {

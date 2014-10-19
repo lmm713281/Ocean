@@ -1,11 +1,13 @@
 package Tools
 
-import "os"
-import "time"
-import "math/rand"
-import "github.com/SommerEngineering/Ocean/ConfigurationDB"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"math/rand"
+	"os"
+	"time"
+)
 
 func init() {
 	// Get this hostname:

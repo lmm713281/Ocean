@@ -1,6 +1,8 @@
 package Configuration
 
-import "github.com/SommerEngineering/Ocean/Configuration/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Configuration/Meta"
+)
 
 /*
 Read the whole configuration and enable Ocean to get the configuration database.

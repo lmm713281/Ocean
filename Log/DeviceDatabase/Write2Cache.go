@@ -1,6 +1,8 @@
 package DeviceDatabase
 
-import "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 func write2Cache(entries []Meta.Entry) {
 	for _, entry := range entries {

@@ -1,8 +1,10 @@
 package ICCC
 
-import "fmt"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"fmt"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 func Registrar(channel, command string, callback func(data map[string][]string)) {
 	listenersLock.Lock()

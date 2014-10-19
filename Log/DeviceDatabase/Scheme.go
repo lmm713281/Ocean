@@ -1,6 +1,8 @@
 package DeviceDatabase
 
-import "time"
+import (
+	"time"
+)
 
 type LogDBEntry struct {
 	TimeUTC            time.Time `bson:"TimeUTC"`

@@ -1,11 +1,13 @@
 package NumGen
 
-import "net/http"
-import "net/url"
-import "strconv"
-import "github.com/SommerEngineering/Ocean/Shutdown"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/Shutdown"
+	"net/http"
+	"net/url"
+	"strconv"
+)
 
 func GetNextInt64(name string) (result int64) {
 	result = badNumber64

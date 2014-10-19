@@ -1,7 +1,9 @@
 package Configuration
 
-import "github.com/SommerEngineering/Ocean/Configuration/Meta"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Configuration/Meta"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 var (
 	filename                         = "configuration.json" // Where is the configuration located?

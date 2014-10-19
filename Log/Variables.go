@@ -1,8 +1,10 @@
 package Log
 
-import "github.com/SommerEngineering/Ocean/Log/Meta"
-import "container/list"
-import "sync"
+import (
+	"container/list"
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+	"sync"
+)
 
 var (
 	entriesBuffer                chan Meta.Entry = nil

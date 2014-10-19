@@ -1,7 +1,9 @@
 package DeviceConsole
 
-import "fmt"
-import "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"fmt"
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 type Console struct {
 }

@@ -1,10 +1,12 @@
 package ICCC
 
-import "fmt"
-import "net/http"
-import "github.com/SommerEngineering/Ocean/Tools"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"fmt"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/Tools"
+	"net/http"
+)
 
 func ICCCHandler(response http.ResponseWriter, request *http.Request) {
 	if errParse := request.ParseForm(); errParse != nil {

@@ -1,9 +1,11 @@
 package Log
 
-import "time"
-import "fmt"
-import "strings"
-import "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"fmt"
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+	"strings"
+	"time"
+)
 
 func writeToChannel(logEntry Meta.Entry) {
 	select {

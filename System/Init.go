@@ -1,15 +1,17 @@
 package System
 
-import "fmt"
-import "runtime"
-import "strconv"
-import "github.com/SommerEngineering/Ocean/ICCC"
-import "github.com/SommerEngineering/Ocean/Shutdown"
-import "github.com/SommerEngineering/Ocean/ConfigurationDB"
-import "github.com/SommerEngineering/Ocean/CustomerDB"
-import "github.com/SommerEngineering/Ocean/NumGen"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"fmt"
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
+	"github.com/SommerEngineering/Ocean/CustomerDB"
+	"github.com/SommerEngineering/Ocean/ICCC"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/NumGen"
+	"github.com/SommerEngineering/Ocean/Shutdown"
+	"runtime"
+	"strconv"
+)
 
 func initSystem() {
 

@@ -1,7 +1,9 @@
 package CustomerDB
 
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 /*
 Please do not use this type. It is an internal type of Ocean to provide a shutdown function!

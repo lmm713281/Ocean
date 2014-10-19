@@ -1,9 +1,11 @@
 package ICCC
 
-import "labix.org/v2/mgo/bson"
-import "github.com/SommerEngineering/Ocean/ICCC/Scheme"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/ICCC/Scheme"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"gopkg.in/mgo.v2/bson"
+)
 
 /*
 Please do not use this type. It is an internal type of Ocean to provide a shutdown function!

@@ -1,10 +1,12 @@
 package System
 
-import "net/http"
-import "github.com/SommerEngineering/Ocean/Tools"
-import "github.com/SommerEngineering/Ocean/ICCC"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"github.com/SommerEngineering/Ocean/ICCC"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/Tools"
+	"net/http"
+)
 
 func StartAndBlockForever() {
 	ipAddressPort := Tools.LocalIPAddressAndPort()

@@ -1,12 +1,14 @@
 package StaticFiles
 
-import "fmt"
-import "strings"
-import "net/http"
-import "github.com/SommerEngineering/Ocean/Shutdown"
-import "github.com/SommerEngineering/Ocean/MimeTypes"
-import "github.com/SommerEngineering/Ocean/Log"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"fmt"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/MimeTypes"
+	"github.com/SommerEngineering/Ocean/Shutdown"
+	"net/http"
+	"strings"
+)
 
 func HandlerStaticFiles(response http.ResponseWriter, request *http.Request) {
 	if Shutdown.IsDown() {

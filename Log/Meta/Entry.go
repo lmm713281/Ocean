@@ -1,6 +1,8 @@
 package Meta
 
-import "time"
+import (
+	"time"
+)
 
 type Entry struct {
 	Project            string

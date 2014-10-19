@@ -1,7 +1,9 @@
 package Log
 
-import "container/list"
-import "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"container/list"
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 func logEntryListToArray(data *list.List) (result []Meta.Entry) {
 	count := data.Len()

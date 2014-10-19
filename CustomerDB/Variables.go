@@ -1,7 +1,9 @@
 package CustomerDB
 
-import "labix.org/v2/mgo"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"gopkg.in/mgo.v2"
+)
 
 var (
 	mainSession      *mgo.Session = nil

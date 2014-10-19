@@ -1,8 +1,10 @@
 package Shutdown
 
-import "os"
-import "container/list"
-import LM "github.com/SommerEngineering/Ocean/Log/Meta"
+import (
+	"container/list"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"os"
+)
 
 var (
 	shutdownSignal   chan os.Signal = make(chan os.Signal)

@@ -1,6 +1,8 @@
 package Log
 
-import "github.com/SommerEngineering/Ocean/Log/Device"
+import (
+	"github.com/SommerEngineering/Ocean/Log/Device"
+)
 
 /*
 Registering the logging devices. Normally, it is not necessary to call this function. To enable or disable a logging device,

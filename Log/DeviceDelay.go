@@ -1,7 +1,9 @@
 package Log
 
-import "github.com/SommerEngineering/Ocean/Log/Meta"
-import "github.com/SommerEngineering/Ocean/Log/Device"
+import (
+	"github.com/SommerEngineering/Ocean/Log/Device"
+	"github.com/SommerEngineering/Ocean/Log/Meta"
+)
 
 func deviceDelay(newEntry Meta.Entry) {
 	defer checkDeviceDelaySize()
