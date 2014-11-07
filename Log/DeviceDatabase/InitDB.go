@@ -58,14 +58,12 @@ func initDatabase() {
 	//
 	indexTimeUTC := mgo.Index{}
 	indexTimeUTC.Key = []string{`TimeUTC`}
-	logDBCollection.EnsureIndex(indexTimeUTC)
-
 	if expire {
-		indexTTL := mgo.Index{}
-		indexTTL.Key = []string{`TimeUTC`}
-		indexTTL.ExpireAfter = time.Duration(expireAfterDays) * time.Hour * 24
-		logDBCollection.EnsureIndex(indexTTL)
+		indexTimeUTC.ExpireAfter = time.Duration(expireAfterDays*24) * time.Hour
+	} else {
+		indexTimeUTC.ExpireAfter = time.Duration(0)
 	}
+	logDBCollection.EnsureIndex(indexTimeUTC)
 
 	indexProject := mgo.Index{}
 	indexProject.Key = []string{`Project`}

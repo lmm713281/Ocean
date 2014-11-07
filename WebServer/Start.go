@@ -11,7 +11,6 @@ func Start() {
 
 	// Tell the whole cluster, that we are up and ready:
 	data := SystemMessages.ICCCStartUpMessage{}
-	defer ICCC.WriteMessage2All(ICCC.ChannelSYSTEM, `System::Start`, data)
 
 	if serverPublic != nil {
 		data.PublicIPAddressAndPort = serverPublicAddressPort
@@ -24,4 +23,6 @@ func Start() {
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Admin web server is now listening.`, `Configuration for hostname and port.`, serverAdminAddressPort)
 		go serverAdmin.ListenAndServe()
 	}
+
+	ICCC.WriteMessage2All(ICCC.ChannelSYSTEM, `System::Start`, data)
 }
