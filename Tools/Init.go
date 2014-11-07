@@ -29,6 +29,6 @@ func init() {
 
 	// Build the local IP address and port:
 	allHostsIPAddresses := ReadAllIPAddresses4ThisHost()
-	port := ConfigurationDB.Read(`OceanServerPort`)
+	port := ConfigurationDB.Read(`PublicWebServerPort`)
 	localIPAddressAndPort = allHostsIPAddresses[0] + `:` + port
 }

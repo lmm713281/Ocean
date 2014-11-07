@@ -41,6 +41,7 @@ func init() {
 	preChannelBuffer = list.New()
 	deviceDelayBuffer = list.New()
 	devices = list.New()
+	schedulerExitSignal = make(chan bool)
 
 	initTimer()
 	initCode()

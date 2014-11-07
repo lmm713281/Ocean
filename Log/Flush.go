@@ -2,7 +2,6 @@ package Log
 
 import (
 	"github.com/SommerEngineering/Ocean/Log/Device"
-	"time"
 )
 
 /*
@@ -14,8 +13,7 @@ func Flush() {
 	close(entriesBuffer)
 	mutexChannel.Unlock()
 
-	// This is a bad design, but the scheduler need some time to write the last messages.
-	time.Sleep(15 * time.Second)
+	<-schedulerExitSignal
 
 	mutexDeviceDelays.Lock()
 	dataArray := logEntryListToArray(deviceDelayBuffer)
@@ -26,10 +24,7 @@ func Flush() {
 	for entry := devices.Front(); entry != nil; entry = entry.Next() {
 		dev := entry.Value.(Device.Device)
 		dev.Log(dataArray) // Want to wait to complete, therefore no new thread here
-		go dev.Flush()
+		dev.Flush()
 	}
 	mutexDevices.RUnlock()
-
-	// This is a bad design, but the devices need (may) some time to write the last messages:
-	time.Sleep(15 * time.Second)
 }

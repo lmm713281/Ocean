@@ -26,9 +26,32 @@ func init() {
 	serverPublic.Handler = Handlers.GetPublicMux()
 	serverPublic.SetKeepAlivesEnabled(true)
 
-	serverPublic.ReadTimeout = 10 * time.Second
-	serverPublic.WriteTimeout = 10 * time.Second
-	serverPublic.MaxHeaderBytes = 1024
+	// Public Web Server: Read Timeout
+	if readTimeoutSeconds, errTimeout := strconv.Atoi(ConfigurationDB.Read(`PublicWebServerReadTimeoutSeconds`)); errTimeout != nil {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the public server's read timeout value. Use the default of 10 seconds instead.`, errTimeout.Error())
+		serverPublic.ReadTimeout = 10 * time.Second
+	} else {
+		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, fmt.Sprintf("The public web server's read timeout was set to %d seconds.", readTimeoutSeconds))
+		serverPublic.ReadTimeout = time.Duration(readTimeoutSeconds) * time.Second
+	}
+
+	// Public Web Server: Write Timeout
+	if writeTimeoutSeconds, errTimeout := strconv.Atoi(ConfigurationDB.Read(`PublicWebServerWriteTimeoutSeconds`)); errTimeout != nil {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the public server's write timeout value. Use the default of 10 seconds instead.`, errTimeout.Error())
+		serverPublic.WriteTimeout = 10 * time.Second
+	} else {
+		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, fmt.Sprintf("The public web server's write timeout was set to %d seconds.", writeTimeoutSeconds))
+		serverPublic.WriteTimeout = time.Duration(writeTimeoutSeconds) * time.Second
+	}
+
+	// Public Web Server: Max. Header Size
+	if maxHeaderBytes, errHeaderBytes := strconv.Atoi(ConfigurationDB.Read(`PublicWebServerMaxHeaderLenBytes`)); errHeaderBytes != nil {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the public server's max. header size. Use the default of 1048576 bytes instead.`, errHeaderBytes.Error())
+		serverPublic.MaxHeaderBytes = 1048576
+	} else {
+		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, fmt.Sprintf("The public web server's max. header size was set to %d bytes.", maxHeaderBytes))
+		serverPublic.MaxHeaderBytes = maxHeaderBytes
+	}
 
 	if strings.ToLower(ConfigurationDB.Read(`AdminWebServerEnabled`)) == `true` {
 		serverAdmin = &http.Server{}
@@ -36,6 +59,7 @@ func init() {
 		serverAdmin.Handler = Handlers.GetAdminMux()
 		serverAdmin.SetKeepAlivesEnabled(true)
 
+		// Admin Web Server: Read Timeout
 		if readTimeoutSeconds, errTimeout := strconv.Atoi(ConfigurationDB.Read(`AdminWebServerReadTimeoutSeconds`)); errTimeout != nil {
 			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the admin server's read timeout value. Use the default of 10 seconds instead.`, errTimeout.Error())
 			serverAdmin.ReadTimeout = 10 * time.Second
@@ -44,6 +68,7 @@ func init() {
 			serverAdmin.ReadTimeout = time.Duration(readTimeoutSeconds) * time.Second
 		}
 
+		// Admin Web Server: Write Timeout
 		if writeTimeoutSeconds, errTimeout := strconv.Atoi(ConfigurationDB.Read(`AdminWebServerWriteTimeoutSeconds`)); errTimeout != nil {
 			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the admin server's write timeout value. Use the default of 10 seconds instead.`, errTimeout.Error())
 			serverAdmin.WriteTimeout = 10 * time.Second
@@ -52,14 +77,16 @@ func init() {
 			serverAdmin.WriteTimeout = time.Duration(writeTimeoutSeconds) * time.Second
 		}
 
+		// Admin Web Server: Max. Header Size
 		if maxHeaderBytes, errHeaderBytes := strconv.Atoi(ConfigurationDB.Read(`AdminWebServerMaxHeaderLenBytes`)); errHeaderBytes != nil {
-			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the admin server's maximum count of bytes for the headers. Use the default of 1048576 bytes instead.`, errHeaderBytes.Error())
+			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the admin server's max. header size. Use the default of 1048576 bytes instead.`, errHeaderBytes.Error())
 			serverAdmin.MaxHeaderBytes = 1048576
 		} else {
-			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, fmt.Sprintf("The admin web server's count of maximal bytes for the headers was set to %d bytes.", maxHeaderBytes))
+			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, fmt.Sprintf("The admin web server's max. header size was set to %d bytes.", maxHeaderBytes))
 			serverAdmin.MaxHeaderBytes = maxHeaderBytes
 		}
 	} else {
+		// Admin Web Server is disabled
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `The admin web server is disabled.`)
 	}
 }

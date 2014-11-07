@@ -14,7 +14,7 @@ func init() {
 	cacheListenerDatabase = list.New()
 	listeners = make(map[string]func(data map[string][]string))
 
-	// Using the local IP address and NOT the configuration "OceanHostnameAndPort":
+	// Using the local IP address:
 	correctAddressWithPort = Tools.LocalIPAddressAndPort()
 
 	initDB()

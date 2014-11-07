@@ -37,4 +37,5 @@ func scheduler(logBuffer chan Meta.Entry) {
 	}
 
 	LogFull(senderName, Meta.CategorySYSTEM, Meta.LevelWARN, Meta.SeverityCritical, Meta.ImpactNone, Meta.MessageNameSHUTDOWN, `The scheduler is down now.`)
+	schedulerExitSignal <- true
 }

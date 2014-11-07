@@ -8,6 +8,7 @@ import (
 
 var (
 	entriesBuffer                chan Meta.Entry = nil
+	schedulerExitSignal          chan bool       = nil
 	logBufferSize                int             = 500
 	logBufferTimeoutSeconds      int             = 4
 	logDeviceDelayNumberEvents   int             = 600
