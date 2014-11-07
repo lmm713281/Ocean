@@ -30,6 +30,8 @@ func checkConfiguration() {
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDBPassword`, `please replace this with a good password`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDBCacheSizeNumberOfEvents`, `50`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDBCacheSizeTime2FlushSeconds`, `6`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDBEventsExpire`, `True`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDBEventsExpireAfterDays`, `365`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogBufferSize`, `500`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDeviceDelayNumberEvents`, `600`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDeviceDelayTime2FlushSeconds`, `5`)

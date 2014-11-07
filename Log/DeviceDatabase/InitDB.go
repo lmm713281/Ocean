@@ -1,10 +1,14 @@
 package DeviceDatabase
 
 import (
+	"fmt"
 	"github.com/SommerEngineering/Ocean/ConfigurationDB"
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"gopkg.in/mgo.v2"
+	"strconv"
+	"strings"
+	"time"
 )
 
 func initDatabase() {
@@ -16,6 +20,18 @@ func initDatabase() {
 	databaseDB := ConfigurationDB.Read(`LogDBDatabase`)
 	databaseUsername := ConfigurationDB.Read(`LogDBUsername`)
 	databasePassword := ConfigurationDB.Read(`LogDBPassword`)
+	expire := strings.ToLower(ConfigurationDB.Read(`LogDBEventsExpire`)) == `true`
+	expireAfterDays := 36500
+
+	if value, errValue := strconv.Atoi(ConfigurationDB.Read(`LogDBEventsExpireAfterDays`)); errValue != nil {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityMiddle, LM.ImpactUnknown, LM.MessageNameCONFIGURATION, `It was not possible to read the configuration for the expire time of logging events. Log events will not expire any more.`, errValue.Error())
+		expire = false
+	} else {
+		if expire {
+			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, fmt.Sprintf("All logging events are expire after %d days.", value))
+			expireAfterDays = value
+		}
+	}
 
 	// Connect to MongoDB:
 	if newSession, errDial := mgo.Dial(databaseHost); errDial != nil {
@@ -43,6 +59,13 @@ func initDatabase() {
 	indexTimeUTC := mgo.Index{}
 	indexTimeUTC.Key = []string{`TimeUTC`}
 	logDBCollection.EnsureIndex(indexTimeUTC)
+
+	if expire {
+		indexTTL := mgo.Index{}
+		indexTTL.Key = []string{`TimeUTC`}
+		indexTTL.ExpireAfter = time.Duration(expireAfterDays) * time.Hour * 24
+		logDBCollection.EnsureIndex(indexTTL)
+	}
 
 	indexProject := mgo.Index{}
 	indexProject.Key = []string{`Project`}

@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	Log.LogShort(senderName, LM.CategoryAPP, LM.LevelINFO, LM.MessageNameSTARTUP, `VRStudiePT is starting.`)
 	System.InitHandlers()
 	System.StartAndBlockForever()
