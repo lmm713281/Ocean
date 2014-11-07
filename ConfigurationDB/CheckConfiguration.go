@@ -10,6 +10,11 @@ func checkConfiguration() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `Check now the configuration database.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `Done checking the configuration database.`)
 
+	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerBinding`, `127.0.0.1:60000`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerEnabled`, `True`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerReadTimeoutSeconds`, `10`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerWriteTimeoutSeconds`, `10`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerMaxHeaderLenBytes`, `1048576`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`InternalCommPassword`, `please replace this with e.g. a random GUID, etc.`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`CustomerDBHost`, `localhost:27017`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`CustomerDBDatabase`, `Ocean`)
