@@ -16,3 +16,9 @@ type LogDBEntry struct {
 	MessageDescription string    `bson:"MessageDescription"`
 	Parameters         []string  `bson:"Parameters"`
 }
+
+type TTLUpdateResult struct {
+	ExpireAfterSeconds_old int32 `bson:"expireAfterSeconds_old"`
+	ExpireAfterSeconds_new int32 `bson:"expireAfterSeconds_new"`
+	Ok                     int32 `bson:"ok"`
+}

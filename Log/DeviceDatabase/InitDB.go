@@ -6,6 +6,7 @@ import (
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 	"strconv"
 	"strings"
 	"time"
@@ -21,7 +22,8 @@ func initDatabase() {
 	databaseUsername := ConfigurationDB.Read(`LogDBUsername`)
 	databasePassword := ConfigurationDB.Read(`LogDBPassword`)
 	expire := strings.ToLower(ConfigurationDB.Read(`LogDBEventsExpire`)) == `true`
-	expireAfterDays := 36500
+	expireAfterDays := 21900              // 60 years ~ maximum of MongoDB
+	expireValue4DisabledFunction := 21900 // 60 years ~ maximum of MongoDB
 
 	if value, errValue := strconv.Atoi(ConfigurationDB.Read(`LogDBEventsExpireAfterDays`)); errValue != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityMiddle, LM.ImpactUnknown, LM.MessageNameCONFIGURATION, `It was not possible to read the configuration for the expire time of logging events. Log events will not expire any more.`, errValue.Error())
@@ -29,7 +31,11 @@ func initDatabase() {
 	} else {
 		if expire {
 			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, fmt.Sprintf("All logging events are expire after %d days.", value))
-			expireAfterDays = value
+			if value > expireValue4DisabledFunction {
+				Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameDATABASE, fmt.Sprintf("Cannot set the logging database's TTL to %d, because MongoDB does not allow more than %d (63 years). Use now the maximum instead.", value, expireValue4DisabledFunction))
+			} else {
+				expireAfterDays = value
+			}
 		}
 	}
 
@@ -56,14 +62,29 @@ func initDatabase() {
 	//
 	// Take care about all the indexes:
 	//
+	expireAfterSeconds := expireAfterDays * 24 * 60 * 60
 	indexTimeUTC := mgo.Index{}
 	indexTimeUTC.Key = []string{`TimeUTC`}
-	if expire {
-		indexTimeUTC.ExpireAfter = time.Duration(expireAfterDays*24) * time.Hour
-	} else {
-		indexTimeUTC.ExpireAfter = time.Duration(0)
-	}
+	indexTimeUTC.ExpireAfter = time.Duration(expireValue4DisabledFunction * 24 * 60 * 60)
 	logDBCollection.EnsureIndex(indexTimeUTC)
+
+	// Update the expire policy:
+	updateResult := TTLUpdateResult{}
+	updateCommand := bson.D{
+		{`collMod`, `Logbook`},
+		{`index`,
+			bson.D{
+				{`keyPattern`, bson.D{{`TimeUTC`, 1}}},
+				{`expireAfterSeconds`, expireAfterSeconds},
+			},
+		},
+	}
+
+	if errUpdate := logDB.Run(updateCommand, &updateResult); errUpdate != nil {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `Was not able to update the expire policy for the logging database.`, errUpdate.Error())
+	} else {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, fmt.Sprintf(`Update the expire policy for the logging database done.`))
+	}
 
 	indexProject := mgo.Index{}
 	indexProject.Key = []string{`Project`}
