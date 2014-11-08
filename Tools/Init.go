@@ -31,4 +31,7 @@ func init() {
 	allHostsIPAddresses := ReadAllIPAddresses4ThisHost()
 	port := ConfigurationDB.Read(`PublicWebServerPort`)
 	localIPAddressAndPort = allHostsIPAddresses[0] + `:` + port
+
+	// Read the default language:
+	defaultLanguage = ConfigurationDB.Read(`DefaultLanguageCode`)
 }

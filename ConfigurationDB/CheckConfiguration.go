@@ -10,6 +10,7 @@ func checkConfiguration() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `Check now the configuration database.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `Done checking the configuration database.`)
 
+	CheckSingleConfigurationPresentsAndAddIfMissing(`DefaultLanguageCode`, `en-GB`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerBinding`, `127.0.0.1:60000`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerEnabled`, `True`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerReadTimeoutSeconds`, `10`)

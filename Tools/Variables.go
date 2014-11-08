@@ -10,4 +10,5 @@ var (
 	localIPAddressAndPort string    = `127.0.0.1:60000`
 	ipAddresses           []string  = nil
 	internalCommPassword  string    = ``
+	defaultLanguage       string    = `en`
 )
