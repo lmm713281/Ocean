@@ -17,11 +17,18 @@ func InitHandlers() {
 	initSystem()
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Register now all system handlers.`)
 
+	// Public Handlers:
 	Handlers.AddPublicHandler(`/framework/`, WebContent.HandlerDeliverFramework)
 	Handlers.AddPublicHandler(`/staticFiles/`, StaticFiles.HandlerStaticFiles)
 	Handlers.AddPublicHandler(`/next/number`, NumGen.HandlerGetNext)
 	Handlers.AddPublicHandler(`/robots.txt`, Robots.HandlerRobots)
 	Handlers.AddPublicHandler(`/ICCC`, ICCC.ICCCHandler)
+
+	// Private Handlers:
+	Handlers.AddAdminHandler(`/framework/`, WebContent.HandlerDeliverFramework)
+	Handlers.AddAdminHandler(`/staticFiles/`, StaticFiles.HandlerStaticFiles)
+	Handlers.AddAdminHandler(`/next/number`, NumGen.HandlerGetNext)
+	Handlers.AddAdminHandler(`/ICCC`, ICCC.ICCCHandler)
 
 	if ConfigurationDB.Read(`MapStaticFiles2Root`) == "true" {
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `The static files are mapped to the root.`)
