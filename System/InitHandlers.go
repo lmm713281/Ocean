@@ -1,6 +1,7 @@
 package System
 
 import (
+	"github.com/SommerEngineering/Ocean/BinaryAssets"
 	"github.com/SommerEngineering/Ocean/ConfigurationDB"
 	"github.com/SommerEngineering/Ocean/Handlers"
 	"github.com/SommerEngineering/Ocean/ICCC"
@@ -29,6 +30,7 @@ func InitHandlers() {
 	Handlers.AddAdminHandler(`/staticFiles/`, StaticFiles.HandlerStaticFiles)
 	Handlers.AddAdminHandler(`/next/number`, NumGen.HandlerGetNext)
 	Handlers.AddAdminHandler(`/ICCC`, ICCC.ICCCHandler)
+	Handlers.AddAdminHandler(`/binaryAssets/`, BinaryAssets.HandlerBinaryAssets)
 
 	if ConfigurationDB.Read(`MapStaticFiles2Root`) == "true" {
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `The static files are mapped to the root.`)

@@ -1,4 +1,4 @@
-package StaticFiles
+package BinaryAssets
 
 import (
 	"fmt"
@@ -10,14 +10,15 @@ import (
 	"strings"
 )
 
-func HandlerStaticFiles(response http.ResponseWriter, request *http.Request) {
+func HandlerBinaryAssets(response http.ResponseWriter, request *http.Request) {
+
 	if Shutdown.IsDown() {
 		http.NotFound(response, request)
 		return
 	}
 
 	// Prepare the path:
-	path := strings.Replace(request.RequestURI, `/staticFiles/`, ``, 1)
+	path := strings.Replace(request.RequestURI, `/binaryAssets/`, ``, 1)
 	path = strings.Replace(path, `%20`, ` `, -1)
 	fileType := ``
 
@@ -36,7 +37,7 @@ func HandlerStaticFiles(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	contentData := FindAndReadFile(path)
+	contentData := GetData(path)
 	if contentData == nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `The desired file was not found.`, path)
 		http.NotFound(response, request)
@@ -47,9 +48,4 @@ func HandlerStaticFiles(response http.ResponseWriter, request *http.Request) {
 	response.Header().Add(`Content-Length`, fileLenText)
 	response.Header().Add(`Content-Type`, fileType)
 	response.Write(contentData)
-
-	if logStaticFileRequests {
-		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameBROWSER, `A static file was requested.`, path)
-	}
-	return
 }
