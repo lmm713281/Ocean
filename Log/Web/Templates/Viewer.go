@@ -1,6 +1,6 @@
 package Templates
 
-var viewer string = `
+var Viewer string = `
 <!DOCTYPE html>
 <!-- This site was created in Webflow. http://www.webflow.com-->
 <!-- Last Published: Mon Feb 02 2015 20:11:43 GMT+0000 (UTC) -->
@@ -10,10 +10,10 @@ var viewer string = `
   <title>{{.Title}}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Webflow">
-  <link rel="stylesheet" type="text/css" href="css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="css/webflow.css">
-  <link rel="stylesheet" type="text/css" href="css/ocean-frame.webflow.css">
-  <script type="text/javascript" src="js/modernizr.js"></script>
+  <link rel="stylesheet" type="text/css" href="/log/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/log/css/webflow.css">
+  <link rel="stylesheet" type="text/css" href="/log/css/log.css">
+  <script type="text/javascript" src="/log/js/modernizr.js"></script>
 </head>
 <body>
   <div class="headercontainer">
@@ -99,45 +99,11 @@ var viewer string = `
   <div>
     <h2 class="headeroutput">Output</h2>
     <ul class="loglist">
-      <li class="logline loga logwarn">
-        <div>WARN This is some text inside of a div block.</div>
+      {{range .Events}}
+      <li class="logline {{.AB}} {{.LogLevel}}">
+        <div>{{.LogLine}}</div>
       </li>
-      <li class="logline logb logwarn">
-        <div>WARN This is some text inside of a div block.</div>
-      </li>
-      <li class="logline loga logdebug">
-        <div>DEBUG This is some text inside of a div block.</div>
-      </li>
-      <li class="logline logb logdebug">
-        <div>DEBUG This is some text inside of a div block.</div>
-      </li>
-      <li class="logline loga logerror">
-        <div>ERROR This is some text inside of a div block.</div>
-      </li>
-      <li class="logline logb logerror">
-        <div>ERROR This is some text inside of a div block.</div>
-      </li>
-      <li class="logline loga loginfo">
-        <div>INFO&nbsp;This is some text inside of a div block.</div>
-      </li>
-      <li class="logline logb loginfo">
-        <div>INFO This is some text inside of a div block.</div>
-      </li>
-      <li class="logline loga logtalkative">
-        <div>TALKATIVE This is some text inside of a div block.</div>
-      </li>
-      <li class="logline logb logtalkative">
-        <div>TALKATIVE This is some text inside of a div block.</div>
-      </li>
-      <li class="logline loga logsecurity">
-        <div>SECURITY This is some text inside of a div block.</div>
-      </li>
-      <li class="logline logb logsecurity">
-        <div>SECURITY This is some text inside of a div block.</div>
-      </li>
-      <li class="logline">
-        <div>This is some text inside of a div block.</div>
-      </li>
+      {{end}}
     </ul>
   </div>
   <div class="w-container pagecontainer"><a class="button changepagebutton" href="#">First</a><a class="button changepagebutton" href="#">-1</a>
@@ -153,7 +119,7 @@ var viewer string = `
     </div>
     <div class="w-hidden-main w-hidden-medium newlineblock"></div><a class="button changepagebutton" href="#">+1</a><a class="button changepagebutton" href="#">Last</a>
   </div>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/webflow.js"></script>
+  <script type="text/javascript" src="/log/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/log/js/webflow.js"></script>
 </body>
 </html>`
