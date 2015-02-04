@@ -1153,7 +1153,7 @@ textarea.w-select {
  * Safari (on both iOS and OS X) does not handle viewport units (vh, vw) well.
  * For example percentage units do not work on descendants of elements that
  * have any dimensions expressed in viewport units. It also doesn’t handle them at
- * all in `calc()`.
+ * all in calc().
  */
 /**
  * Wrapper around all lightbox elements
@@ -1319,7 +1319,7 @@ textarea.w-select {
   overflow-y: hidden;
 }
 /*
- * 1. We use content-box to avoid having to do `width: calc(10vh + 2vw)`
+ * 1. We use content-box to avoid having to do "width: calc(10vh + 2vw)"
  *    which doesn’t work in Safari anyway.
  * 2. Chrome renders images pixelated when switching to GPU. Making sure
  *    the parent is also rendered on the GPU (by setting translate3d for

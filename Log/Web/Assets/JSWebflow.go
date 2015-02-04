@@ -291,9 +291,9 @@ Webflow.init = function() {
     // Collection Functions
     // --------------------
 
-    // The cornerstone, an `each` implementation, aka `forEach`.
-    // Handles objects with the built-in `forEach`, arrays, and raw objects.
-    // Delegates to **ECMAScript 5**'s native `forEach` if available.
+    // The cornerstone, an "each" implementation, aka "forEach".
+    // Handles objects with the built-in "forEach", arrays, and raw objects.
+    // Delegates to **ECMAScript 5**'s native "forEach" if available.
     var each = _.each = _.forEach = function(obj, iterator, context) {
       /* jshint shadow:true */
       if (obj == null) return obj;
@@ -313,7 +313,7 @@ Webflow.init = function() {
     };
 
     // Return the results of applying the iterator to each element.
-    // Delegates to **ECMAScript 5**'s native `map` if available.
+    // Delegates to **ECMAScript 5**'s native "map" if available.
     _.map = _.collect = function(obj, iterator, context) {
       var results = [];
       if (obj == null) return results;
@@ -324,7 +324,7 @@ Webflow.init = function() {
       return results;
     };
 
-    // Return the first value which passes a truth test. Aliased as `detect`.
+    // Return the first value which passes a truth test. Aliased as "detect".
     _.find = _.detect = function(obj, predicate, context) {
       var result;
       any(obj, function(value, index, list) {
@@ -337,8 +337,8 @@ Webflow.init = function() {
     };
 
     // Return all the elements that pass a truth test.
-    // Delegates to **ECMAScript 5**'s native `filter` if available.
-    // Aliased as `select`.
+    // Delegates to **ECMAScript 5**'s native "filter" if available.
+    // Aliased as "select".
     _.filter = _.select = function(obj, predicate, context) {
       var results = [];
       if (obj == null) return results;
@@ -350,8 +350,8 @@ Webflow.init = function() {
     };
 
     // Determine if at least one element in the object matches a truth test.
-    // Delegates to **ECMAScript 5**'s native `some` if available.
-    // Aliased as `any`.
+    // Delegates to **ECMAScript 5**'s native "some" if available.
+    // Aliased as "any".
     var any = _.some = _.any = function(obj, predicate, context) {
       predicate || (predicate = _.identity);
       var result = false;
@@ -363,8 +363,8 @@ Webflow.init = function() {
       return !!result;
     };
 
-    // Determine if the array or object contains a given value (using `===`).
-    // Aliased as `include`.
+    // Determine if the array or object contains a given value (using "===").
+    // Aliased as "include".
     _.contains = _.include = function(obj, target) {
       if (obj == null) return false;
       if (nativeIndexOf && obj.indexOf === nativeIndexOf) return obj.indexOf(target) != -1;
@@ -407,7 +407,7 @@ Webflow.init = function() {
 
     // Returns a function, that, as long as it continues to be invoked, will not
     // be triggered. The function will be called after it stops being called for
-    // N milliseconds. If `immediate` is passed, trigger the function on the
+    // N milliseconds. If "immediate" is passed, trigger the function on the
     // leading edge, instead of the trailing.
     _.debounce = function(func, wait, immediate) {
       var timeout, args, context, timestamp, result;
@@ -446,7 +446,7 @@ Webflow.init = function() {
     // ----------------
 
     // Retrieve the names of an object's properties.
-    // Delegates to **ECMAScript 5**'s native `Object.keys`
+    // Delegates to **ECMAScript 5**'s native "Object.keys"
     _.keys = function(obj) {
       if (!_.isObject(obj)) return [];
       if (nativeKeys) return nativeKeys(obj);
@@ -2446,12 +2446,12 @@ var lightbox = (function (window, document, $, tram, undefined) {
    * Creates the DOM structure required by the lightbox.
    */
   lightbox.build = function () {
-    // In case `build` is called more than once.
+    // In case "build" is called more than once.
     lightbox.destroy();
 
     $refs = {
       html: $(document.documentElement),
-      // Empty jQuery object can be used to build new ones using `.add`.
+      // Empty jQuery object can be used to build new ones using ".add".
       empty: $()
     };
 
@@ -2491,7 +2491,7 @@ var lightbox = (function (window, document, $, tram, undefined) {
         // IE loses focus to inner nodes without letting us know.
         .on('focusin', focusThis);
 
-    // The `tabindex` attribute is needed to enable non-input elements
+    // The "tabindex" attribute is needed to enable non-input elements
     // to receive keyboard events.
     $('body').append($refs.lightbox.prop('tabIndex', 0));
 

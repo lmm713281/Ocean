@@ -2,8 +2,6 @@ package Web
 
 import (
 	"fmt"
-	"github.com/SommerEngineering/Ocean/Log"
-	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"github.com/SommerEngineering/Ocean/Log/Web/Assets"
 	"github.com/SommerEngineering/Ocean/Shutdown"
 	"net/http"

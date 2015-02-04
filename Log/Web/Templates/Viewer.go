@@ -1,6 +1,7 @@
 package Templates
 
 var Viewer string = `
+{{define "WebLog"}}
 <!DOCTYPE html>
 <!-- This site was created in Webflow. http://www.webflow.com-->
 <!-- Last Published: Mon Feb 02 2015 20:11:43 GMT+0000 (UTC) -->
@@ -122,4 +123,5 @@ var Viewer string = `
   <script type="text/javascript" src="/log/js/jquery.min.js"></script>
   <script type="text/javascript" src="/log/js/webflow.js"></script>
 </body>
-</html>`
+</html>
+{{end}}`

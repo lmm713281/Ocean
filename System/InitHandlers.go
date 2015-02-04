@@ -32,7 +32,7 @@ func InitHandlers() {
 	Handlers.AddAdminHandler(`/next/number`, NumGen.HandlerGetNext)
 	Handlers.AddAdminHandler(`/ICCC`, ICCC.ICCCHandler)
 	Handlers.AddAdminHandler(`/binaryAssets/`, BinaryAssets.HandlerBinaryAssets)
-	//Handlers.AddAdminHandler(`/log`)
+	Handlers.AddAdminHandler(`/log`, Web.HandlerWebLog)
 	Handlers.AddAdminHandler(`/log/css/normalize.css`, Web.HandlerCSSNormalize)
 	Handlers.AddAdminHandler(`/log/css/webflow.css`, Web.HandlerCSSWebflow)
 	Handlers.AddAdminHandler(`/log/css/log.css`, Web.HandlerCSSLog)

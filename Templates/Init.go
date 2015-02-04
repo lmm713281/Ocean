@@ -54,8 +54,11 @@ func init() {
 			}
 
 			templateData := string(contentData)
-			templates.Parse(templateData)
-			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameEXECUTE, fmt.Sprintf(`The template '%s' was parsed.`, file.FileInfo().Name()))
+			if _, err := templates.Parse(templateData); err != nil {
+				Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityMiddle, LM.ImpactMiddle, LM.MessageNamePARSE, fmt.Sprintf(`The template '%s' cannot be parsed.`, file.FileInfo().Name()), err.Error())
+			} else {
+				Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameEXECUTE, fmt.Sprintf(`The template '%s' was parsed.`, file.FileInfo().Name()))
+			}
 		} else {
 			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to open a template.`, file.FileInfo().Name())
 		}
