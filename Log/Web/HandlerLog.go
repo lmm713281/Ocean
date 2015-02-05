@@ -16,12 +16,21 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	request.ParseForm()
+	countParameters := len(request.Form)
+
 	data := Scheme.Viewer{}
-	data.Events = make([]Scheme.LogEvent, 3)
-	data.Events[0].AB = Scheme.A
-	data.Events[0].LogLevel = Scheme.LogINFO
-	data.Events[0].LogLine = `hello world`
 	data.Title = `Web Log Viewer`
+
+	if countParameters < 9 {
+
+		// Initial view => refresh & first page (latest logs)
+		data.Events = readLatest()
+	} else {
+
+		// Custom view
+		data.Events = readCustom(request.FormValue(`timeRange`), request.FormValue(`Level`), request.FormValue(`Category`), request.FormValue(`Impact`), request.FormValue(`Severity`), request.FormValue(`MSGName`), request.FormValue(`Sender`), request.FormValue(`CurrentPage`))
+	}
 
 	MimeTypes.Write2HTTP(response, MimeTypes.TypeWebHTML)
 	if executeError := templates.ExecuteTemplate(response, `WebLog`, data); executeError != nil {

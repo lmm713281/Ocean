@@ -81,8 +81,8 @@ var Viewer string = `
                       <option value="{{.}}">{{.}}</option>
                     {{end}}
                   </select>
-                  <label for="Senders">Senders:</label>
-                  <select class="w-select" id="Senders" name="Senders" data-name="Senders">
+                  <label for="Sender">Sender:</label>
+                  <select class="w-select" id="Sender" name="Sender" data-name="Sender">
                     <option value="*">Any</option>
                     {{range .Sender}}
                       <option value="{{.}}">{{.}}</option>
