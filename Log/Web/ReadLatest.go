@@ -14,7 +14,7 @@ func readLatest() (events []Scheme.LogEvent) {
 	for n := 0; n < count; n++ {
 		eventFromDB := eventsFromDB[n]
 		events[n] = Scheme.LogEvent{}
-		//events[n].LogLine = eventFromDB.
+		events[n].LogLine = eventFromDB.Level // TODO!!!
 
 		if n%2 == 0 {
 			events[n].AB = Scheme.B
