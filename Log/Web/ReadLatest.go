@@ -14,7 +14,8 @@ func readLatest() (events []Scheme.LogEvent) {
 	for n := 0; n < count; n++ {
 		eventFromDB := eventsFromDB[n]
 		events[n] = Scheme.LogEvent{}
-		events[n].LogLine = eventFromDB.Level // TODO!!!
+		events[n].LogLine = eventFromDB.Format()
+		events[n].LogLevel = eventFromDB.Level // TODO => Change also the template (Webflow, CSS classes)
 
 		if n%2 == 0 {
 			events[n].AB = Scheme.B
@@ -23,9 +24,5 @@ func readLatest() (events []Scheme.LogEvent) {
 		}
 	}
 
-	// data.Events = make([]Scheme.LogEvent, 3)
-	// data.Events[0].AB = Scheme.A
-	// data.Events[0].LogLevel = Scheme.LogINFO
-	// data.Events[0].LogLine = `hello world`
 	return
 }

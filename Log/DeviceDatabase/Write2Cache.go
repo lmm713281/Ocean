@@ -11,15 +11,15 @@ func write2Cache(entries []Meta.Entry) {
 		}
 
 		logDBentry := LogDBEntry{}
-		logDBentry.Category = Meta.FormatCategory(entry.Category)
-		logDBentry.Impact = Meta.FormatImpact(entry.Impact)
-		logDBentry.Level = Meta.FormatLevel(entry.Level)
+		logDBentry.Category = entry.Category.Format()
+		logDBentry.Impact = entry.Impact.Format()
+		logDBentry.Level = entry.Level.Format()
 		logDBentry.MessageDescription = entry.MessageDescription
 		logDBentry.MessageName = string(entry.MessageName)
 		logDBentry.Parameters = entry.Parameters
 		logDBentry.Project = entry.Project
 		logDBentry.Sender = string(entry.Sender)
-		logDBentry.Severity = Meta.FormatSeverity(entry.Severity)
+		logDBentry.Severity = entry.Severity.Format()
 		logDBentry.TimeUTC = entry.Time
 		cache <- logDBentry
 	}

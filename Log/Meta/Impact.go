@@ -11,7 +11,7 @@ const (
 	ImpactUnknown  = Impact(iota)
 )
 
-func FormatImpact(pri Impact) (result string) {
+func (pri Impact) Format() (result string) {
 	switch pri {
 	case ImpactCritical:
 		result = `I:CRITICAL`
@@ -27,6 +27,27 @@ func FormatImpact(pri Impact) (result string) {
 		result = `I:UNKNOWN`
 	default:
 		result = `I:N/A`
+	}
+
+	return
+}
+
+func ParseImpact(pri string) (value Impact) {
+	switch pri {
+	case `I:CRITICAL`:
+		value = ImpactCritical
+	case `I:HIGH`:
+		value = ImpactHigh
+	case `I:LOW`:
+		value = ImpactLow
+	case `I:MIDDLE`:
+		value = ImpactMiddle
+	case `I:NONE`:
+		value = ImpactNone
+	case `I:UNKNOWN`:
+		value = ImpactUnknown
+	default:
+		value = ImpactUnknown
 	}
 
 	return

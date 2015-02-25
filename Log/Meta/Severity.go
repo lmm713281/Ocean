@@ -11,7 +11,7 @@ const (
 	SeverityUnknown  = Severity(iota)
 )
 
-func FormatSeverity(pri Severity) (result string) {
+func (pri Severity) Format() (result string) {
 	switch pri {
 	case SeverityCritical:
 		result = `S:CRITICAL`
@@ -27,6 +27,27 @@ func FormatSeverity(pri Severity) (result string) {
 		result = `S:UNKNOWN`
 	default:
 		result = `S:N/A`
+	}
+
+	return
+}
+
+func ParseSeverity(pri string) (value Severity) {
+	switch pri {
+	case `S:CRITICAL`:
+		value = SeverityCritical
+	case `S:HIGH`:
+		value = SeverityHigh
+	case `S:LOW`:
+		value = SeverityLow
+	case `S:MIDDLE`:
+		value = SeverityMiddle
+	case `S:NONE`:
+		value = SeverityNone
+	case `S:UNKNOWN`:
+		value = SeverityUnknown
+	default:
+		value = SeverityUnknown
 	}
 
 	return

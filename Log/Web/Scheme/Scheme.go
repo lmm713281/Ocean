@@ -15,6 +15,6 @@ type Viewer struct {
 // </li>
 type LogEvent struct {
 	LogLine  string
-	LogLevel string // logwarn || logdebug || logerror || loginfo || logtalkative || logsecurity
+	LogLevel string // L:DEBUG || L:ERROR || L:INFO || L:SECURITY || L:TALKATIVE || L:WARN
 	AB       string // loga || logb
 }

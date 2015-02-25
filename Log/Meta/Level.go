@@ -11,7 +11,7 @@ const (
 	LevelSECURITY  = Level(iota)
 )
 
-func FormatLevel(lvl Level) (result string) {
+func (lvl Level) Format() (result string) {
 	switch lvl {
 	case LevelDEBUG:
 		result = `L:DEBUG`
@@ -27,6 +27,27 @@ func FormatLevel(lvl Level) (result string) {
 		result = `L:WARN`
 	default:
 		result = `L:N/A`
+	}
+
+	return
+}
+
+func ParseLevel(lvl string) (value Level) {
+	switch lvl {
+	case `L:DEBUG`:
+		value = LevelDEBUG
+	case `L:ERROR`:
+		value = LevelERROR
+	case `L:INFO`:
+		value = LevelINFO
+	case `L:SECURITY`:
+		value = LevelSECURITY
+	case `L:TALKATIVE`:
+		value = LevelTALKATIVE
+	case `L:WARN`:
+		value = LevelWARN
+	default:
+		value = LevelERROR
 	}
 
 	return

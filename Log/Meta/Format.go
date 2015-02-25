@@ -29,7 +29,7 @@ func (entry Entry) Format() (result string) {
 	messageDescription = strings.Replace(messageDescription, "\t", ` `, -1)
 	messageDescription = strings.Replace(messageDescription, "\r", ` `, -1)
 
-	result = fmt.Sprintf(` [■] P:%10s [■] %s [■] %10s [■] %11s [■] %10s [■] %10s [■] sender: %-40s [■] name: %-26s [■] %s [■]`, entry.Project[:lenProject], formatTime(entry.Time), FormatCategory(entry.Category), FormatLevel(entry.Level), FormatSeverity(entry.Severity), FormatImpact(entry.Impact), entry.Sender[:lenSender], entry.MessageName[:lenMessageName], messageDescription)
+	result = fmt.Sprintf(` [■] P:%10s [■] %s [■] %10s [■] %11s [■] %10s [■] %10s [■] sender: %-40s [■] name: %-26s [■] %s [■]`, entry.Project[:lenProject], formatTime(entry.Time), entry.Category.Format(), entry.Level.Format(), entry.Severity.Format(), entry.Impact.Format(), entry.Sender[:lenSender], entry.MessageName[:lenMessageName], messageDescription)
 
 	for _, param := range entry.Parameters {
 
