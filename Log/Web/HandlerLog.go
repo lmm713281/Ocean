@@ -2,6 +2,7 @@ package Web
 
 import (
 	"github.com/SommerEngineering/Ocean/Log"
+	"github.com/SommerEngineering/Ocean/Log/DeviceDatabase"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"github.com/SommerEngineering/Ocean/Log/Web/Scheme"
 	"github.com/SommerEngineering/Ocean/MimeTypes"
@@ -21,11 +22,14 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 
 	data := Scheme.Viewer{}
 	data.Title = `Web Log Viewer`
+	data.Sender = DeviceDatabase.ReadSenderNames()
+	data.MessageNames = DeviceDatabase.ReadMessageNames()
 
 	if countParameters < 9 {
 
 		// Initial view => refresh & first page (latest logs)
 		data.Events = readLatest()
+
 	} else {
 
 		// Custom view

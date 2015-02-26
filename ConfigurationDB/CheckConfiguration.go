@@ -33,6 +33,7 @@ func checkConfiguration() {
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDBCacheSizeTime2FlushSeconds`, `6`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDBEventsExpire`, `True`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDBEventsExpireAfterDays`, `365`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDBWebInterfaceNameCacheRefreshTimeSeconds`, `500`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogBufferSize`, `500`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDeviceDelayNumberEvents`, `600`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`LogDeviceDelayTime2FlushSeconds`, `5`)

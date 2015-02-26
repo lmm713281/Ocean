@@ -6,7 +6,7 @@ import (
 
 func ReadLatest() (events []LogDBEntry) {
 
-	query := logDBCollection.Find(bson.D{}).Sort(`TimeUTC`).Limit(26)
+	query := logDBCollection.Find(bson.D{}).Sort(`-TimeUTC`).Limit(26)
 	count := 26
 
 	if n, err := query.Count(); err == nil {

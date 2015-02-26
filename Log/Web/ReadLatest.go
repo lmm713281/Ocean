@@ -1,8 +1,10 @@
 package Web
 
 import (
+	"fmt"
 	"github.com/SommerEngineering/Ocean/Log/DeviceDatabase"
 	"github.com/SommerEngineering/Ocean/Log/Web/Scheme"
+	"strings"
 )
 
 func readLatest() (events []Scheme.LogEvent) {
@@ -15,7 +17,7 @@ func readLatest() (events []Scheme.LogEvent) {
 		eventFromDB := eventsFromDB[n]
 		events[n] = Scheme.LogEvent{}
 		events[n].LogLine = eventFromDB.Format()
-		events[n].LogLevel = eventFromDB.Level // TODO => Change also the template (Webflow, CSS classes)
+		events[n].LogLevel = fmt.Sprintf("log%s", strings.ToLower(eventFromDB.Level[2:]))
 
 		if n%2 == 0 {
 			events[n].AB = Scheme.B
