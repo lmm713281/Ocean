@@ -10,7 +10,7 @@ var Viewer string = `
   <meta charset="utf-8">
   <title>{{.Title}}</title>
   {{if .SetLiveView}}
-  <meta http-equiv="refresh" content="30; URL=/log">
+  <meta http-equiv="refresh" content="30; URL=/log?LiveView={{.SetLiveView}}">
   {{end}}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Webflow">
@@ -27,7 +27,14 @@ var Viewer string = `
     <div class="w-row">
       <div class="w-col w-col-6">
         <h2 class="headercontrol">Options</h2>
-        <div class="options"><a class="button optionbuttons" href="#">Enable live view</a>
+        <div class="options">
+          <a class="button optionbuttons" href="#">
+            {{if .SetLiveView}}
+            Disable live view
+            {{else}}
+            Enable live view
+            {{end}}
+          </a>
         </div>
       </div>
       <div class="w-col w-col-6">

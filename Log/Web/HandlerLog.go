@@ -8,6 +8,7 @@ import (
 	"github.com/SommerEngineering/Ocean/MimeTypes"
 	"github.com/SommerEngineering/Ocean/Shutdown"
 	"net/http"
+	"strings"
 )
 
 func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
@@ -34,7 +35,49 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 	} else {
 
 		// Custom view
-		data.Events = readCustom(request.FormValue(`timeRange`), request.FormValue(`Level`), request.FormValue(`Category`), request.FormValue(`Impact`), request.FormValue(`Severity`), request.FormValue(`MSGName`), request.FormValue(`Sender`), request.FormValue(`CurrentPage`))
+		currentLevel := request.FormValue(`Level`)
+		currentTimeRange := request.FormValue(`timeRange`)
+		currentCategory := request.FormValue(`Category`)
+		currentImpact := request.FormValue(`Impact`)
+		currentSeverity := request.FormValue(`Severity`)
+		currentMessageName := request.FormValue(`MSGName`)
+		currentSender := request.FormValue(`Sender`)
+		currentPage := request.FormValue(`CurrentPage`)
+		currentLiveView := request.FormValue(`LiveView`)
+
+		data.Events = readCustom(currentTimeRange, currentLevel, currentCategory, currentImpact, currentSeverity, currentMessageName, currentSender, currentPage)
+
+		if strings.ToLower(currentLiveView) == `true` {
+			data.SetLiveView = true
+		}
+
+		if currentLevel != `` {
+			data.CurrentLevel = currentLevel
+		} else {
+			data.CurrentLevel = `*`
+		}
+
+		if currentTimeRange != `` {
+			data.CurrentTimeRange = currentTimeRange
+		} else {
+			data.CurrentTimeRange = `*`
+		}
+
+		if currentCategory != `` {
+			data.CurrentCategory = currentCategory
+		} else {
+			data.CurrentCategory = `*`
+		}
+
+		if currentImpact != `` {
+			data.CurrentImpact = currentImpact
+		} else {
+			data.CurrentImpact = `*`
+		}
+
+		//
+		// TODO
+		//
 	}
 
 	MimeTypes.Write2HTTP(response, MimeTypes.TypeWebHTML)
