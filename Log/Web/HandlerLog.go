@@ -29,6 +29,7 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 
 		// Initial view => refresh & first page (latest logs)
 		data.Events = readLatest()
+		data.SetLiveView = true
 
 	} else {
 

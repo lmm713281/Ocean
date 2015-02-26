@@ -9,6 +9,9 @@ var Viewer string = `
 <head>
   <meta charset="utf-8">
   <title>{{.Title}}</title>
+  {{if .SetLiveView}}
+  <meta http-equiv="refresh" content="30; URL=/log">
+  {{end}}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Webflow">
   <link rel="stylesheet" type="text/css" href="/log/css/normalize.css">

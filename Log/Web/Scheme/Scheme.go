@@ -2,6 +2,7 @@ package Scheme
 
 type Viewer struct {
 	Title        string
+	SetLiveView  bool
 	MessageNames []string
 	Sender       []string
 	Events       []LogEvent
