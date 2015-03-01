@@ -75,9 +75,23 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 			data.CurrentImpact = `*`
 		}
 
-		//
-		// TODO
-		//
+		if currentSeverity != `` {
+			data.CurrentSeverity = currentSeverity
+		} else {
+			data.CurrentSeverity = `*`
+		}
+
+		if currentMessageName != `` {
+			data.CurrentMessageName = currentMessageName
+		} else {
+			data.CurrentMessageName = `*`
+		}
+
+		if currentSender != `` {
+			data.CurrentSender = currentSender
+		} else {
+			data.CurrentSender = `*`
+		}
 	}
 
 	MimeTypes.Write2HTTP(response, MimeTypes.TypeWebHTML)
