@@ -27,7 +27,7 @@ func initIPAddresses4ThisHost() {
 		}
 
 		ip := net.ParseIP(addressText)
-		if !ip.IsLoopback() && !ip.IsUnspecified() {
+		if !ip.IsLoopback() && !ip.IsUnspecified() && strings.ToLower(ip.String()) != `fe80::1` {
 			ipAddresses[counter] = ip.String()
 			counter++
 		}

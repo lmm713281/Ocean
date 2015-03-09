@@ -1,11 +1,13 @@
 package Tools
 
 import (
+	"fmt"
 	"github.com/SommerEngineering/Ocean/ConfigurationDB"
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"math/rand"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -30,7 +32,13 @@ func init() {
 	// Build the local IP address and port:
 	allHostsIPAddresses := ReadAllIPAddresses4ThisHost()
 	port := ConfigurationDB.Read(`PublicWebServerPort`)
-	localIPAddressAndPort = allHostsIPAddresses[0] + `:` + port
+	if strings.Contains(allHostsIPAddresses[0], `:`) {
+		// Case: IPv6
+		localIPAddressAndPort = fmt.Sprintf("[%s]:%s", allHostsIPAddresses[0], port)
+	} else {
+		// Case: IPv4
+		localIPAddressAndPort = fmt.Sprintf("%s:%s", allHostsIPAddresses[0], port)
+	}
 
 	// Read the default language:
 	defaultLanguage = ConfigurationDB.Read(`DefaultLanguageCode`)
