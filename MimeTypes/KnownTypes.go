@@ -33,3 +33,4 @@ var TypeImageSVG = MimeType{MimeType: "image/svg+xml", FileExtension: []string{"
 var TypeFontTTF = MimeType{MimeType: "application/font-sfnt", FileExtension: []string{".ttf"}}
 var TypeFontWOFF = MimeType{MimeType: "application/font-woff", FileExtension: []string{".woff"}}
 var TypeWebJSON = MimeType{MimeType: "application/json", FileExtension: []string{".json"}}
+var TypeCSV = MimeType{MimeType: "text/csv", FileExtension: []string{".csv"}}
