@@ -20,8 +20,10 @@ func cacheRefreshSenderNames() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `The sender names' refresh thread is now running.`)
 	go func() {
 		for true {
+
+			data := readSenderNamesFromDB()
 			mutexCacheSenderNames.Lock()
-			cacheSenderNames = readSenderNamesFromDB()
+			cacheSenderNames = data
 			mutexCacheSenderNames.Unlock()
 
 			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelTALKATIVE, LM.MessageNameEXECUTE, `The sender names' cache was refreshed.`)

@@ -20,8 +20,10 @@ func cacheRefreshMessageNames() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `The message names' refresh thread is now running.`)
 	go func() {
 		for true {
+
+			data := readMessageNamesFromDB()
 			mutexCacheMessageNames.Lock()
-			cacheMessageNames = readMessageNamesFromDB()
+			cacheMessageNames = data
 			mutexCacheMessageNames.Unlock()
 
 			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelTALKATIVE, LM.MessageNameEXECUTE, `The message names' cache was refreshed.`)
