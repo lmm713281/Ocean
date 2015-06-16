@@ -13,6 +13,6 @@ Ocean is a smart and powerful application framework and server which uses the KI
 * A simple database abstraction which MongoDB as database back-end
 
 ## Operation modes
-You can use Ocean just as **messaging broker or e.g. as logging service** (both, centralised or distributed) by downloading and starting the executables. In this case, you have to implement your business logic somewhere else and connect that logic by ICCC component to Ocean. This case means, Ocean is a program for you.
+* You can use Ocean just as **messaging broker or e.g. as logging service** (both, centralised or distributed) by downloading and starting the executables. In this case, you have to implement your business logic somewhere else and connect that logic by ICCC component to Ocean. This case means, Ocean is a program for you.
 
-The other operation mode is the **integrated mode**. In this case, you write at least some parts of your business logic with the programming language "Go" and you import the Ocean framework. It is still possible to have other parts of your business logic somewhere else with different programming languages, connected by Oceans ICCC component. This integraded mode means, Ocean is a framework for you.
+* The other operation mode is the **integrated mode**. In this case, you write at least some parts of your business logic with the programming language "Go" and you import the Ocean framework. It is still possible to have other parts of your business logic somewhere else with different programming languages, connected by Oceans ICCC component. This integraded mode means, Ocean is a framework for you.
