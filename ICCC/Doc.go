@@ -42,5 +42,13 @@ For the arrays, the name will repeated for each value.
 * str[] := string array e.g. 'a' 'abc' gets str[]:name:a str[]:name:abc
 * f64[] := 64 bit float array e.g. 1.1 1.2 gets f64[]:name:1.100000000 f64[]:name:1.2000000000
 
+The format of a message is:
+command=COMMAND
+channel=CHANNEL
+[any count of data tuples]
+InternalCommPassword=[configured communication password e.g. an UUID etc.]
+
+If you want to build a distributed system across the Internet, please use e.g. SSH tunnels
+to keep things secret.
 */
 package ICCC
