@@ -8,11 +8,13 @@ import (
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 )
 
+// Init the logging devices.
 func initLoggingDevices() {
 
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Init the logging devices.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Init the logging devices done.`)
 
+	// Is the database logger enabled?
 	if ConfigurationDB.Read(`LogUseDatabaseLogging`) == `true` {
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, `The database logger is active.`)
 		activateDatabaseLogger()
@@ -20,6 +22,7 @@ func initLoggingDevices() {
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, `The database logger is NOT active.`)
 	}
 
+	// Is the console logger enabled?
 	if ConfigurationDB.Read(`LogUseConsoleLogging`) == `true` {
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, `The console logger is active.`)
 		activateConsoleLogger()

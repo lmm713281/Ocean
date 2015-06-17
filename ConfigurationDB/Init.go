@@ -7,8 +7,8 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+// The init function for this package.
 func init() {
-
 	config := Configuration.Read()
 
 	// Connect to MongoDB:
@@ -40,6 +40,8 @@ func init() {
 	// Take care about the index:
 	collection.EnsureIndexKey(`Name`)
 
+	// Check the system configuration:
 	checkConfiguration()
+
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `The configuration database is now ready.`)
 }

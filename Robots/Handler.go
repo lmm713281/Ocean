@@ -8,7 +8,10 @@ import (
 	"net/http"
 )
 
+// Handler for the access to the robots.txt.
 func HandlerRobots(response http.ResponseWriter, request *http.Request) {
+
+	// Case: The system goes down now?
 	if Shutdown.IsDown() {
 		http.NotFound(response, request)
 		return

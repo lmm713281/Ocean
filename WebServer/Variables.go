@@ -6,9 +6,9 @@ import (
 )
 
 var (
-	senderName              LM.Sender    = `System::WebServer`
-	serverPublic            *http.Server = nil
-	serverAdmin             *http.Server = nil
-	serverPublicAddressPort string       = ""
-	serverAdminAddressPort  string       = ""
+	senderName              LM.Sender    = `System::WebServer` // This is the name for logging event from this package
+	serverPublic            *http.Server = nil                 // The public web server
+	serverAdmin             *http.Server = nil                 // The private web server
+	serverPublicAddressPort string       = ""                  // The public server end-point
+	serverAdminAddressPort  string       = ""                  // The private server end-point
 )

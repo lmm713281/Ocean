@@ -3,44 +3,29 @@ package Log
 import (
 	"container/list"
 	"github.com/SommerEngineering/Ocean/Log/Meta"
-	"io/ioutil"
-	"os"
-	"path/filepath"
 	"strconv"
-	"strings"
 	"sync"
 )
 
-func readProjectName() {
-	if currentDir, dirError := os.Getwd(); dirError != nil {
-		panic(`Can not read the current working directory and therefore can not read the project name!`)
-	} else {
-		filename := filepath.Join(currentDir, `project.name`)
-		if _, errFile := os.Stat(filename); errFile != nil {
-			if os.IsNotExist(errFile) {
-				panic(`Can not read the project name file 'project.name': File not found!`)
-			} else {
-				panic(`Can not read the project name file 'project.name': ` + errFile.Error())
-			}
-		}
-
-		if projectNameBytes, errRead := ioutil.ReadFile(filename); errRead != nil {
-			panic(`Can not read the project name file 'project.name': ` + errRead.Error())
-		} else {
-			projectName = string(projectNameBytes)
-			projectName = strings.TrimSpace(projectName)
-		}
-	}
-}
-
+// Init the logging package.
 func init() {
+
+	// Read the project name:
 	readProjectName()
+
+	// Create the mutexe:
 	mutexDeviceDelays = sync.Mutex{}
 	mutexPreChannelBuffer = sync.Mutex{}
 	mutexChannel = sync.RWMutex{}
+
+	// Create buffers:
 	preChannelBuffer = list.New()
 	deviceDelayBuffer = list.New()
+
+	// Create the device list:
 	devices = list.New()
+
+	// Channel to exit the scheduler:
 	schedulerExitSignal = make(chan bool)
 
 	initTimer()
@@ -48,8 +33,10 @@ func init() {
 }
 
 func initCode() {
+	// Creates the buffer for logging entries:
 	entriesBuffer = make(chan Meta.Entry, logBufferSize)
-
 	LogShort(senderName, Meta.CategorySYSTEM, Meta.LevelINFO, `Starting`, `The logger is now starting.`, `logBufferSize=`+strconv.Itoa(int(logBufferSize)), `logBufferTimeoutSeconds=`+strconv.Itoa(int(logBufferTimeoutSeconds)))
+
+	// Start the scheduler as new thread:
 	go scheduler(entriesBuffer)
 }

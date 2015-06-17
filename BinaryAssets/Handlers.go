@@ -10,8 +10,10 @@ import (
 	"strings"
 )
 
+// Handler to access the binary assets from the web.
 func HandlerBinaryAssets(response http.ResponseWriter, request *http.Request) {
 
+	// Case: The server is going down.
 	if Shutdown.IsDown() {
 		http.NotFound(response, request)
 		return
@@ -31,12 +33,14 @@ func HandlerBinaryAssets(response http.ResponseWriter, request *http.Request) {
 		fileType = mimeType.MimeType
 	}
 
+	// Case: No MIME type determined?
 	if fileType == `` {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNameNOTFOUND, `The mime type is unknown.`, path)
 		http.NotFound(response, request)
 		return
 	}
 
+	// Read the content:
 	contentData := GetData(path)
 	if contentData == nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `The desired file was not found.`, path)
@@ -44,6 +48,7 @@ func HandlerBinaryAssets(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	// Write the meta data and the content to the client:
 	fileLenText := fmt.Sprintf(`%d`, len(contentData))
 	response.Header().Add(`Content-Length`, fileLenText)
 	response.Header().Add(`Content-Type`, fileType)

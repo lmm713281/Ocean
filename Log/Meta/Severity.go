@@ -3,14 +3,15 @@ package Meta
 type Severity byte
 
 const (
-	SeverityNone     = Severity(iota)
-	SeverityLow      = Severity(iota)
-	SeverityMiddle   = Severity(iota)
-	SeverityHigh     = Severity(iota)
-	SeverityCritical = Severity(iota)
-	SeverityUnknown  = Severity(iota)
+	SeverityNone     = Severity(iota) // None severity
+	SeverityLow      = Severity(iota) // Low severity
+	SeverityMiddle   = Severity(iota) // Middle severity
+	SeverityHigh     = Severity(iota) // High severity
+	SeverityCritical = Severity(iota) // Critical severity
+	SeverityUnknown  = Severity(iota) // Unknown severity
 )
 
+// Format the severity as string.
 func (pri Severity) Format() (result string) {
 	switch pri {
 	case SeverityCritical:
@@ -32,6 +33,7 @@ func (pri Severity) Format() (result string) {
 	return
 }
 
+// Parse the severity from a string.
 func ParseSeverity(pri string) (value Severity) {
 	switch pri {
 	case `S:CRITICAL`:

@@ -7,8 +7,8 @@ Ocean is a smart and powerful application framework and server which uses the KI
 * A public facing webserver
 * A private facing webserver (e.g. for administration issues)
 * A messaging component called ICCC to communicate with all of your servers (or even with other parts at different programming languages at different servers)
-* A template engine for web applications
-* A half-automated configuration management
+* A distributed template engine for web applications
+* A distributed half-automated configuration management
 * A simple I18N support
 * A simple database abstraction which MongoDB as database back-end
 
@@ -19,3 +19,11 @@ Ocean is a smart and powerful application framework and server which uses the KI
 
 ## Stability
 Several smaller and a few bigger projects using already Ocean at production level. The experiences are very good: The projects are running fine over several months - normally, the server maintenance with system reboots happens before any issue occur. A long-term project for social media monitoring runs on a specially prepared server without maintenance window since more than 9 months without any restart and without any related issue. Other projects are running across multiple servers with automatic load balancing and fail-over (load balancing and fail-over are provided by Amazon AWS, and not yet by Ocean).
+
+## Environment Requirements
+You have to setup a MongoDB (http://www.mongodb.org) database or database cluster. You can setup individual databases for the configuration management, for the customer data and for the logging service. It is also possible to use one database for all! In case of the logging database, you can also use one shared logging database for any count of Ocean projects. The databases may run on different dedicated servers, if you want.
+
+Ocean uses a very small memory footprint between xxx and 20 MB, thus, the memory requirements are very low. Further, Ocean also tries to avoid any disk I/O after start-up and utilise for e.g. HTML templates and small static files an in-memory cache.
+
+## Thanks
+"github.com/twinj/uuid"

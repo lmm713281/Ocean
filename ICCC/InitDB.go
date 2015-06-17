@@ -7,6 +7,7 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+// Init the database.
 func initDB() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Start init of the ICCC collections.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Done init the ICCC collection.`)
@@ -14,6 +15,7 @@ func initDB() {
 	// Get the database:
 	dbSession, db = CustomerDB.DB()
 
+	// Case: Error?
 	if db == nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to get the customer database.`)
 		return
@@ -23,7 +25,9 @@ func initDB() {
 	collectionListener = db.C(`ICCCListener`)
 	collectionHosts = db.C(`ICCCHosts`)
 
+	//
 	// Take care about the indexes for ICCCListener:
+	//
 	collectionListener.EnsureIndexKey(`Command`)
 	collectionListener.EnsureIndexKey(`Command`, `IsActive`)
 
@@ -45,7 +49,9 @@ func initDB() {
 	indexName1.Unique = true
 	collectionListener.EnsureIndex(indexName1)
 
+	//
 	// Index for hosts:
+	//
 	collectionHosts.EnsureIndexKey(`Hostname`, `IPAddressPort`)
 
 	indexName2 := mgo.Index{}

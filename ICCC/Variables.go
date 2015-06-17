@@ -7,26 +7,27 @@ import (
 	"sync"
 )
 
+// Some pre-defined channels:
 const (
-	ChannelSYSTEM   string = `System`
-	ChannelNUMGEN   string = `System::NumGen`
-	ChannelSHUTDOWN string = `System::Shutdown`
-	ChannelSTARTUP  string = `System::Startup`
-	ChannelICCC     string = `System::ICCC`
+	ChannelSYSTEM   string = `System`           // The common system channel.
+	ChannelNUMGEN   string = `System::NumGen`   // A channel for the number generator.
+	ChannelSHUTDOWN string = `System::Shutdown` // A channel for system shutdown messages.
+	ChannelSTARTUP  string = `System::Startup`  // A channel for system startup messages.
+	ChannelICCC     string = `System::ICCC`     // A common ICCC channel.
 )
 
 var (
-	senderName                LM.Sender                                 = `ICCC`
-	db                        *mgo.Database                             = nil
-	dbSession                 *mgo.Session                              = nil
-	collectionListener        *mgo.Collection                           = nil
-	collectionHosts           *mgo.Collection                           = nil
-	reservedSystemChannels    []string                                  = []string{ChannelSYSTEM, ChannelNUMGEN, ChannelSHUTDOWN, ChannelSTARTUP, ChannelICCC}
-	listeners                 map[string]func(data map[string][]string) = nil
-	listenersLock             sync.RWMutex                              = sync.RWMutex{}
-	cacheListenerDatabase     *list.List                                = nil
-	cacheListenerDatabaseLock sync.RWMutex                              = sync.RWMutex{}
-	startCacheTimerLock       sync.Mutex                                = sync.Mutex{}
-	cacheTimerRunning         bool                                      = false
-	correctAddressWithPort    string                                    = ``
+	senderName                LM.Sender                                 = `ICCC`                                                                               // This is the name for logging event from this package
+	db                        *mgo.Database                             = nil                                                                                  // The database
+	dbSession                 *mgo.Session                              = nil                                                                                  // The database session
+	collectionListener        *mgo.Collection                           = nil                                                                                  // The database collection for listeners
+	collectionHosts           *mgo.Collection                           = nil                                                                                  // The database collection for hosts
+	reservedSystemChannels    []string                                  = []string{ChannelSYSTEM, ChannelNUMGEN, ChannelSHUTDOWN, ChannelSTARTUP, ChannelICCC} // The reserved and pre-defined system channels
+	listeners                 map[string]func(data map[string][]string) = nil                                                                                  // The listener cache for all local available listeners with local functions
+	listenersLock             sync.RWMutex                              = sync.RWMutex{}                                                                       // The mutex for the listener cache
+	cacheListenerDatabase     *list.List                                = nil                                                                                  // The globally cache for all listeners from all servers
+	cacheListenerDatabaseLock sync.RWMutex                              = sync.RWMutex{}                                                                       // The mutex for the globally cache
+	startCacheTimerLock       sync.Mutex                                = sync.Mutex{}                                                                         // Mutex for the start timer
+	cacheTimerRunning         bool                                      = false                                                                                // Is the timer running?
+	correctAddressWithPort    string                                    = ``                                                                                   // The IP address and port of the this local server
 )

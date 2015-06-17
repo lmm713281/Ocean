@@ -5,5 +5,5 @@ import (
 )
 
 var (
-	senderName LM.Sender = `System::BinaryAssets`
+	senderName LM.Sender = `System::BinaryAssets` // This is the name for logging event from this package
 )

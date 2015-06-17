@@ -13,14 +13,19 @@ import (
 	"time"
 )
 
+// Setup the web server.
 func init() {
 
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Init the web server now.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Done init the web server.`)
 
+	// Public web server: use the servers public facing IP address and the configured port:
 	serverPublicAddressPort = Tools.LocalIPAddressAndPort()
+
+	// Private web server: use the configured end point:
 	serverAdminAddressPort = ConfigurationDB.Read(`AdminWebServerBinding`)
 
+	// Setup the public web server:
 	serverPublic = &http.Server{}
 	serverPublic.Addr = serverPublicAddressPort
 	serverPublic.Handler = Handlers.GetPublicMux()
@@ -28,6 +33,8 @@ func init() {
 
 	// Public Web Server: Read Timeout
 	if readTimeoutSeconds, errTimeout := strconv.Atoi(ConfigurationDB.Read(`PublicWebServerReadTimeoutSeconds`)); errTimeout != nil {
+
+		// Case: Error! Use a default timeout:
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the public server's read timeout value. Use the default of 10 seconds instead.`, errTimeout.Error())
 		serverPublic.ReadTimeout = 10 * time.Second
 	} else {
@@ -37,6 +44,8 @@ func init() {
 
 	// Public Web Server: Write Timeout
 	if writeTimeoutSeconds, errTimeout := strconv.Atoi(ConfigurationDB.Read(`PublicWebServerWriteTimeoutSeconds`)); errTimeout != nil {
+
+		// Case: Error! Use a default timeout:
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the public server's write timeout value. Use the default of 10 seconds instead.`, errTimeout.Error())
 		serverPublic.WriteTimeout = 10 * time.Second
 	} else {
@@ -46,6 +55,8 @@ func init() {
 
 	// Public Web Server: Max. Header Size
 	if maxHeaderBytes, errHeaderBytes := strconv.Atoi(ConfigurationDB.Read(`PublicWebServerMaxHeaderLenBytes`)); errHeaderBytes != nil {
+
+		// Case: Error! Use a default threshold for the header size:
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the public server's max. header size. Use the default of 1048576 bytes instead.`, errHeaderBytes.Error())
 		serverPublic.MaxHeaderBytes = 1048576
 	} else {
@@ -53,7 +64,10 @@ func init() {
 		serverPublic.MaxHeaderBytes = maxHeaderBytes
 	}
 
+	// Is the private web server (i.e. administration server) enabled?
 	if strings.ToLower(ConfigurationDB.Read(`AdminWebServerEnabled`)) == `true` {
+
+		// Setup the private web server:
 		serverAdmin = &http.Server{}
 		serverAdmin.Addr = serverAdminAddressPort
 		serverAdmin.Handler = Handlers.GetAdminMux()
@@ -61,6 +75,8 @@ func init() {
 
 		// Admin Web Server: Read Timeout
 		if readTimeoutSeconds, errTimeout := strconv.Atoi(ConfigurationDB.Read(`AdminWebServerReadTimeoutSeconds`)); errTimeout != nil {
+
+			// Case: Error! Use a default timeout:
 			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the admin server's read timeout value. Use the default of 10 seconds instead.`, errTimeout.Error())
 			serverAdmin.ReadTimeout = 10 * time.Second
 		} else {
@@ -70,6 +86,8 @@ func init() {
 
 		// Admin Web Server: Write Timeout
 		if writeTimeoutSeconds, errTimeout := strconv.Atoi(ConfigurationDB.Read(`AdminWebServerWriteTimeoutSeconds`)); errTimeout != nil {
+
+			// Case: Error! Use a default timeout:
 			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the admin server's write timeout value. Use the default of 10 seconds instead.`, errTimeout.Error())
 			serverAdmin.WriteTimeout = 10 * time.Second
 		} else {
@@ -79,6 +97,8 @@ func init() {
 
 		// Admin Web Server: Max. Header Size
 		if maxHeaderBytes, errHeaderBytes := strconv.Atoi(ConfigurationDB.Read(`AdminWebServerMaxHeaderLenBytes`)); errHeaderBytes != nil {
+
+			// Case: Error! Use a default threshold for the header size:
 			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityLow, LM.ImpactLow, LM.MessageNameCONFIGURATION, `Was not able to read the admin server's max. header size. Use the default of 1048576 bytes instead.`, errHeaderBytes.Error())
 			serverAdmin.MaxHeaderBytes = 1048576
 		} else {
@@ -86,7 +106,7 @@ func init() {
 			serverAdmin.MaxHeaderBytes = maxHeaderBytes
 		}
 	} else {
-		// Admin Web Server is disabled
+		// Private web server is disabled:
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `The admin web server is disabled.`)
 	}
 }

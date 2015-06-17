@@ -1,8 +1,9 @@
 package MimeTypes
 
-var allTypes [32]MimeType
-
+// The init function for this package.
 func init() {
+
+	// Store the instances for all known types:
 	allTypes[0] = TypeWebHTML
 	allTypes[1] = TypeWebCSS
 	allTypes[2] = TypeWebJavaScript
@@ -35,4 +36,6 @@ func init() {
 	allTypes[29] = TypeFontTTF
 	allTypes[30] = TypeFontWOFF
 	allTypes[31] = TypeWebJSON
+	allTypes[32] = TypeCSV
+	allTypes[33] = TypeWebDart
 }

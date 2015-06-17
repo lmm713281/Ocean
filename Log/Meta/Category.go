@@ -3,12 +3,13 @@ package Meta
 type Category byte
 
 const (
-	CategoryBUSINESS = Category(iota)
-	CategorySYSTEM   = Category(iota)
-	CategoryAPP      = Category(iota)
-	CategoryUSER     = Category(iota)
+	CategoryBUSINESS = Category(iota) // Business category
+	CategorySYSTEM   = Category(iota) // System category
+	CategoryAPP      = Category(iota) // Application category
+	CategoryUSER     = Category(iota) // User category
 )
 
+// Formats a category as string.
 func (cat Category) Format() (result string) {
 	switch cat {
 	case CategoryBUSINESS:
@@ -26,6 +27,7 @@ func (cat Category) Format() (result string) {
 	return
 }
 
+// Parse a category from a string.
 func ParseCategory(cat string) (value Category) {
 	switch cat {
 	case `C:BUSINESS`:

@@ -8,15 +8,18 @@ import (
 	"io/ioutil"
 )
 
+// The init of the static file package.
 func init() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Starting now the static files component.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Starting the static files component done.`)
 
+	// If the static files are disabled, stop here:
 	if ConfigurationDB.Read(`EnableStaticFiles`) != `true` {
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Static files are disabled.`)
 		return
 	}
 
+	// Case: Static files are enabled.
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Static files are enabled.`)
 
 	// Read the configuration:
@@ -27,7 +30,7 @@ func init() {
 
 	logStaticFileRequests = ConfigurationDB.Read(`LogStaticFileRequests`) == `true`
 
-	// Read the static files' data from GridFS:
+	// Read the static files' data from GridFS and keep it in-memory:
 	dbSession, gridFS := CustomerDB.GridFS()
 	defer dbSession.Close()
 

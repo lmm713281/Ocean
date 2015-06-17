@@ -7,10 +7,11 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+// The init function for this package.
 func init() {
-
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `Init the customer database.`)
 
+	// Read the configuration values:
 	databaseHost := ConfigurationDB.Read(`CustomerDBHost`)
 	databaseDB = ConfigurationDB.Read(`CustomerDBDatabase`)
 	databaseUsername = ConfigurationDB.Read(`CustomerDBUsername`)

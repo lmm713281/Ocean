@@ -7,27 +7,32 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-/*
-Please do not use this type. It is an internal type of Ocean to provide a shutdown function!
-*/
+// Type to provide a shutdown function.
 type ShutdownFunction struct {
 }
 
-/*
-This function is called if the Ocean server is shutting down.
-*/
+// The shutdown function for ICCC.
 func (a ShutdownFunction) Shutdown() {
 	Log.LogShort(senderName, LM.CategoryAPP, LM.LevelWARN, LM.MessageNameSHUTDOWN, `Shutting down now all ICCC listener for this host.`)
 
+	// Define the database query:
 	selection := bson.D{{`IPAddressPort`, correctAddressWithPort}}
+
+	// Reserve the memory for an answer:
 	entry := Scheme.Listener{}
+
+	// Execute the query and iterate over the results:
 	iterator := collectionListener.Find(selection).Iter()
 	for iterator.Next(&entry) {
+		// Update the entry and set it to active=false:
 		selectionUpdate := bson.D{{`Channel`, entry.Channel}, {`Command`, entry.Command}, {`IPAddressPort`, correctAddressWithPort}}
 		entry.IsActive = false
+
+		// Update the entry:
 		collectionListener.Update(selectionUpdate, entry)
 	}
 
+	// Disconnect the database:
 	db.Logout()
 	dbSession.Close()
 	Log.LogShort(senderName, LM.CategoryAPP, LM.LevelWARN, LM.MessageNameSHUTDOWN, `Done shutting down now all ICCC listener for this host.`)

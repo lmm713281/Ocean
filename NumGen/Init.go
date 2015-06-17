@@ -9,9 +9,11 @@ import (
 	"strings"
 )
 
+// Init this package.
 func init() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Init the number generator.`)
 
+	// Get the exklusive access to the channel list:
 	channelListLock.Lock()
 	defer channelListLock.Unlock()
 

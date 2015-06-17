@@ -7,6 +7,7 @@ import (
 )
 
 var (
+	// This is the name for logging event from this package:
 	senderName                   LM.Sender       = `System::Logger::Database`
 	mutexCacheFull               sync.Mutex      = sync.Mutex{}
 	mutexCacheSenderNames        sync.RWMutex    = sync.RWMutex{}

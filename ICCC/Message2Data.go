@@ -6,8 +6,13 @@ import (
 	"strconv"
 )
 
+// Function to convert an ICCC message to HTTP data.
 func message2Data(channel, command string, message interface{}) (data map[string][]string) {
+
+	// Create the map:
 	data = make(map[string][]string)
+
+	// Add the meta information:
 	data[`command`] = []string{command}
 	data[`channel`] = []string{channel}
 
@@ -15,9 +20,12 @@ func message2Data(channel, command string, message interface{}) (data map[string
 		return
 	}
 
+	// Use reflection to determine the types:
 	element := reflect.ValueOf(message)
 	elementType := element.Type()
 
+	// Iterate over all fields of the data type.
+	// Transform the data regarding the type.
 	for i := 0; i < element.NumField(); i++ {
 		field := element.Field(i)
 		keyName := elementType.Field(i).Name
@@ -44,6 +52,7 @@ func message2Data(channel, command string, message interface{}) (data map[string
 			key := fmt.Sprintf(`ui8:%s`, keyName)
 			data[key] = []string{strconv.FormatUint(field.Uint(), 16)}
 
+		// Case: Arrays...
 		case `slice`:
 			sliceLen := field.Len()
 			if sliceLen > 0 {

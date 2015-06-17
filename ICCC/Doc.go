@@ -1,21 +1,15 @@
 /*
-This is the "[I]nter-[C]omponent [C]ommunication [C]hannel". It is a minimal
-messaging service to connect different servers or even different parts of
-huge systems across programming languages.
+This is the "[I]nter-[C]omponent [C]ommunication [C]hannel". It is a minimal messaging service to connect different servers or even different parts of huge systems across programming languages.
 
-The basis idea is to create such messaging service on top of HTTP, because
-every programming language is able to process HTTP. Therefore, all messages
-are transformed to HTTP form values (with URL encoding).
+The basis idea is to create such messaging service on top of HTTP, because every programming language is able to process HTTP. Therefore, all messages are transformed to HTTP form values (with URL encoding).
 
-To be able to marshal / parse the data back to objects, some additional
-information is added:
+To be able to marshal / parse the data back to objects, some additional information is added:
 
 Example 01:
 name=str:Surname
 value=Sommer
 
-The HTTP form name is 'str:Surname' and the value is 'Sommer'. The 'str' is
-the indicator for the data type, in this case it is a string.
+The HTTP form name is 'str:Surname' and the value is 'Sommer'. The 'str' is the indicator for the data type, in this case it is a string.
 
 Known data types are:
 * str := string
@@ -48,7 +42,9 @@ channel=CHANNEL
 [any count of data tuples]
 InternalCommPassword=[configured communication password e.g. an UUID etc.]
 
-If you want to build a distributed system across the Internet, please use e.g. SSH tunnels
-to keep things secret.
+If you want to build a distributed system across the Internet, please use e.g. SSH tunnels to keep things secret.
+
+Constrains to the environment:
+The web server cannot reorder the fields of the request or response. The order of fields at the data object (message) must correspond with the order of fields inside the HTTP message. Therefore, a reorder is not possible at the moment.
 */
 package ICCC

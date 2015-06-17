@@ -1,5 +1,6 @@
 package Scheme
 
+// The type for the web logger viewer template
 type Viewer struct {
 	Title              string
 	SetLiveView        bool
@@ -16,12 +17,7 @@ type Viewer struct {
 	Events             []LogEvent
 }
 
-// <li class="logline loga logwarn">
-//	 <div>....</div>
-// </li>
-// <li class="logline logb logwarn">
-// 	<div>....</div>
-// </li>
+// Type for a log event
 type LogEvent struct {
 	LogLine  string
 	LogLevel string // logwarn || logdebug || logerror || loginfo || logtalkative || logsecurity

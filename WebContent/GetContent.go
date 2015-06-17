@@ -9,8 +9,10 @@ import (
 	"io/ioutil"
 )
 
+// Get the file bytes for any web content file.
 func GetContent(path string) (content []byte, err error) {
 
+	// Open the ZIP file reader with the data out of the memory:
 	reader, readerError := zip.NewReader(bytes.NewReader(zipData), int64(len(zipData)))
 	if readerError != nil {
 		err = errors.New("Was not able to read the ZIP file: " + readerError.Error())
@@ -18,13 +20,18 @@ func GetContent(path string) (content []byte, err error) {
 		return
 	}
 
+	// Iterate over all files within the ZIP:
 	for _, file := range reader.File {
+
+		// Is this the desired file?
 		if file.Name == path {
 
+			// Open the file:
 			fileReader, openError := file.Open()
 			defer fileReader.Close()
-
 			if openError == nil {
+
+				// Read all bytes:
 				contentData, readError := ioutil.ReadAll(fileReader)
 
 				if readError != nil {
@@ -33,6 +40,7 @@ func GetContent(path string) (content []byte, err error) {
 					return
 				}
 
+				// Return the data:
 				content = contentData
 				return
 			}

@@ -6,15 +6,14 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-/*
-This function writes the configuration value.
-*/
+// This function writes the configuration value.
 func Write(name, value string) {
 	if name == `` {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `Was not able to write a configuration to the database.`, `The given name was nil!`)
 		return
 	}
 
+	// Read the current value:
 	result := ConfigurationDBEntry{}
 	if errFind := collection.Find(bson.D{{"Name", name}}).One(&result); errFind != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `Was not able to write a configuration to the database.`, `Error while find.`, errFind.Error())
@@ -22,6 +21,8 @@ func Write(name, value string) {
 	}
 
 	result.Value = value
+
+	// Update the database:
 	collection.Update(bson.D{{"Name", name}}, result)
 	return
 }

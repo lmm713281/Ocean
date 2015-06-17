@@ -7,7 +7,9 @@ import (
 )
 
 var (
-	correctPassword   string                = ``
+	correctPassword string = ``
+
+	// This is the name for logging event from this package:
 	senderName        LM.Sender             = `System::NumGen::Producer`
 	isActive          bool                  = false
 	getHandler        string                = ``

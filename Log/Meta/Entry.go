@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// Type for a log entry.
 type Entry struct {
 	Project            string
 	Time               time.Time

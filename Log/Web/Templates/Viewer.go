@@ -1,5 +1,6 @@
 package Templates
 
+// The template for the web log viewer:
 var Viewer string = `
 {{define "WebLog"}}
 <!DOCTYPE html>

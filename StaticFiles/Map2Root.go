@@ -5,7 +5,10 @@ import (
 	"net/http"
 )
 
+// Handler to map the static files to the root. Use it for static web sites.
 func HandlerMapStaticFiles2Root(response http.ResponseWriter, request *http.Request) {
+
+	// Case: The system goes down.
 	if Shutdown.IsDown() {
 		http.NotFound(response, request)
 		return

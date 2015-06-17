@@ -5,5 +5,5 @@ import (
 )
 
 var (
-	senderName LM.Sender = `Ocean`
+	senderName LM.Sender = `Ocean` // This is the name for logging event from this package
 )

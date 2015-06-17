@@ -1,5 +1,6 @@
 package DeviceDatabase
 
+// Flush the cache and write all messages to the database.
 func (dev Database) Flush() {
 	mutexCacheFull.Lock()
 	defer mutexCacheFull.Unlock()
@@ -9,6 +10,7 @@ func (dev Database) Flush() {
 		write2Database(<-cache)
 	}
 
+	// Shutdown the database connection:
 	logDB.Logout()
 	logDBSession.Close()
 }

@@ -6,6 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// Internal function to check the system configuration.
 func checkConfiguration() {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `Check now the configuration database.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameDATABASE, `Done checking the configuration database.`)
@@ -53,15 +54,14 @@ func checkConfiguration() {
 Disallow:`)
 }
 
-/*
-Use this function to ensure that the database contains at least a default value for the configuration.
-*/
+// Use this function to ensure that the database contains at least a default value for the configuration.
 func CheckSingleConfigurationPresentsAndAddIfMissing(name, value string) {
 	if !checkSingleConfigurationPresents(name) {
 		addSingleConfiguration(name, value)
 	}
 }
 
+// Check if a configuration value is present.
 func checkSingleConfigurationPresents(name string) (result bool) {
 	selection := bson.D{{"Name", name}}
 	count, _ := collection.Find(selection).Count()
@@ -69,6 +69,7 @@ func checkSingleConfigurationPresents(name string) (result bool) {
 	return count > 0
 }
 
+// Adds a configuration value.
 func addSingleConfiguration(name, value string) {
 	entry := ConfigurationDBEntry{}
 	entry.Name = name

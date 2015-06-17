@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 )
 
+// Function to read the configuration file.
 func readConfiguration() {
-
 	if isInit {
 		Log.LogFull(senderName, Meta.CategorySYSTEM, Meta.LevelWARN, Meta.SeverityNone, Meta.ImpactNone, Meta.MessageNameINIT, `The configuration package is already init!`)
 		return
@@ -17,13 +17,14 @@ func readConfiguration() {
 		Log.LogShort(senderName, Meta.CategorySYSTEM, Meta.LevelINFO, Meta.MessageNameCONFIGURATION, `Init of configuration starting.`)
 	}
 
+	// Access to the working directory?
 	currentDir, dirError := os.Getwd()
-
 	if dirError != nil {
 		panic(`Was not able to read the working directory: ` + dirError.Error())
 		return
 	}
 
+	// Access to the configuration file?
 	currentPath := filepath.Join(currentDir, filename)
 	if _, errFile := os.Stat(currentPath); errFile != nil {
 		if os.IsNotExist(errFile) {
@@ -33,6 +34,7 @@ func readConfiguration() {
 		}
 	}
 
+	// Open the file:
 	file, fileError := os.Open(currentPath)
 	defer file.Close()
 
@@ -41,6 +43,7 @@ func readConfiguration() {
 		return
 	}
 
+	// Try to decode / parse the file:
 	decoder := json.NewDecoder(file)
 	decError := decoder.Decode(&configuration)
 

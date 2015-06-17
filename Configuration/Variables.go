@@ -6,8 +6,8 @@ import (
 )
 
 var (
-	filename                         = "configuration.json" // Where is the configuration located?
-	configuration Meta.Configuration = Meta.Configuration{} // The loaded configuration
-	isInit                           = false                // Is the configuration loaded?
-	senderName    LM.Sender          = `System::Configuration`
+	filename                         = "configuration.json"    // Where is the configuration located?
+	configuration Meta.Configuration = Meta.Configuration{}    // The loaded configuration
+	isInit                           = false                   // Is the configuration loaded?
+	senderName    LM.Sender          = `System::Configuration` // This is the name for logging event from this package
 )

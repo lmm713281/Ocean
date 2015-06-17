@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	session    *mgo.Session       = nil
-	db         *mgo.Database      = nil
-	collection *mgo.Collection    = nil
-	config     Meta.Configuration = Meta.Configuration{}
-	senderName LM.Sender          = `System::ConfigurationDB`
+	session    *mgo.Session       = nil                       // The database session
+	db         *mgo.Database      = nil                       // The database
+	collection *mgo.Collection    = nil                       // The database collection
+	config     Meta.Configuration = Meta.Configuration{}      // The configuration file's data
+	senderName LM.Sender          = `System::ConfigurationDB` // This is the name for logging event from this package
 )

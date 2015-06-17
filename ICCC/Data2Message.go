@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+// Function to convert the HTTP data back to a message.
 func Data2Message(target interface{}, data map[string][]string) (channel, command string, obj interface{}) {
 	if data == nil || len(data) == 0 {
 		channel = ``
@@ -14,12 +15,15 @@ func Data2Message(target interface{}, data map[string][]string) (channel, comman
 		return
 	}
 
+	// Use reflection for the target type:
 	element := reflect.ValueOf(target)
 	element = element.Elem()
 	elementType := element.Type()
 
 	channel = data[`channel`][0]
 	command = data[`command`][0]
+
+	// Use the order of the destination type's fields:
 	for i := 0; i < element.NumField(); i++ {
 		field := element.Field(i)
 		switch field.Kind().String() {
@@ -53,6 +57,7 @@ func Data2Message(target interface{}, data map[string][]string) (channel, comman
 			v, _ := strconv.ParseUint(mapValue, 16, 8)
 			field.SetUint(v)
 
+		// Case: Arrays...
 		case `slice`:
 			sliceInterface := field.Interface()
 			sliceKind := reflect.ValueOf(sliceInterface).Type().String()

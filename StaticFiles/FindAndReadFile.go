@@ -9,7 +9,10 @@ import (
 	"io/ioutil"
 )
 
+// Try to read a static file.
 func FindAndReadFile(filename string) (result []byte) {
+
+	// Case: The system goes down.
 	if Shutdown.IsDown() {
 		return
 	}
@@ -24,13 +27,17 @@ func FindAndReadFile(filename string) (result []byte) {
 		return
 	}
 
+	// Loop over all files inside the ZIP file:
 	for _, file := range reader.File {
+
+		// Is this the desired file?
 		if file.Name == path {
 
+			// Open the file:
 			fileReader, openError := file.Open()
 			defer fileReader.Close()
-
 			if openError == nil {
+				// Read all the content:
 				contentData, readError := ioutil.ReadAll(fileReader)
 
 				if readError != nil {

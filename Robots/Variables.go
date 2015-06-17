@@ -5,7 +5,7 @@ import (
 )
 
 var (
-	senderName    LM.Sender = `System::Robots`
+	senderName    LM.Sender = `System::Robots` // This is the name for logging event from this package
 	robotsContent string    = `User-agent: *
 Disallow: /`
 )

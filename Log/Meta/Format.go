@@ -7,18 +7,22 @@ import (
 	"time"
 )
 
+// Formats a log entry as string.
 func (entry Entry) Format() (result string) {
 
+	// Force the maximum length for a sender:
 	lenSender := len(entry.Sender)
 	if lenSender > 40 {
 		lenSender = 40
 	}
 
+	// Force the maximum length for the message name:
 	lenMessageName := len(entry.MessageName)
 	if lenMessageName > 26 {
 		lenMessageName = 26
 	}
 
+	// Force the maximum length for the project name:
 	lenProject := len(entry.Project)
 	if lenProject > 10 {
 		lenProject = 10
@@ -29,21 +33,23 @@ func (entry Entry) Format() (result string) {
 	messageDescription = strings.Replace(messageDescription, "\t", ` `, -1)
 	messageDescription = strings.Replace(messageDescription, "\r", ` `, -1)
 
+	// Format the basic fields of the log message:
 	result = fmt.Sprintf(` [■] P:%10s [■] %s [■] %10s [■] %11s [■] %10s [■] %10s [■] sender: %-40s [■] name: %-26s [■] %s [■]`, entry.Project[:lenProject], formatTime(entry.Time), entry.Category.Format(), entry.Level.Format(), entry.Severity.Format(), entry.Impact.Format(), entry.Sender[:lenSender], entry.MessageName[:lenMessageName], messageDescription)
 
+	// Formats the parameters:
 	for _, param := range entry.Parameters {
-
 		paramText := param
 		paramText = strings.Replace(paramText, "\n", ` `, -1)
 		paramText = strings.Replace(paramText, "\t", ` `, -1)
 		paramText = strings.Replace(paramText, "\r", ` `, -1)
-
 		result = fmt.Sprintf(`%s %s [■]`, result, paramText)
 	}
 
 	return
 }
 
+// Formats the given time as YYYYMMdd HHmmss.fff! This function is necessary
+// to prevent a import cycle.
 func formatTime(t1 time.Time) (result string) {
 	var year int = t1.Year()
 	var month int = int(t1.Month())

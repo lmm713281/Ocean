@@ -14,25 +14,54 @@ import (
 	"github.com/SommerEngineering/Ocean/WebContent"
 )
 
+// Init the system and then the system's handlers.
 func InitHandlers() {
 
 	initSystem()
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Register now all system handlers.`)
 
+	//
 	// Public Handlers:
+	//
+
+	// Handler for the web frameworks like e.g. jQuery, Bootstrap, etc.
 	Handlers.AddPublicHandler(`/framework/`, WebContent.HandlerDeliverFramework)
+
+	// Handler for other static files:
 	Handlers.AddPublicHandler(`/staticFiles/`, StaticFiles.HandlerStaticFiles)
+
+	// Handler for the number generator:
 	Handlers.AddPublicHandler(`/next/number`, NumGen.HandlerGetNext)
+
+	// Handler for the robots.txt:
 	Handlers.AddPublicHandler(`/robots.txt`, Robots.HandlerRobots)
+
+	// Handler for the ICCC to the public:
 	Handlers.AddPublicHandler(`/ICCC`, ICCC.ICCCHandler)
 
+	//
 	// Private Handlers:
+	//
+
+	// Handler for the web frameworks like e.g. jQuery, Bootstrap, etc.
 	Handlers.AddAdminHandler(`/framework/`, WebContent.HandlerDeliverFramework)
+
+	// Handler for other static files:
 	Handlers.AddAdminHandler(`/staticFiles/`, StaticFiles.HandlerStaticFiles)
+
+	// Handler for the number generator:
 	Handlers.AddAdminHandler(`/next/number`, NumGen.HandlerGetNext)
+
+	// Handler for the ICCC to the private side:
 	Handlers.AddAdminHandler(`/ICCC`, ICCC.ICCCHandler)
+
+	// Handler for binary assets, used for the admin pages:
 	Handlers.AddAdminHandler(`/binaryAssets/`, BinaryAssets.HandlerBinaryAssets)
+
+	// Handler for the web logging:
 	Handlers.AddAdminHandler(`/log`, Web.HandlerWebLog)
+
+	// Handler for the web logging's CSS and JS:
 	Handlers.AddAdminHandler(`/log/css/normalize.css`, Web.HandlerCSSNormalize)
 	Handlers.AddAdminHandler(`/log/css/webflow.css`, Web.HandlerCSSWebflow)
 	Handlers.AddAdminHandler(`/log/css/log.css`, Web.HandlerCSSLog)
@@ -41,6 +70,7 @@ func InitHandlers() {
 	Handlers.AddAdminHandler(`/log/js/jquery.min.map`, Web.HandlerJSjQueryMap)
 	Handlers.AddAdminHandler(`/log/js/webflow.js`, Web.HandlerJSWebflow)
 
+	// Are the static files mapped to the public?
 	if ConfigurationDB.Read(`MapStaticFiles2Root`) == "true" {
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `The static files are mapped to the root.`)
 		Handlers.AddPublicHandler(`/`, StaticFiles.HandlerMapStaticFiles2Root)

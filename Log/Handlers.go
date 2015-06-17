@@ -7,12 +7,12 @@ import (
 	"time"
 )
 
+// Writes a log message to the channel.
 func writeToChannel(logEntry Meta.Entry) {
 	select {
 	case entriesBuffer <- logEntry:
 	case <-time.After(time.Duration(int64(logBufferTimeoutSeconds)) * time.Second):
-
-		// Warn: Can not log here to prevent endless loop and memory leak!
+		// Warn: Cannot log here to prevent endless loop and memory leak!
 		fmt.Println(`Warning: Was not able to write to the logging buffer! Message=` + logEntry.Format())
 	}
 }
@@ -110,6 +110,7 @@ func LogShort(sender Meta.Sender, category Meta.Category, level Meta.Level, mess
 	TakeEntry(entry)
 }
 
+// Removes white spaces from the message.
 func clearEntry(entry Meta.Entry) (result Meta.Entry) {
 	entry.MessageDescription = removeWhitespaces(entry.MessageDescription)
 	entry.Parameters = clearParameters(entry.Parameters)
@@ -117,6 +118,7 @@ func clearEntry(entry Meta.Entry) (result Meta.Entry) {
 	return
 }
 
+// Remove white spaces from the parameters.
 func clearParameters(oldParameters []string) (result []string) {
 	for n := 0; n < len(oldParameters); n++ {
 		oldParameters[n] = removeWhitespaces(oldParameters[n])
@@ -126,6 +128,7 @@ func clearParameters(oldParameters []string) (result []string) {
 	return
 }
 
+// Removes white spaces from a string.
 func removeWhitespaces(text string) (result string) {
 	text = strings.Replace(text, "\n", ` `, -1)
 	text = strings.Replace(text, "\t", ` `, -1)

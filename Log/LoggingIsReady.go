@@ -1,7 +1,8 @@
 package Log
 
 /*
-This function is used just internal by Ocean. Please do not call this function by your self!
+A function to change the state of the logging after the database is
+accessible.
 */
 func LoggingIsReady() {
 	channelReady = true

@@ -13,18 +13,21 @@ import (
 	"strconv"
 )
 
+// Init the system.
 func initSystem() {
 
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `The system is now starting.`)
 
-	// Set the desired amount of CPUs:
+	// Set the desired amount of CPUs to use by Ocean. Default: 2
 	utilizeCPUs := 2
 	if value, err := strconv.Atoi(ConfigurationDB.Read(`OceanUtilizeCPUs`)); err != nil {
+		// Case: Error! Use the default.
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNameCONFIGURATION, `Was not able to read the OceanUtilizeCPUs configuration.`, `Use the default value instead.`)
 	} else {
 		utilizeCPUs = value
 	}
 
+	// Set the amount of CPUs:
 	runtime.GOMAXPROCS(utilizeCPUs)
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, `Configuration OceanUtilizeCPUs is set.`, fmt.Sprintf(`value=%d`, utilizeCPUs))
 

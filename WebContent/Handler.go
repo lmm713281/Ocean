@@ -8,12 +8,16 @@ import (
 	"strings"
 )
 
+// The handler to deliver web framework files e.g. jQuery, Bootstrap, etc.
 func HandlerDeliverFramework(response http.ResponseWriter, request *http.Request) {
+
+	// If the system is going down, send an error:
 	if Shutdown.IsDown() {
 		http.NotFound(response, request)
 		return
 	}
 
+	// Replace the prefix:
 	path := strings.Replace(request.URL.Path, "/framework/", "", 1)
 	sendError := SendContent(response, path)
 

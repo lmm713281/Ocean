@@ -3,14 +3,15 @@ package Meta
 type Level byte
 
 const (
-	LevelWARN      = Level(iota)
-	LevelDEBUG     = Level(iota)
-	LevelERROR     = Level(iota)
-	LevelINFO      = Level(iota)
-	LevelTALKATIVE = Level(iota)
-	LevelSECURITY  = Level(iota)
+	LevelWARN      = Level(iota) // Level: Warning
+	LevelDEBUG     = Level(iota) // Level: Debug
+	LevelERROR     = Level(iota) // Level: Error
+	LevelINFO      = Level(iota) // Level: Information
+	LevelTALKATIVE = Level(iota) // Level: Talkative (even more events as debug)
+	LevelSECURITY  = Level(iota) // Level: Security
 )
 
+// Formats a level as string.
 func (lvl Level) Format() (result string) {
 	switch lvl {
 	case LevelDEBUG:
@@ -32,6 +33,7 @@ func (lvl Level) Format() (result string) {
 	return
 }
 
+// Parse a level from a string.
 func ParseLevel(lvl string) (value Level) {
 	switch lvl {
 	case `L:DEBUG`:

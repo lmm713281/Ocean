@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// Formats the given time as YYYYMMdd HHmmss.fff
 func FormatTime(t1 time.Time) (result string) {
 	var year int = t1.Year()
 	var month int = int(t1.Month())

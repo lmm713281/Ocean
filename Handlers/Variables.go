@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	senderName LM.Sender      = `System::Handlers`
-	muxPublic  *http.ServeMux = http.NewServeMux()
-	muxAdmin   *http.ServeMux = http.NewServeMux()
+	senderName LM.Sender      = `System::Handlers` // This is the name for logging event from this package
+	muxPublic  *http.ServeMux = http.NewServeMux() // The muxer for the public web server
+	muxAdmin   *http.ServeMux = http.NewServeMux() // The muxer for the private web server
 )

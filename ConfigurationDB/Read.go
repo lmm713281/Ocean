@@ -6,9 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-/*
-This function reads the current configuration value.
-*/
+// This function reads the current configuration value.
 func Read(name string) (value string) {
 	if name == `` {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `Was not able to read a configuration out of the database.`, `The given name was nil!`)

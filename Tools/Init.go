@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	// Get this hostname:
+	// Get the hostname of this server:
 	if hostText, errHost := os.Hostname(); errHost != nil {
 		panic(`Was not able to read the hostname: ` + errHost.Error())
 	} else {
@@ -40,6 +40,6 @@ func init() {
 		localIPAddressAndPort = fmt.Sprintf("%s:%s", allHostsIPAddresses[0], port)
 	}
 
-	// Read the default language:
+	// Read the default language for I18N:
 	defaultLanguage = ConfigurationDB.Read(`DefaultLanguageCode`)
 }

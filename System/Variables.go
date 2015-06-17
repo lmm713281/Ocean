@@ -5,5 +5,5 @@ import (
 )
 
 var (
-	senderName LM.Sender = `System::System`
+	senderName LM.Sender = `System::System` // This is the name for logging event from this package
 )

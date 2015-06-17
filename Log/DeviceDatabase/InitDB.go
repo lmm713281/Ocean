@@ -12,19 +12,26 @@ import (
 	"time"
 )
 
+// Init the database for the logging.
 func initDatabase() {
 
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Checking and init the logging database collection.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Checking and init the logging database collection done.`)
 
+	// Read the configuration values for the logging database:
 	databaseHost := ConfigurationDB.Read(`LogDBHost`)
 	databaseDB := ConfigurationDB.Read(`LogDBDatabase`)
 	databaseUsername := ConfigurationDB.Read(`LogDBUsername`)
 	databasePassword := ConfigurationDB.Read(`LogDBPassword`)
+
+	// Should the logging events at the database expire?
 	expire := strings.ToLower(ConfigurationDB.Read(`LogDBEventsExpire`)) == `true`
+
+	// The default values for the TTL (time to live):
 	expireAfterDays := 21900              // 60 years ~ maximum of MongoDB
 	expireValue4DisabledFunction := 21900 // 60 years ~ maximum of MongoDB
 
+	// Try to read the configured value for the TTL:
 	if value, errValue := strconv.Atoi(ConfigurationDB.Read(`LogDBEventsExpireAfterDays`)); errValue != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityMiddle, LM.ImpactUnknown, LM.MessageNameCONFIGURATION, `It was not possible to read the configuration for the expire time of logging events. Log events will not expire any more.`, errValue.Error())
 		expire = false
@@ -86,6 +93,9 @@ func initDatabase() {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, fmt.Sprintf(`Update the expire policy for the logging database done.`))
 	}
 
+	//
+	// Ensure that all necessary indexes are existing:
+	//
 	indexProject := mgo.Index{}
 	indexProject.Key = []string{`Project`}
 	logDBCollection.EnsureIndex(indexProject)

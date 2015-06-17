@@ -3,14 +3,15 @@ package Meta
 type Impact byte
 
 const (
-	ImpactNone     = Impact(iota)
-	ImpactLow      = Impact(iota)
-	ImpactMiddle   = Impact(iota)
-	ImpactHigh     = Impact(iota)
-	ImpactCritical = Impact(iota)
-	ImpactUnknown  = Impact(iota)
+	ImpactNone     = Impact(iota) // None impact
+	ImpactLow      = Impact(iota) // Low impact
+	ImpactMiddle   = Impact(iota) // Middle impact
+	ImpactHigh     = Impact(iota) // High impact
+	ImpactCritical = Impact(iota) // Critical impact
+	ImpactUnknown  = Impact(iota) // Unknown impact
 )
 
+// Formats a impact as string.
 func (pri Impact) Format() (result string) {
 	switch pri {
 	case ImpactCritical:
@@ -32,6 +33,7 @@ func (pri Impact) Format() (result string) {
 	return
 }
 
+// Parse a impact from a string.
 func ParseImpact(pri string) (value Impact) {
 	switch pri {
 	case `I:CRITICAL`:

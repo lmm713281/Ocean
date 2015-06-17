@@ -10,8 +10,10 @@ import (
 	"net/http"
 )
 
+// Send any web content file to the client.
 func SendContent(response http.ResponseWriter, path string) (err error) {
 
+	// Read the bytes:
 	content, contError := GetContent(path)
 	if contError != nil {
 		err = errors.New("Was not able to read the needed content: " + contError.Error())
@@ -19,6 +21,7 @@ func SendContent(response http.ResponseWriter, path string) (err error) {
 		return
 	}
 
+	// Determine some meta data:
 	contentLength := len(content)
 	contentType, typeError := MimeTypes.DetectType(path)
 
@@ -28,10 +31,12 @@ func SendContent(response http.ResponseWriter, path string) (err error) {
 		return
 	}
 
+	// Send the meta data to the client:
 	response.Header().Add("Content-Length", fmt.Sprintf("%d", contentLength))
 	response.Header().Add("Content-Type", contentType.MimeType)
 	response.WriteHeader(http.StatusOK)
 
+	// Write the binary data to the client:
 	buffer := bytes.NewBuffer(content)
 	_, writeError := buffer.WriteTo(response)
 

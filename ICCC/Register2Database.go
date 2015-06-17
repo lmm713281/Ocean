@@ -7,10 +7,13 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// The internal function to register a command to ICCC.
 func register2Database(channel, command string) {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Register this ICCC command in to the database.`, `channel=`+channel, `command=`+command)
 
+	//
 	// Case: Exist and active :)
+	//
 	emptyEntry := Scheme.Listener{}
 	selection := bson.D{{`Channel`, channel}, {`Command`, command}, {`IPAddressPort`, correctAddressWithPort}, {`IsActive`, true}}
 	count1, _ := collectionListener.Find(selection).Count()
@@ -20,7 +23,9 @@ func register2Database(channel, command string) {
 		return
 	}
 
+	//
 	// Case: Exist but not active
+	//
 	selection = bson.D{{`Channel`, channel}, {`Command`, command}, {`IPAddressPort`, correctAddressWithPort}, {`IsActive`, false}}
 	notActiveEntry := Scheme.Listener{}
 	collectionListener.Find(selection).One(&notActiveEntry)
@@ -32,7 +37,9 @@ func register2Database(channel, command string) {
 		return
 	}
 
+	//
 	// Case: Not exist
+	//
 	Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityCritical, LM.ImpactNone, LM.MessageNameCONFIGURATION, `This ICCC command is not known.`, `Create now a new entry!`)
 
 	entry := Scheme.Listener{}
