@@ -32,7 +32,11 @@ func WriteMessage2Any(channel, command string, message interface{}) {
 	count := len(entries)
 	if count > 0 {
 		// Case: Find at least one possible listener. Choose a random one and deliver:
-		listener := entries[Tools.RandomInteger(count)]
+		if len(entries) == 1 {
+			listener := entries[0]
+		} else {
+			listener := entries[Tools.RandomInteger(count)]
+		}
 		go sendMessage(listener, data)
 	} else {
 		// Case: Find no listener at all.
