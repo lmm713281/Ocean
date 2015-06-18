@@ -9,6 +9,7 @@ Ocean is a smart and powerful application framework and server which uses the KI
 * A messaging component called ICCC to communicate with all of your servers (or even with other parts at different programming languages at different servers)
 * A distributed template engine for web applications
 * A distributed half-automated configuration management
+* A distributed number generator which produces e.g. customer IDs
 * A simple I18N support
 * A simple database abstraction which MongoDB as database back-end
 

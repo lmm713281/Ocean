@@ -2,26 +2,14 @@ package NumGen
 
 import (
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
-	"gopkg.in/mgo.v2"
 	"sync"
+	"time"
 )
 
 var (
-	correctPassword string = ``
-
-	// This is the name for logging event from this package:
-	senderName        LM.Sender             = `System::NumGen::Producer`
-	isActive          bool                  = false
-	getHandler        string                = ``
-	db                *mgo.Database         = nil
-	dbSession         *mgo.Session          = nil
-	collectionNumGen  *mgo.Collection       = nil
-	channelBufferSize int                   = 10
-	channelList       map[string]chan int64 = nil
-	channelListLock   sync.RWMutex          = sync.RWMutex{}
-)
-
-const (
-	badNumber64  int64 = 9222222222222222222
-	startValue64 int64 = -9223372036854775808
+	senderName                   LM.Sender  = `System::NumGen` // This is the name for logging event from this package
+	genLock                      sync.Mutex = sync.Mutex{}     // The mutex for the generator
+	genCurrentTime               time.Time  = time.Now().UTC() // The time for the last generated number
+	genCurrentMillisecond        int        = 0                // The millisecond for the last generated number
+	genCurrentMillisecondCounter int        = 0                // The counter of how many numbers are generated at the same time
 )

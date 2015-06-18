@@ -8,7 +8,6 @@ import (
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"github.com/SommerEngineering/Ocean/Log/Web"
-	"github.com/SommerEngineering/Ocean/NumGen"
 	"github.com/SommerEngineering/Ocean/Robots"
 	"github.com/SommerEngineering/Ocean/StaticFiles"
 	"github.com/SommerEngineering/Ocean/WebContent"
@@ -30,9 +29,6 @@ func InitHandlers() {
 	// Handler for other static files:
 	Handlers.AddPublicHandler(`/staticFiles/`, StaticFiles.HandlerStaticFiles)
 
-	// Handler for the number generator:
-	Handlers.AddPublicHandler(`/next/number`, NumGen.HandlerGetNext)
-
 	// Handler for the robots.txt:
 	Handlers.AddPublicHandler(`/robots.txt`, Robots.HandlerRobots)
 
@@ -48,9 +44,6 @@ func InitHandlers() {
 
 	// Handler for other static files:
 	Handlers.AddAdminHandler(`/staticFiles/`, StaticFiles.HandlerStaticFiles)
-
-	// Handler for the number generator:
-	Handlers.AddAdminHandler(`/next/number`, NumGen.HandlerGetNext)
 
 	// Handler for the ICCC to the private side:
 	Handlers.AddAdminHandler(`/ICCC`, ICCC.ICCCHandler)
