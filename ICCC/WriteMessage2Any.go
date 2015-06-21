@@ -34,10 +34,11 @@ func WriteMessage2Any(channel, command string, message interface{}) {
 		// Case: Find at least one possible listener. Choose a random one and deliver:
 		if len(entries) == 1 {
 			listener := entries[0]
+			go sendMessage(listener, data)
 		} else {
 			listener := entries[Tools.RandomInteger(count)]
+			go sendMessage(listener, data)
 		}
-		go sendMessage(listener, data)
 	} else {
 		// Case: Find no listener at all.
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNameCONFIGURATION, `It was not able to deliver this message to any listener, because no listener was found!`, `channel=`+channel, `command=`+command)
