@@ -4,17 +4,16 @@ import (
 	"github.com/SommerEngineering/Ocean/ICCC/Scheme"
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
-	"github.com/SommerEngineering/Ocean/Tools"
 	"gopkg.in/mgo.v2/bson"
 )
 
-// Function to register this server to the ICCC.
-func registerHost2Database() {
+// Function to register a server to the ICCC.
+func registerHost2Database(hostname, ipAddressPort string) {
 
 	// Create the host entry:
 	host := Scheme.Host{}
-	host.Hostname = Tools.ThisHostname()
-	host.IPAddressPort = correctAddressWithPort
+	host.Hostname = hostname
+	host.IPAddressPort = ipAddressPort
 
 	// The query to find already existing entries:
 	selection := bson.D{{`Hostname`, host.Hostname}, {`IPAddressPort`, host.IPAddressPort}}

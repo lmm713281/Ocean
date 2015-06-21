@@ -98,6 +98,9 @@ func initSystem() {
 
 	// Register all system ICCC commands:
 	ICCC.Registrar(ICCC.ChannelSYSTEM, `System::Start`, icccSystemStart)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::RegisterHost`, ICCC.ICCCRegisterHost)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::RegisterCommand`, ICCC.ICCCRegisterCommand)
+	ICCC.Registrar(ICCC.ChannelNUMGEN, `NumGen::Next`, NumGen.ICCCNextNumber)
 
 	// Start the ICCC Listener Cache:
 	ICCC.InitCacheNow() // Blocking, until the job is done

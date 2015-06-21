@@ -25,5 +25,5 @@ func init() {
 	initDB()
 
 	// Register this server to the listener (if not present):
-	registerHost2Database()
+	registerThisHost2Database()
 }
