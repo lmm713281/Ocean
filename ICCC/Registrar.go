@@ -6,8 +6,8 @@ import (
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 )
 
-// Register a command to ICCC for a specific channel.
-func Registrar(channel, command string, callback func(data map[string][]string)) {
+// Register an local command to ICCC for a specific channel.
+func Registrar(channel, command string, callback func(data map[string][]string) map[string][]string) {
 	listenersLock.Lock()
 	defer listenersLock.Unlock()
 

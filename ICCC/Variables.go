@@ -17,17 +17,17 @@ const (
 )
 
 var (
-	senderName                LM.Sender                                 = `ICCC`                                                                               // This is the name for logging event from this package
-	db                        *mgo.Database                             = nil                                                                                  // The database
-	dbSession                 *mgo.Session                              = nil                                                                                  // The database session
-	collectionListener        *mgo.Collection                           = nil                                                                                  // The database collection for listeners
-	collectionHosts           *mgo.Collection                           = nil                                                                                  // The database collection for hosts
-	reservedSystemChannels    []string                                  = []string{ChannelSYSTEM, ChannelNUMGEN, ChannelSHUTDOWN, ChannelSTARTUP, ChannelICCC} // The reserved and pre-defined system channels
-	listeners                 map[string]func(data map[string][]string) = nil                                                                                  // The listener cache for all local available listeners with local functions
-	listenersLock             sync.RWMutex                              = sync.RWMutex{}                                                                       // The mutex for the listener cache
-	cacheListenerDatabase     *list.List                                = nil                                                                                  // The globally cache for all listeners from all servers
-	cacheListenerDatabaseLock sync.RWMutex                              = sync.RWMutex{}                                                                       // The mutex for the globally cache
-	startCacheTimerLock       sync.Mutex                                = sync.Mutex{}                                                                         // Mutex for the start timer
-	cacheTimerRunning         bool                                      = false                                                                                // Is the timer running?
-	correctAddressWithPort    string                                    = ``                                                                                   // The IP address and port of the this local server
+	senderName                LM.Sender                                                     = `ICCC`                                                                               // This is the name for logging event from this package
+	db                        *mgo.Database                                                 = nil                                                                                  // The database
+	dbSession                 *mgo.Session                                                  = nil                                                                                  // The database session
+	collectionListener        *mgo.Collection                                               = nil                                                                                  // The database collection for listeners
+	collectionHosts           *mgo.Collection                                               = nil                                                                                  // The database collection for hosts
+	reservedSystemChannels    []string                                                      = []string{ChannelSYSTEM, ChannelNUMGEN, ChannelSHUTDOWN, ChannelSTARTUP, ChannelICCC} // The reserved and pre-defined system channels
+	listeners                 map[string]func(data map[string][]string) map[string][]string = nil                                                                                  // The listener cache for all local available listeners with local functions
+	listenersLock             sync.RWMutex                                                  = sync.RWMutex{}                                                                       // The mutex for the listener cache
+	cacheListenerDatabase     *list.List                                                    = nil                                                                                  // The globally cache for all listeners from all servers
+	cacheListenerDatabaseLock sync.RWMutex                                                  = sync.RWMutex{}                                                                       // The mutex for the globally cache
+	startCacheTimerLock       sync.Mutex                                                    = sync.Mutex{}                                                                         // Mutex for the start timer
+	cacheTimerRunning         bool                                                          = false                                                                                // Is the timer running?
+	correctAddressWithPort    string                                                        = ``                                                                                   // The IP address and port of the this local server
 )

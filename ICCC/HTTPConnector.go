@@ -6,9 +6,11 @@ import (
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"github.com/SommerEngineering/Ocean/Tools"
 	"net/http"
+	"net/url"
 )
 
-// The HTTP handler for ICCC.
+// The HTTP handler for the local ICCC commands. Will used in case, that another server
+// want to utelise an command from this server.
 func ICCCHandler(response http.ResponseWriter, request *http.Request) {
 
 	// Cannot parse the form?
@@ -49,8 +51,17 @@ func ICCCHandler(response http.ResponseWriter, request *http.Request) {
 	if listener == nil {
 		// Case: No such listener
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNameCONFIGURATION, `Was not able to find the correct listener for these ICCC message.`, `channel=`+channel, `command`+command, `hostname=`+Tools.ThisHostname())
+		http.NotFound(response, request)
 	} else {
-		// Case: Everything is fine => deliver the message
-		listener(messageData)
+		// Case: Everything is fine => deliver the message and read the answer:
+		answersData := listener(messageData)
+		if answersData != nil {
+			// Convert the answer to HTTP form values:
+			values := url.Values(answersData)
+			answersString := values.Encode()
+
+			// Write the answer to the other peer:
+			fmt.Fprintf(response, "%s", answersString)
+		}
 	}
 }

@@ -2,12 +2,21 @@ package ICCC
 
 import (
 	"fmt"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"reflect"
 	"strconv"
 )
 
 // Function to convert an ICCC message to HTTP data.
-func message2Data(channel, command string, message interface{}) (data map[string][]string) {
+func Message2Data(channel, command string, message interface{}) (data map[string][]string) {
+	defer func() {
+		if err := recover(); err != nil {
+			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, fmt.Sprintf("Was not able to convert the message to HTTP values. %s", err))
+			data = make(map[string][]string, 0)
+			return
+		}
+	}()
 
 	// Create the map:
 	data = make(map[string][]string)

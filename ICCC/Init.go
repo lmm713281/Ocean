@@ -16,7 +16,7 @@ func init() {
 	cacheListenerDatabase = list.New()
 
 	// Create a mapping as cache for all local listener end-points (functions):
-	listeners = make(map[string]func(data map[string][]string))
+	listeners = make(map[string]func(data map[string][]string) map[string][]string)
 
 	// Using the local IP address:
 	correctAddressWithPort = Tools.LocalIPAddressAndPort()

@@ -2,12 +2,24 @@ package ICCC
 
 import (
 	"fmt"
+	"github.com/SommerEngineering/Ocean/Log"
+	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"reflect"
 	"strconv"
 )
 
 // Function to convert the HTTP data back to a message.
 func Data2Message(target interface{}, data map[string][]string) (channel, command string, obj interface{}) {
+	defer func() {
+		if err := recover(); err != nil {
+			channel = ``
+			command = ``
+			obj = nil
+			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, fmt.Sprintf("Was not able to convert the HTTP values to a message. %s", err))
+			return
+		}
+	}()
+
 	if data == nil || len(data) == 0 {
 		channel = ``
 		command = ``
@@ -15,11 +27,23 @@ func Data2Message(target interface{}, data map[string][]string) (channel, comman
 		return
 	}
 
-	// Use reflection for the target type:
-	element := reflect.ValueOf(target)
-	element = element.Elem()
-	elementType := element.Type()
+	// By using reflection, determine the type:
+	elementType := reflect.TypeOf(target)
 
+	// Is it a pointer?
+	if elementType.Kind() == reflect.Ptr {
+		// Get the value behind the pointer:
+		elementType = elementType.Elem()
+	}
+
+	// ICCC works with structs! If this is not a struct, its an error.
+	if elementType.Kind() != reflect.Struct {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityMiddle, LM.ImpactMiddle, LM.MessageNamePARSE, `Was not able to transform HTTP data to a message, because the given data was not a struct.`)
+		return
+	}
+
+	// By using reflection, create a new instance:
+	element := reflect.New(elementType).Elem()
 	channel = data[`channel`][0]
 	command = data[`command`][0]
 
@@ -124,6 +148,6 @@ func Data2Message(target interface{}, data map[string][]string) (channel, comman
 		}
 	}
 
-	obj = target
+	obj = element.Interface()
 	return
 }

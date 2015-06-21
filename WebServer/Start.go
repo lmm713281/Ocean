@@ -1,6 +1,7 @@
 package WebServer
 
 import (
+	"fmt"
 	"github.com/SommerEngineering/Ocean/ICCC"
 	"github.com/SommerEngineering/Ocean/ICCC/SystemMessages"
 	"github.com/SommerEngineering/Ocean/Log"
@@ -27,5 +28,11 @@ func Start() {
 	}
 
 	// Notify the whole cluster, that this server is now up and ready:
-	ICCC.WriteMessage2All(ICCC.ChannelSYSTEM, `System::Start`, data)
+	answers := ICCC.WriteMessage2All(ICCC.ChannelSYSTEM, `System::Start`, data, SystemMessages.DefaultAnswer{})
+	for n, obj := range answers {
+		if obj != nil {
+			answer := obj.(SystemMessages.DefaultAnswer)
+			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, fmt.Sprintf("An answer to the ICCC start up message: Successful=%v, Status=%d, Answer=%d/%d", answer.CommandSuccessful, answer.CommandAnswer, n+1, len(answers)))
+		}
+	}
 }
