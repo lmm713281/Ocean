@@ -24,7 +24,42 @@ Several smaller and a few bigger projects using already Ocean at production leve
 ## Environment Requirements
 You have to setup a MongoDB (http://www.mongodb.org) database or database cluster. You can setup individual databases for the configuration management, for the customer data and for the logging service. It is also possible to use one database for all! In case of the logging database, you can also use one shared logging database for any count of Ocean projects. The databases may run on different dedicated servers, if you want.
 
-Ocean uses a very small memory footprint between xxx and 20 MB, thus, the memory requirements are very low. Further, Ocean also tries to avoid any disk I/O after start-up and utilise for e.g. HTML templates and small static files an in-memory cache.
+Ocean uses a very small memory footprint between 5 and 20 MB, thus, the memory requirements are very low. Further, Ocean also tries to avoid any disk I/O after start-up and utilise for e.g. HTML templates and small static files an in-memory cache.
 
+## Setup
+To enable the Ocean's startup, two small configuration files at the working directory are required. The first file is **project.name**: This file contains one line with the project name. If the project name is longer than 10 characters, the name will be cutted after 10 characters.
+
+The second configuration file is **configuration.json**. It contains the configuration database's information, such as user's name, password, etc. Here is an example:
+
+```json
+{
+	"ConfigDBHostname" : "127.0.0.1:27017",
+	"ConfigDBDatabase" : "MyOcean",
+	"ConfigDBConfigurationCollection" : "Configuration",
+	"ConfigDBConfigurationCollectionUsername" : "MyOceanConfig",
+	"ConfigDBConfigurationCollectionPassword" : "PWD"
+}
+```
+The ConfigDBConfigurationCollection collection gets automatically created. After both files are present and the MongoDB (cluster) is running, Ocean is able to start. The database can and should be empty. Ocean does the configuration automatically. Due to this minimal local configuration and the distributed configuration database, the deployment of additional Ocean servers can be achieved by using e.g. data center scripts, etc.
+
+In case you setting up an additional Ocean server, you are done. After a few minutes, the ICCC components are connected to each others. The further setup steps in case of a new environment:
+* Start Ocean the first time. Ocean will connect to the configuration database. After the setup of all necessary database indexes and after the creation of the configuration collection (table), Ocean stops working. This is fine: Ocean cannot connect to the customer and logging database.
+* Therefore, the second step is to use your MongoDB (GUI) tool(s) and edit the configuration collection's values. The most important values are:
+   * AdminWebServerBinding: Where should the admin/private web server connected? You should use this only at local and trusted networks.
+   * AdminWebServerEnabled: Is the admin/private web server enabled?
+   * PublicWebServerPort: Which port should the public web server use? If you use another web server at the front (e.g. a hardware load balancer, nginx, etc.) you can use the default. If you want to use Ocean directly to the public, use port 80.
+   * InternalCommPassword: Replase this value with e.g. a UUID or a good password. It will be used e.g. for the ICCC communication. Therefore, it will be used for the communication between the Ocean's servers.
+   * CustomerDBHost: Please provide the hostname and port for the customer database. You can use the same as for the configuration database.
+   * CustomerDBDatabase: Please provide the database name for the customer database. You can use the same as for the configuration database.
+   * CustomerDBUsername: Please provide the customer database's username.
+   * CustomerDBPassword: Please provide the customer database's password.
+   * LogDBHost: Please provide the hostname and port for the logging database. You can use the same as for the configuration database.
+   * LogDBDatabase: Please provide the database name for the logging database. You can use the same as for the configuration database.
+   * LogDBUsername: Please provide the logging database's username.
+   * LogDBPassword: Please provide the logging database's password.
+   * OceanUtilizeCPUs: How many CPUs should Ocean utilise? At the moment, Ocean uses one value for all servers. Later on, this will be replaced by a per-machine configuration table/collection to enable the usage of heterogeneous servers.
+   * LogUseConsoleLogging: Do you wan to use the console logging? Use it for your first steps and disable it for the production usage. Use the distributed database logging instead!
+   * LogUseDatabaseLogging: Is the database logging enabled? Yes, you should enable it.
+* As third step, start Ocean again. The system should now run fine. Please have a look at the ICCC startup messages.
 ## Thanks
 "github.com/twinj/uuid"
