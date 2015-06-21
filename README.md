@@ -61,5 +61,6 @@ In case you setting up an additional Ocean server, you are done. After a few min
    * `LogUseConsoleLogging`: Do you wan to use the console logging? Use it for your first steps and disable it for the production usage. Use the distributed database logging instead!
    * `LogUseDatabaseLogging`: Is the database logging enabled? Yes, you should enable it.
 * As third step, start Ocean again. The system should now run fine. Please have a look at the ICCC startup messages.
+
 ## Thanks
 "github.com/twinj/uuid"
