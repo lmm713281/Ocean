@@ -2,6 +2,7 @@ package Configuration
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/SommerEngineering/Ocean/Log"
 	"github.com/SommerEngineering/Ocean/Log/Meta"
 	"os"
@@ -20,18 +21,19 @@ func readConfiguration() {
 	// Access to the working directory?
 	currentDir, dirError := os.Getwd()
 	if dirError != nil {
-		panic(`Was not able to read the working directory: ` + dirError.Error())
-		return
+		fmt.Printf("[Error] Was not able to read the working directory. %s\n", dirError.Error())
+		os.Exit(0)
 	}
 
 	// Access to the configuration file?
 	currentPath := filepath.Join(currentDir, filename)
 	if _, errFile := os.Stat(currentPath); errFile != nil {
 		if os.IsNotExist(errFile) {
-			panic(`It was not possible to find the necessary configuration file 'configuration.json' at the application directory.`)
+			fmt.Printf("[Error] Cannot read the project name file 'configuration.json': File not found! Please read https://github.com/SommerEngineering/Ocean\n")
 		} else {
-			panic(`There was an error while open the configuration: ` + errFile.Error())
+			fmt.Printf("[Error] Cannot read the project name file 'configuration.json': %s. Please read https://github.com/SommerEngineering/Ocean\n", errFile.Error())
 		}
+		os.Exit(0)
 	}
 
 	// Open the file:
@@ -39,8 +41,8 @@ func readConfiguration() {
 	defer file.Close()
 
 	if fileError != nil {
-		panic(`The configuration file is not accessible: ` + fileError.Error())
-		return
+		fmt.Printf("[Error] The configuration file 'configuration.json' is not accessible: %s. Please read https://github.com/SommerEngineering/Ocean\n", fileError.Error())
+		os.Exit(0)
 	}
 
 	// Try to decode / parse the file:
@@ -48,7 +50,8 @@ func readConfiguration() {
 	decError := decoder.Decode(&configuration)
 
 	if decError != nil {
-		panic(`Decoding of the configuration file was not possible: ` + decError.Error())
+		fmt.Printf("[Error] Decoding of the configuration file 'configuration.json' was not possible: %s. Please read https://github.com/SommerEngineering/Ocean\n", decError.Error())
+		os.Exit(0)
 	}
 
 	Log.LogShort(senderName, Meta.CategorySYSTEM, Meta.LevelINFO, Meta.MessageNameINIT, `Init of configuration is done.`)

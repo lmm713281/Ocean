@@ -7,6 +7,7 @@ import (
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -14,6 +15,12 @@ import (
 
 // Init the database for the logging.
 func initDatabase() {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("[Error] Was not able to connect to the logging database: %s. Please read https://github.com/SommerEngineering/Ocean.\n", err)
+			os.Exit(0)
+		}
+	}()
 
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Checking and init the logging database collection.`)
 	defer Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameINIT, `Checking and init the logging database collection done.`)
@@ -49,7 +56,8 @@ func initDatabase() {
 	// Connect to MongoDB:
 	if newSession, errDial := mgo.Dial(databaseHost); errDial != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `It was not possible to connect to the MongoDB host `+databaseHost, errDial.Error())
-		return
+		fmt.Printf("[Error] Was not able to connect to the logging database: %s. Please read https://github.com/SommerEngineering/Ocean.\n", errDial.Error())
+		os.Exit(0)
 	} else {
 		logDBSession = newSession
 	}
@@ -60,7 +68,8 @@ func initDatabase() {
 	// Login:
 	if errLogin := logDB.Login(databaseUsername, databasePassword); errLogin != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `It was not possible to login the user `+databaseUsername, errLogin.Error())
-		return
+		fmt.Printf("[Error] Was not able to connect to the logging database: %s. Please read https://github.com/SommerEngineering/Ocean.\n", errLogin.Error())
+		os.Exit(0)
 	}
 
 	// Get the collection:
@@ -215,5 +224,4 @@ func initDatabase() {
 	indexTimeUTCMessageDescription := mgo.Index{}
 	indexProjectTimeUTCMessageDescription.Key = []string{`TimeUTC`, `MessageDescription`}
 	logDBCollection.EnsureIndex(indexTimeUTCMessageDescription)
-
 }
