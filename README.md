@@ -26,6 +26,8 @@ You have to setup a MongoDB (http://www.mongodb.org) database or database cluste
 
 Ocean uses a very small memory footprint which is usually between 5 and 20 MB, thus, the memory requirements are very low. Further, Ocean also tries to avoid any disk I/O after start-up and utilise for e.g. HTML templates and small static files an in-memory cache.
 
+One assumption to the environment is the usage of static IP addresses. If you start Ocean with a different IP address as last time, you will receive the "Was not able to register this host" error. If you want to use e.g. a DHCP environment with changing addresses, you have to delete the corresponding out-dated entries from the `ICCCHosts` and `ICCCListener` collections.
+
 ## Setup
 To enable the Ocean's startup, two small configuration files at the working directory are required. The first file is **project.name**: This file contains one line with the project name. If the project name is longer than 10 characters, the name will be cutted after 10 characters.
 
