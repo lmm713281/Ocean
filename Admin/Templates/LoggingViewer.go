@@ -1,7 +1,7 @@
 package Templates
 
 // The template for the web log viewer:
-var Viewer string = `
+var LoggingViewer string = `
 {{define "WebLog"}}
 <!DOCTYPE html>
 <!-- This site was created in Webflow. http://www.webflow.com-->
@@ -15,14 +15,14 @@ var Viewer string = `
   {{end}}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Webflow">
-  <link rel="stylesheet" type="text/css" href="/log/css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="/log/css/webflow.css">
-  <link rel="stylesheet" type="text/css" href="/log/css/log.css">
-  <script type="text/javascript" src="/log/js/modernizr.js"></script>
+  <link rel="stylesheet" type="text/css" href="/admin/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/admin/css/webflow.css">
+  <link rel="stylesheet" type="text/css" href="/admin/css/admin.css">
+  <script type="text/javascript" src="/admin/js/modernizr.js"></script>
 </head>
 <body>
   <div class="headercontainer">
-    <h1>Logbook</h1>
+    <h1>Logging Viewer</h1>
   </div>
   <div class="controlsection">
     <div class="w-row">
@@ -131,8 +131,8 @@ var Viewer string = `
     </div>
     <div class="w-hidden-main w-hidden-medium newlineblock"></div><a class="button changepagebutton" href="#">+1</a><a class="button changepagebutton" href="#">Last</a>
   </div>
-  <script type="text/javascript" src="/log/js/jquery.min.js"></script>
-  <script type="text/javascript" src="/log/js/webflow.js"></script>
+  <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/admin/js/webflow.js"></script>
 </body>
 </html>
 {{end}}`

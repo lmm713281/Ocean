@@ -1,6 +1,7 @@
 package System
 
 import (
+	"github.com/SommerEngineering/Ocean/Admin"
 	"github.com/SommerEngineering/Ocean/BinaryAssets"
 	"github.com/SommerEngineering/Ocean/ConfigurationDB"
 	"github.com/SommerEngineering/Ocean/Handlers"
@@ -51,17 +52,20 @@ func InitHandlers() {
 	// Handler for binary assets, used for the admin pages:
 	Handlers.AddAdminHandler(`/binaryAssets/`, BinaryAssets.HandlerBinaryAssets)
 
+	// Handler for the admin's overview:
+	Handlers.AddAdminHandler(`/`, Admin.HandlerOverview)
+
 	// Handler for the web logging:
 	Handlers.AddAdminHandler(`/log`, Web.HandlerWebLog)
 
 	// Handler for the web logging's CSS and JS:
-	Handlers.AddAdminHandler(`/log/css/normalize.css`, Web.HandlerCSSNormalize)
-	Handlers.AddAdminHandler(`/log/css/webflow.css`, Web.HandlerCSSWebflow)
-	Handlers.AddAdminHandler(`/log/css/log.css`, Web.HandlerCSSLog)
-	Handlers.AddAdminHandler(`/log/js/modernizr.js`, Web.HandlerJSModernizr)
-	Handlers.AddAdminHandler(`/log/js/jquery.min.js`, Web.HandlerJSjQuery)
-	Handlers.AddAdminHandler(`/log/js/jquery.min.map`, Web.HandlerJSjQueryMap)
-	Handlers.AddAdminHandler(`/log/js/webflow.js`, Web.HandlerJSWebflow)
+	Handlers.AddAdminHandler(`/admin/css/normalize.css`, Admin.HandlerCSSNormalize)
+	Handlers.AddAdminHandler(`/admin/css/webflow.css`, Admin.HandlerCSSWebflow)
+	Handlers.AddAdminHandler(`/admin/css/admin.css`, Admin.HandlerCSSAdmin)
+	Handlers.AddAdminHandler(`/admin/js/modernizr.js`, Admin.HandlerJSModernizr)
+	Handlers.AddAdminHandler(`/admin/js/jquery.min.js`, Admin.HandlerJSjQuery)
+	Handlers.AddAdminHandler(`/admin/js/jquery.min.map`, Admin.HandlerJSjQueryMap)
+	Handlers.AddAdminHandler(`/admin/js/webflow.js`, Admin.HandlerJSWebflow)
 
 	// Are the static files mapped to the public?
 	if ConfigurationDB.Read(`MapStaticFiles2Root`) == "true" {

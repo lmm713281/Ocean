@@ -2,8 +2,8 @@ package Web
 
 import (
 	"fmt"
+	"github.com/SommerEngineering/Ocean/Admin/Scheme"
 	"github.com/SommerEngineering/Ocean/Log/DeviceDatabase"
-	"github.com/SommerEngineering/Ocean/Log/Web/Scheme"
 	"strings"
 )
 

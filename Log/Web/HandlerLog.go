@@ -1,10 +1,11 @@
 package Web
 
 import (
+	"github.com/SommerEngineering/Ocean/Admin"
+	"github.com/SommerEngineering/Ocean/Admin/Scheme"
 	"github.com/SommerEngineering/Ocean/Log"
 	"github.com/SommerEngineering/Ocean/Log/DeviceDatabase"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
-	"github.com/SommerEngineering/Ocean/Log/Web/Scheme"
 	"github.com/SommerEngineering/Ocean/MimeTypes"
 	"github.com/SommerEngineering/Ocean/Shutdown"
 	"net/http"
@@ -26,7 +27,7 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 
 	// Setup the data for the HTML template:
 	data := Scheme.Viewer{}
-	data.Title = `Web Log Viewer`
+	data.Title = `Logging Viewer`
 	data.Sender = DeviceDatabase.ReadSenderNames()
 	data.MessageNames = DeviceDatabase.ReadMessageNames()
 
@@ -99,7 +100,7 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 
 	// Write the MIME type and execute the template:
 	MimeTypes.Write2HTTP(response, MimeTypes.TypeWebHTML)
-	if executeError := templates.ExecuteTemplate(response, `WebLog`, data); executeError != nil {
+	if executeError := Admin.AdminTemplates.ExecuteTemplate(response, `WebLog`, data); executeError != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameEXECUTE, `Was not able to execute the web log viewer template.`, executeError.Error())
 	}
 }
