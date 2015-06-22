@@ -26,7 +26,7 @@ func init() {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameDATABASE, `Was not able to open the templates out of the GridFS!`, errGridFile.Error())
 		return
 	} else {
-		// Read all data in the memory cache:
+		// Read all data in the cache:
 		defer gridFile.Close()
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, `Read the templates.zip file from the grid file system.`, `Upload time UTC: `+Tools.FormatTime(gridFile.UploadDate().UTC()))
 		if data, ioError := ioutil.ReadAll(gridFile); ioError != nil {
