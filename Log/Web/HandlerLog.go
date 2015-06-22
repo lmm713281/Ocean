@@ -26,20 +26,20 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 	countParameters := len(request.Form)
 
 	// Setup the data for the HTML template:
-	data := Scheme.Viewer{}
+	data := Scheme.LoggingViewer{}
 	data.Title = `Logging Viewer`
 	data.Sender = DeviceDatabase.ReadSenderNames()
 	data.MessageNames = DeviceDatabase.ReadMessageNames()
 
 	// To less parameters?
 	if countParameters < 9 {
-		// Initial view => refresh & first page (latest logs)
+		// Initial view => first page (latest logs)
 		data.Events = readLatest()
 		data.SetLiveView = true
 	} else {
 		// Case: Custom view
 		currentLevel := request.FormValue(`Level`)
-		currentTimeRange := request.FormValue(`timeRange`)
+		currentTimeRange := request.FormValue(`TimeRange`)
 		currentCategory := request.FormValue(`Category`)
 		currentImpact := request.FormValue(`Impact`)
 		currentSeverity := request.FormValue(`Severity`)
@@ -95,6 +95,12 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 			data.CurrentSender = currentSender
 		} else {
 			data.CurrentSender = `*`
+		}
+
+		if currentPage != `` {
+			data.CurrentPage = currentPage
+		} else {
+			data.CurrentPage = `*`
 		}
 	}
 

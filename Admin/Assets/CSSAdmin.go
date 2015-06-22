@@ -259,6 +259,14 @@ p {
 .adminitemlog {
   padding-top: 14px;
 }
+.columns {
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: left;
+}
+.filterformcontainer {
+  text-align: center;
+}
 @media (max-width: 991px) {
   .icons.oneback {
     margin-left: 113px;
