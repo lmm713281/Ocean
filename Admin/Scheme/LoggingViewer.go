@@ -16,6 +16,9 @@ type LoggingViewer struct {
 	CurrentMessageName string
 	CurrentSender      string
 	CurrentPage        string
+	NextPage           string
+	PreviousPage       string
+	LastPage           string
 	MessageNames       []MessageNames
 	Sender             []Sender
 	Events             []LogEvent

@@ -1,6 +1,7 @@
 package Web
 
 import (
+	"fmt"
 	"github.com/SommerEngineering/Ocean/Admin"
 	"github.com/SommerEngineering/Ocean/Admin/Scheme"
 	"github.com/SommerEngineering/Ocean/Log"
@@ -9,6 +10,7 @@ import (
 	"github.com/SommerEngineering/Ocean/MimeTypes"
 	"github.com/SommerEngineering/Ocean/Shutdown"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -25,6 +27,12 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 	request.ParseForm()
 	countParameters := len(request.Form)
 
+	// The current page as number:
+	currentPageNumber := 1
+
+	// The max. page as number:
+	lastPageNumber := 1
+
 	// Setup the data for the HTML template:
 	data := Scheme.LoggingViewer{}
 	data.Title = `Logging Viewer`
@@ -36,6 +44,15 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 		// Initial view => first page (latest logs)
 		data.Events = readLatest()
 		data.SetLiveView = true
+		data.CurrentPage = `1`
+		data.LastPage = fmt.Sprintf("%d", lastPageNumber)
+		if currentPageNumber+1 > lastPageNumber {
+			data.NextPage = fmt.Sprintf("%d", lastPageNumber)
+		} else {
+			data.NextPage = `2`
+		}
+
+		data.PreviousPage = `1`
 	} else {
 		// Case: Custom view
 		currentLevel := request.FormValue(`Level`)
@@ -98,9 +115,34 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 		}
 
 		if currentPage != `` {
+			if number, err := strconv.Atoi(currentPage); err != nil {
+				Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityNone, LM.ImpactNone, LM.MessageNameEXECUTE, `Was not able to parse the page number.`, err.Error())
+			} else {
+				currentPageNumber = number
+				data.CurrentPage = fmt.Sprintf("%d", currentPageNumber)
+				data.LastPage = fmt.Sprintf("%d", lastPageNumber)
+				if currentPageNumber+1 > lastPageNumber {
+					data.NextPage = fmt.Sprintf("%d", lastPageNumber)
+				} else {
+					data.NextPage = fmt.Sprintf("%d", currentPageNumber+1)
+				}
+
+				if currentPageNumber > 1 {
+					data.PreviousPage = fmt.Sprintf("%d", currentPageNumber-1)
+				} else {
+					data.PreviousPage = `1`
+				}
+			}
 			data.CurrentPage = currentPage
 		} else {
-			data.CurrentPage = `*`
+			data.CurrentPage = `1`
+			data.LastPage = fmt.Sprintf("%d", lastPageNumber)
+			if currentPageNumber+1 > lastPageNumber {
+				data.NextPage = fmt.Sprintf("%d", lastPageNumber)
+			} else {
+				data.NextPage = `2`
+			}
+			data.PreviousPage = `1`
 		}
 	}
 

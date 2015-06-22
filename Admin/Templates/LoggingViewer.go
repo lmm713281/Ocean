@@ -46,7 +46,9 @@ var LoggingViewer string = `
         <h2 class="headercontrol">Filtering</h2>
         <div class="filters">
           <div class="w-form">
-            <form class="filterformcontainer" id="wf-form-Filters" name="wf-form-Filters" data-name="Filters">
+            <form class="filterformcontainer" id="wf-form-Filters" name="wf-form-Filters" data-name="Filters" method="post" action="/log">
+              <input type="hidden" name="LiveView" value="{{.SetLiveView}}">  
+              <input type="hidden" name="CurrentPage" value="{{.CurrentPage}}">  
               <div class="w-row">
                 <div class="w-col w-col-6">
                   <div class="columns">
@@ -144,13 +146,23 @@ var LoggingViewer string = `
       {{end}}
     </ul>
   </div>
-  <div class="w-container pagecontainer"><a class="button changepagebutton" href="#">First</a><a class="button changepagebutton" href="#">-1</a>
+  <div class="w-container pagecontainer">
+    <a class="button changepagebutton" href="/log?Level={{.CurrentLevel}}&TimeRange={{.CurrentTimeRange}}&Category={{.CurrentCategory}}&Impact={{.CurrentImpact}}&Severity={{.CurrentSeverity}}&MSGName={{.CurrentMessageName}}&Sender={{.CurrentSender}}&CurrentPage=1&LiveView={{.SetLiveView}}">First</a>
+    <a class="button changepagebutton" href="/log?Level={{.CurrentLevel}}&TimeRange={{.CurrentTimeRange}}&Category={{.CurrentCategory}}&Impact={{.CurrentImpact}}&Severity={{.CurrentSeverity}}&MSGName={{.CurrentMessageName}}&Sender={{.CurrentSender}}&CurrentPage={{.PreviousPage}}&LiveView={{.SetLiveView}}">-1</a>
     <div class="w-hidden-main w-hidden-medium newlineblock"></div>
     <div class="w-form formpageswrapper">
-      <form class="formpages" id="wf-form-Pages" name="wf-form-Pages" data-name="Pages" method="post">
+      <form class="formpages" id="wf-form-Pages" name="wf-form-Pages" data-name="Pages" method="post" action="/log">
+        <input type="hidden" name="Level" value="{{.CurrentLevel}}">  
+        <input type="hidden" name="TimeRange" value="{{.CurrentTimeRange}}">  
+        <input type="hidden" name="Category" value="{{.CurrentCategory}}">  
+        <input type="hidden" name="Impact" value="{{.CurrentImpact}}">  
+        <input type="hidden" name="Severity" value="{{.CurrentSeverity}}">  
+        <input type="hidden" name="MSGName" value="{{.CurrentMessageName}}">  
+        <input type="hidden" name="Sender" value="{{.CurrentSender}}">
+        <input type="hidden" name="LiveView" value="{{.SetLiveView}}">
         <label class="formfield" for="CurrentPage">Page</label>
-        <input class="w-input currentpage" id="CurrentPage" type="text" placeholder="1" name="CurrentPage" required="required" data-name="CurrentPage">
-        <div class="textcountpages">of 1000 pages</div>
+        <input class="w-input currentpage" id="CurrentPage" type="text" placeholder="{{.CurrentPage}}" name="CurrentPage" required="required" data-name="CurrentPage">
+        <div class="textcountpages">of {{.LastPage}} pages</div>
         <div class="w-hidden-main w-hidden-medium w-hidden-small newlineblock"></div>
         <input class="w-button button changepagebutton pagechangesubmit" type="submit" value="Change page" data-wait="Please wait...">
       </form>
@@ -161,7 +173,9 @@ var LoggingViewer string = `
         <p>Oops! Something went wrong while submitting the form :(</p>
       </div>
     </div>
-    <div class="w-hidden-main w-hidden-medium newlineblock"></div><a class="button changepagebutton" href="#">+1</a><a class="button changepagebutton" href="#">Last</a>
+    <div class="w-hidden-main w-hidden-medium newlineblock"></div>
+    <a class="button changepagebutton" href="/log?Level={{.CurrentLevel}}&TimeRange={{.CurrentTimeRange}}&Category={{.CurrentCategory}}&Impact={{.CurrentImpact}}&Severity={{.CurrentSeverity}}&MSGName={{.CurrentMessageName}}&Sender={{.CurrentSender}}&CurrentPage={{.NextPage}}&LiveView={{.SetLiveView}}">+1</a>
+    <a class="button changepagebutton" href="/log?Level={{.CurrentLevel}}&TimeRange={{.CurrentTimeRange}}&Category={{.CurrentCategory}}&Impact={{.CurrentImpact}}&Severity={{.CurrentSeverity}}&MSGName={{.CurrentMessageName}}&Sender={{.CurrentSender}}&CurrentPage={{.LastPage}}&LiveView={{.SetLiveView}}">Last</a>
   </div>
   <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
   <script type="text/javascript" src="/admin/js/webflow.js"></script>
