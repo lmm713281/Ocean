@@ -105,123 +105,41 @@ func initDatabase() {
 	//
 	// Ensure that all necessary indexes are existing:
 	//
-	indexProject := mgo.Index{}
-	indexProject.Key = []string{`Project`}
-	logDBCollection.EnsureIndex(indexProject)
+	logDBCollection.EnsureIndexKey(`Sender`)
+	logDBCollection.EnsureIndexKey(`Category`)
+	logDBCollection.EnsureIndexKey(`Level`)
+	logDBCollection.EnsureIndexKey(`Severity`)
+	logDBCollection.EnsureIndexKey(`Impact`)
+	logDBCollection.EnsureIndexKey(`MessageName`)
+	logDBCollection.EnsureIndexKey(`MessageDescription`)
+	logDBCollection.EnsureIndexKey(`Project`, `Sender`)
+	logDBCollection.EnsureIndexKey(`Project`, `Category`)
+	logDBCollection.EnsureIndexKey(`Project`, `Level`)
+	logDBCollection.EnsureIndexKey(`Project`, `Severity`)
+	logDBCollection.EnsureIndexKey(`Project`, `Impact`)
+	logDBCollection.EnsureIndexKey(`Project`, `MessageName`)
+	logDBCollection.EnsureIndexKey(`Project`, `MessageDescription`)
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`, `Sender`)
 
-	indexSender := mgo.Index{}
-	indexSender.Key = []string{`Sender`}
-	logDBCollection.EnsureIndex(indexSender)
+	// Related to the logging viewer:
+	logDBCollection.EnsureIndexKey(`Project`)                                                                                 // Logging viewer, case: No filter
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`)                                                                     // Logging viewer, case: Filter for time
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`, `Sender`, `MessageName`, `Level`, `Category`, `Impact`, `Severity`) // Logging viewer, case: All filters are active
+	logDBCollection.EnsureIndexKey(`Project`, `Sender`, `MessageName`, `Level`, `Category`, `Impact`, `Severity`)             // Logging viewer, case: All filters are active, but no time filter
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`, `Level`, `Category`)                                                // Logging viewer, case: Filter for e.g. app errors from yesterday
+	logDBCollection.EnsureIndexKey(`Project`, `Level`, `Category`)                                                            // Logging viewer, case: Filter for e.g. all app errors
 
-	indexCategory := mgo.Index{}
-	indexCategory.Key = []string{`Category`}
-	logDBCollection.EnsureIndex(indexCategory)
-
-	indexLevel := mgo.Index{}
-	indexLevel.Key = []string{`Level`}
-	logDBCollection.EnsureIndex(indexLevel)
-
-	indexSeverity := mgo.Index{}
-	indexSeverity.Key = []string{`Severity`}
-	logDBCollection.EnsureIndex(indexSeverity)
-
-	indexImpact := mgo.Index{}
-	indexImpact.Key = []string{`Impact`}
-	logDBCollection.EnsureIndex(indexImpact)
-
-	indexMessageName := mgo.Index{}
-	indexMessageName.Key = []string{`MessageName`}
-	logDBCollection.EnsureIndex(indexMessageName)
-
-	indexMessageDescription := mgo.Index{}
-	indexMessageDescription.Key = []string{`MessageDescription`}
-	logDBCollection.EnsureIndex(indexMessageDescription)
-
-	indexProjectTimeUTC := mgo.Index{}
-	indexProjectTimeUTC.Key = []string{`Project`, `TimeUTC`}
-	logDBCollection.EnsureIndex(indexProjectTimeUTC)
-
-	indexProjectSender := mgo.Index{}
-	indexProjectSender.Key = []string{`Project`, `Sender`}
-	logDBCollection.EnsureIndex(indexProjectSender)
-
-	indexProjectCategory := mgo.Index{}
-	indexProjectCategory.Key = []string{`Project`, `Category`}
-	logDBCollection.EnsureIndex(indexProjectCategory)
-
-	indexProjectLevel := mgo.Index{}
-	indexProjectLevel.Key = []string{`Project`, `Level`}
-	logDBCollection.EnsureIndex(indexProjectLevel)
-
-	indexProjectSeverity := mgo.Index{}
-	indexProjectSeverity.Key = []string{`Project`, `Severity`}
-	logDBCollection.EnsureIndex(indexProjectSeverity)
-
-	indexProjectImpact := mgo.Index{}
-	indexProjectImpact.Key = []string{`Project`, `Impact`}
-	logDBCollection.EnsureIndex(indexProjectImpact)
-
-	indexProjectMessageName := mgo.Index{}
-	indexProjectMessageName.Key = []string{`Project`, `MessageName`}
-	logDBCollection.EnsureIndex(indexProjectMessageName)
-
-	indexProjectMessageDescription := mgo.Index{}
-	indexProjectMessageDescription.Key = []string{`Project`, `MessageDescription`}
-	logDBCollection.EnsureIndex(indexProjectMessageDescription)
-
-	indexProjectTimeUTCSender := mgo.Index{}
-	indexProjectTimeUTCSender.Key = []string{`Project`, `TimeUTC`, `Sender`}
-	logDBCollection.EnsureIndex(indexProjectTimeUTCSender)
-
-	indexProjectTimeUTCCategory := mgo.Index{}
-	indexProjectTimeUTCCategory.Key = []string{`Project`, `TimeUTC`, `Category`}
-	logDBCollection.EnsureIndex(indexProjectTimeUTCCategory)
-
-	indexProjectTimeUTCLevel := mgo.Index{}
-	indexProjectTimeUTCLevel.Key = []string{`Project`, `TimeUTC`, `Level`}
-	logDBCollection.EnsureIndex(indexProjectTimeUTCLevel)
-
-	indexProjectTimeUTCSeverity := mgo.Index{}
-	indexProjectTimeUTCSeverity.Key = []string{`Project`, `TimeUTC`, `Severity`}
-	logDBCollection.EnsureIndex(indexProjectTimeUTCSeverity)
-
-	indexProjectTimeUTCImpact := mgo.Index{}
-	indexProjectTimeUTCImpact.Key = []string{`Project`, `TimeUTC`, `Impact`}
-	logDBCollection.EnsureIndex(indexProjectTimeUTCImpact)
-
-	indexProjectTimeUTCMessageName := mgo.Index{}
-	indexProjectTimeUTCMessageName.Key = []string{`Project`, `TimeUTC`, `MessageName`}
-	logDBCollection.EnsureIndex(indexProjectTimeUTCMessageName)
-
-	indexProjectTimeUTCMessageDescription := mgo.Index{}
-	indexProjectTimeUTCMessageDescription.Key = []string{`Project`, `TimeUTC`, `MessageDescription`}
-	logDBCollection.EnsureIndex(indexProjectTimeUTCMessageDescription)
-
-	indexTimeUTCSender := mgo.Index{}
-	indexTimeUTCSender.Key = []string{`TimeUTC`, `Sender`}
-	logDBCollection.EnsureIndex(indexTimeUTCSender)
-
-	indexTimeUTCCategory := mgo.Index{}
-	indexTimeUTCCategory.Key = []string{`TimeUTC`, `Category`}
-	logDBCollection.EnsureIndex(indexTimeUTCCategory)
-
-	indexTimeUTCLevel := mgo.Index{}
-	indexTimeUTCLevel.Key = []string{`TimeUTC`, `Level`}
-	logDBCollection.EnsureIndex(indexTimeUTCLevel)
-
-	indexTimeUTCSeverity := mgo.Index{}
-	indexTimeUTCSeverity.Key = []string{`TimeUTC`, `Severity`}
-	logDBCollection.EnsureIndex(indexTimeUTCSeverity)
-
-	indexTimeUTCImpact := mgo.Index{}
-	indexTimeUTCImpact.Key = []string{`TimeUTC`, `Impact`}
-	logDBCollection.EnsureIndex(indexTimeUTCImpact)
-
-	indexTimeUTCMessageName := mgo.Index{}
-	indexTimeUTCMessageName.Key = []string{`TimeUTC`, `MessageName`}
-	logDBCollection.EnsureIndex(indexTimeUTCMessageName)
-
-	indexTimeUTCMessageDescription := mgo.Index{}
-	indexProjectTimeUTCMessageDescription.Key = []string{`TimeUTC`, `MessageDescription`}
-	logDBCollection.EnsureIndex(indexTimeUTCMessageDescription)
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`, `Category`)
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`, `Level`)
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`, `Severity`)
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`, `Impact`)
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`, `MessageName`)
+	logDBCollection.EnsureIndexKey(`Project`, `-TimeUTC`, `MessageDescription`)
+	logDBCollection.EnsureIndexKey(`-TimeUTC`, `Sender`)
+	logDBCollection.EnsureIndexKey(`-TimeUTC`, `Category`)
+	logDBCollection.EnsureIndexKey(`-TimeUTC`, `Level`)
+	logDBCollection.EnsureIndexKey(`-TimeUTC`, `Severity`)
+	logDBCollection.EnsureIndexKey(`-TimeUTC`, `Impact`)
+	logDBCollection.EnsureIndexKey(`-TimeUTC`, `MessageName`)
+	logDBCollection.EnsureIndexKey(`-TimeUTC`, `MessageDescription`)
 }

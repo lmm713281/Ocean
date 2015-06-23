@@ -48,7 +48,7 @@ var LoggingViewer string = `
           <div class="w-form">
             <form class="filterformcontainer" id="wf-form-Filters" name="wf-form-Filters" data-name="Filters" method="post" action="/log">
               <input type="hidden" name="LiveView" value="{{.SetLiveView}}">  
-              <input type="hidden" name="CurrentPage" value="{{.CurrentPage}}">  
+              <input type="hidden" name="CurrentPage" value="1">
               <div class="w-row">
                 <div class="w-col w-col-6">
                   <div class="columns">

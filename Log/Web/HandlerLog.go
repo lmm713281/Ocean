@@ -65,12 +65,25 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 		currentPage := request.FormValue(`CurrentPage`)
 		currentLiveView := request.FormValue(`LiveView`)
 
+		// Get the current page as number:
+		if currentPage != `` {
+			if number, err := strconv.Atoi(currentPage); err != nil {
+				Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityNone, LM.ImpactNone, LM.MessageNameEXECUTE, `Was not able to parse the page number.`, err.Error())
+			} else {
+				currentPageNumber = number
+			}
+		}
+
 		// Store the events for the template:
-		data.Events, lastPageNumber = readCustom(currentTimeRange, currentLevel, currentCategory, currentImpact, currentSeverity, currentMessageName, currentSender, currentPage)
+		data.Events, lastPageNumber = readCustom(currentTimeRange, currentLevel, currentCategory, currentImpact, currentSeverity, currentMessageName, currentSender, currentPageNumber)
 
 		if strings.ToLower(currentLiveView) == `true` {
 			data.SetLiveView = true
 		}
+
+		//
+		// Correct the form's values to '*' for the any-case:
+		//
 
 		if currentLevel != `` {
 			data.CurrentLevel = currentLevel
@@ -114,24 +127,20 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 			data.CurrentSender = `*`
 		}
 
+		// Calculate the current, last, previous and next page:
 		if currentPage != `` {
-			if number, err := strconv.Atoi(currentPage); err != nil {
-				Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityNone, LM.ImpactNone, LM.MessageNameEXECUTE, `Was not able to parse the page number.`, err.Error())
+			data.CurrentPage = fmt.Sprintf("%d", currentPageNumber)
+			data.LastPage = fmt.Sprintf("%d", lastPageNumber)
+			if currentPageNumber+1 > lastPageNumber {
+				data.NextPage = fmt.Sprintf("%d", lastPageNumber)
 			} else {
-				currentPageNumber = number
-				data.CurrentPage = fmt.Sprintf("%d", currentPageNumber)
-				data.LastPage = fmt.Sprintf("%d", lastPageNumber)
-				if currentPageNumber+1 > lastPageNumber {
-					data.NextPage = fmt.Sprintf("%d", lastPageNumber)
-				} else {
-					data.NextPage = fmt.Sprintf("%d", currentPageNumber+1)
-				}
+				data.NextPage = fmt.Sprintf("%d", currentPageNumber+1)
+			}
 
-				if currentPageNumber > 1 {
-					data.PreviousPage = fmt.Sprintf("%d", currentPageNumber-1)
-				} else {
-					data.PreviousPage = `1`
-				}
+			if currentPageNumber > 1 {
+				data.PreviousPage = fmt.Sprintf("%d", currentPageNumber-1)
+			} else {
+				data.PreviousPage = `1`
 			}
 			data.CurrentPage = currentPage
 		} else {

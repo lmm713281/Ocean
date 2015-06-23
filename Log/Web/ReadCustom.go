@@ -8,7 +8,7 @@ import (
 )
 
 // Read a custom event range from the database.
-func readCustom(timeRange, logLevel, logCategory, logImpact, logSeverity, logMessageName, logSender, logPage string) (events []Scheme.LogEvent, numPages int) {
+func readCustom(timeRange, logLevel, logCategory, logImpact, logSeverity, logMessageName, logSender string, logPage int) (events []Scheme.LogEvent, numPages int) {
 
 	// Get the custom events:
 	eventsFromDB, totalNumberPages := DeviceDatabase.ReadCustom(timeRange, logLevel, logCategory, logImpact, logSeverity, logMessageName, logSender, logPage)
@@ -22,7 +22,13 @@ func readCustom(timeRange, logLevel, logCategory, logImpact, logSeverity, logMes
 		eventFromDB := eventsFromDB[n]
 		events[n] = Scheme.LogEvent{}
 		events[n].LogLine = eventFromDB.Format()
-		events[n].LogLevel = fmt.Sprintf("log%s", strings.ToLower(eventFromDB.Level[2:]))
+
+		// Transfer the log level:
+		if len(eventFromDB.Level) > 2 {
+			events[n].LogLevel = fmt.Sprintf("log%s", strings.ToLower(eventFromDB.Level[2:]))
+		} else {
+			events[n].LogLevel = fmt.Sprintf("log%s", strings.ToLower(eventFromDB.Level))
+		}
 
 		// Vary the color of each line:
 		if n%2 == 0 {

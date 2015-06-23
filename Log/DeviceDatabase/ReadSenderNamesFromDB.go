@@ -11,7 +11,7 @@ import (
 // Reads the sender names from the database without any caching.
 func readSenderNamesFromDB() (result []Scheme.Sender) {
 	var nextSenderNames []string
-	if err := logDBCollection.Find(bson.D{}).Distinct(`Sender`, &nextSenderNames); err != nil {
+	if err := logDBCollection.Find(bson.D{{"Project", projectName}}).Distinct(`Sender`, &nextSenderNames); err != nil {
 		// Case: Was not possible to write to the database.
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.MessageNameDATABASE, `Was not able to read the sender names from the database.`, err.Error())
 		return

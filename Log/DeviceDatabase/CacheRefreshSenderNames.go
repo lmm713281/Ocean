@@ -18,6 +18,17 @@ func cacheRefreshSenderNames() {
 
 			// Read the sender names from the DB:
 			data := readSenderNamesFromDB()
+
+			// Case: The project name was not set now. This happens by the logging system
+			// after adding this logging device.
+			if len(data) == 0 {
+				// Wait for a moment:
+				time.Sleep(time.Second * 3)
+
+				// Try it again:
+				continue
+			}
+
 			mutexCacheSenderNames.Lock()
 
 			// Overwrite the cache:

@@ -10,7 +10,7 @@ import (
 // Read the latest logging events from the database.
 func ReadLatest() (events []LogDBEntry, numPages int) {
 	// Define the query:
-	query := logDBCollection.Find(bson.D{}).Sort(`-TimeUTC`) // TODO: projectName!!!
+	query := logDBCollection.Find(bson.D{{"Project", projectName}}).Sort(`-TimeUTC`)
 
 	// How many record we have all over?
 	numRecords := loggingViewerPageSize
@@ -41,6 +41,10 @@ func ReadLatest() (events []LogDBEntry, numPages int) {
 
 	// Loop over all entries and store it:
 	for iter.Next(&entry) {
+		// Convert the time instance to UTC:
+		entry.TimeUTC = entry.TimeUTC.UTC()
+
+		// Store it:
 		events[pos] = entry
 		pos++
 	}
