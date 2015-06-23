@@ -1,5 +1,46 @@
-Copyright (c) 2014, Thorsten Sommer
+===============================================================================
+Copyright
+===============================================================================
+
+Copyright (c) 2015, Thorsten Sommer, http://www.sommer-engineering.com
 All rights reserved.
+
+
+===============================================================================
+Licenses for third-party components
+===============================================================================
+
+Ocean's source code is available under a BSD 2-clause license (see below). The
+used third-party components have different licenses:
+
+Component: UUID
+Link: https://github.com/twinj/uuid
+License: https://github.com/twinj/uuid/blob/master/LICENSE
+
+Component: Source Code Pro
+Link: https://github.com/adobe-fonts/source-code-pro
+License: https://github.com/adobe-fonts/source-code-pro/blob/master/LICENSE.txt
+
+Component: jQuery
+Link: https://github.com/jquery/jquery
+License: https://github.com/jquery/jquery/blob/master/LICENSE.txt
+
+Component: Modernizr
+Link: https://github.com/Modernizr/Modernizr
+License: https://github.com/Modernizr/Modernizr/blob/master/LICENSE
+
+Component: Webflow's front-end library
+Link: https://webflow.com/
+License: https://github.com/SommerEngineering/Ocean/blob/master/Admin/Assets/JSWebflow.go
+
+Component: mgo
+Link: https://github.com/go-mgo/mgo/
+License: https://github.com/go-mgo/mgo/blob/v2-unstable/LICENSE
+
+
+===============================================================================
+Ocean's BSD 2-clause license
+===============================================================================
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met: 

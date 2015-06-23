@@ -64,5 +64,13 @@ In case you setting up an additional Ocean server, you are done. After a few min
    * `LogUseDatabaseLogging`: Is the database logging enabled? Yes, you should enable it.
 * As third step, start Ocean again. The system should now run fine. Please have a look at the ICCC startup messages.
 
-## Thanks
-"github.com/twinj/uuid"
+## License
+Ocean's source code is available under a BSD 2-clause license. The used third-party components have different licenses:
+Component | License
+------------ | -------------
+[UUID](https://github.com/twinj/uuid) | [Read](https://github.com/twinj/uuid/blob/master/LICENSE)
+[Source Code Pro](https://github.com/adobe-fonts/source-code-pro) | [Read](https://github.com/adobe-fonts/source-code-pro/blob/master/LICENSE.txt)
+[jQuery](https://github.com/jquery/jquery) | [Read](https://github.com/jquery/jquery/blob/master/LICENSE.txt)
+[Modernizr](https://github.com/Modernizr/Modernizr) | [Read](https://github.com/Modernizr/Modernizr/blob/master/LICENSE)
+[Webflow's front-end library](https://webflow.com/) | [Read](https://github.com/SommerEngineering/Ocean/blob/master/Admin/Assets/JSWebflow.go)
+[mgo](https://github.com/go-mgo/mgo/) | [Read](https://github.com/go-mgo/mgo/blob/v2-unstable/LICENSE)
