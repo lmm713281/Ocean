@@ -66,8 +66,9 @@ In case you setting up an additional Ocean server, you are done. After a few min
 
 ## License
 Ocean's source code is available under a BSD 2-clause license. The used third-party components have different licenses:
+
 Component | License
------------- | -------------
+--------- | -------
 [UUID](https://github.com/twinj/uuid) | [Read](https://github.com/twinj/uuid/blob/master/LICENSE)
 [Source Code Pro](https://github.com/adobe-fonts/source-code-pro) | [Read](https://github.com/adobe-fonts/source-code-pro/blob/master/LICENSE.txt)
 [jQuery](https://github.com/jquery/jquery) | [Read](https://github.com/jquery/jquery/blob/master/LICENSE.txt)
