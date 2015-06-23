@@ -8,9 +8,9 @@ import (
 )
 
 // Read the latest log events from the database
-func readLatest() (events []Scheme.LogEvent) {
+func readLatest() (events []Scheme.LogEvent, numPages int) {
 	// Get the latest events from the database
-	eventsFromDB := DeviceDatabase.ReadLatest()
+	eventsFromDB, totalNumberPages := DeviceDatabase.ReadLatest()
 	count := len(eventsFromDB)
 
 	// Array for the log events, prepared for the website:
@@ -31,5 +31,6 @@ func readLatest() (events []Scheme.LogEvent) {
 		}
 	}
 
+	numPages = totalNumberPages
 	return
 }

@@ -8,10 +8,10 @@ import (
 )
 
 // Read a custom event range from the database.
-func readCustom(timeRange, logLevel, logCategory, logImpact, logSeverity, logMessageName, logSender, logPage string) (events []Scheme.LogEvent) {
+func readCustom(timeRange, logLevel, logCategory, logImpact, logSeverity, logMessageName, logSender, logPage string) (events []Scheme.LogEvent, numPages int) {
 
 	// Get the custom events:
-	eventsFromDB := DeviceDatabase.ReadCustom(timeRange, logLevel, logCategory, logImpact, logSeverity, logMessageName, logSender, logPage)
+	eventsFromDB, totalNumberPages := DeviceDatabase.ReadCustom(timeRange, logLevel, logCategory, logImpact, logSeverity, logMessageName, logSender, logPage)
 	count := len(eventsFromDB)
 
 	// Array with all events, prepared for the website:
@@ -32,5 +32,6 @@ func readCustom(timeRange, logLevel, logCategory, logImpact, logSeverity, logMes
 		}
 	}
 
+	numPages = totalNumberPages
 	return
 }

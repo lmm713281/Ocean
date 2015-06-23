@@ -42,7 +42,7 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 	// To less parameters?
 	if countParameters < 9 {
 		// Initial view => first page (latest logs)
-		data.Events = readLatest()
+		data.Events, lastPageNumber = readLatest()
 		data.SetLiveView = true
 		data.CurrentPage = `1`
 		data.LastPage = fmt.Sprintf("%d", lastPageNumber)
@@ -66,7 +66,7 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 		currentLiveView := request.FormValue(`LiveView`)
 
 		// Store the events for the template:
-		data.Events = readCustom(currentTimeRange, currentLevel, currentCategory, currentImpact, currentSeverity, currentMessageName, currentSender, currentPage)
+		data.Events, lastPageNumber = readCustom(currentTimeRange, currentLevel, currentCategory, currentImpact, currentSeverity, currentMessageName, currentSender, currentPage)
 
 		if strings.ToLower(currentLiveView) == `true` {
 			data.SetLiveView = true

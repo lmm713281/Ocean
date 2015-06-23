@@ -16,6 +16,9 @@ func AddLoggingDevice(device Device.Device) {
 	go func() {
 		mutexDevices.Lock()
 		devices.PushBack(newDevice)
+
+		// Let each device know what the project name is:
+		newDevice.SetProjectName(projectName)
 		mutexDevices.Unlock()
 	}()
 }

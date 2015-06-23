@@ -8,4 +8,5 @@ import (
 type Device interface {
 	Log(logEntries []Meta.Entry)
 	Flush()
+	SetProjectName(projectName string)
 }
