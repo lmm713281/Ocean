@@ -14,7 +14,7 @@ Ocean is a smart and powerful application framework and server which uses the KI
 * A simple database abstraction which MongoDB as database back-end
 
 ## Operation modes
-* You can use Ocean just as **distributed messaging broker or e.g. as distributed logging service** by downloading and starting the executables. In this case, you have to implement your business logic somewhere else and connect that logic by the ICCC component to Ocean. This case means, Ocean is a program for you.
+* You can use Ocean as **distributed messaging broker or e.g. as distributed logging service** by downloading and starting the executables. In this case, you have to implement your business logic somewhere else and connect that logic by the ICCC component to Ocean. This case means, Ocean is a program for you. This case is also for you e.g. if you want to get the strengths of different languages and avoid their weaknesses.
 
 * The other operation mode is the **integrated mode**. In this case, you write at least some parts of your business logic with the programming language "Go" (http://golang.org) and you import the Ocean framework. It is still possible to have other parts of your business logic somewhere else with different programming languages, connected by Oceans ICCC component. This integraded mode means, Ocean is a framework for you.
 
@@ -29,6 +29,7 @@ Ocean uses a very small memory footprint which is usually between 5 and 20 MB, t
 One assumption to the environment is the usage of static IP addresses. If you start Ocean with a different IP address as last time, you will receive the "Was not able to register this host" error. If you want to use e.g. a DHCP environment with changing addresses, you have to delete the corresponding out-dated entries from the `ICCCHosts` and `ICCCListener` collections.
 
 ## Setup
+### Common steps
 To enable the Ocean's startup, two small configuration files at the working directory are required. The first file is **project.name**: This file contains one line with the project name. If the project name is longer than 10 characters, the name will be cutted after 10 characters.
 
 The second configuration file is **configuration.json**. It contains the configuration database's information, such as user's name, password, etc. Here is an example:
@@ -63,6 +64,12 @@ In case you setting up an additional Ocean server, you are done. After a few min
    * `LogUseConsoleLogging`: Do you wan to use the console logging? Use it for your first steps and disable it for the production usage. Use the distributed database logging instead!
    * `LogUseDatabaseLogging`: Is the database logging enabled? Yes, you should enable it.
 * As third step, start Ocean again. The system should now run fine. Please have a look at the ICCC startup messages.
+
+### Use Ocean as distributed messaging broker
+For this case, you can now start your other ICCC components. This are e.g. some Java, Python or C# programs which are using the Ocean ICCC drivers. These drivers currently under development and they will be available soon.
+
+### Use Ocean as framework e.g. for websites
+For this case, an example project with documentation is available here: https://github.com/SommerEngineering/Example003
 
 ## License
 Ocean's source code is available under a BSD 2-clause license. The used third-party components have different licenses:
