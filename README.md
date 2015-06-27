@@ -56,7 +56,7 @@ The second configuration file is **configuration.json**. It contains the configu
 	"ConfigDBConfigurationCollectionPassword" : "PWD"
 }
 ```
-The ConfigDBConfigurationCollection collection gets automatically created. After both files are present and the MongoDB database or database cluster is running, Ocean is able to start. The database can and should be empty. Ocean does the configuration automatically. Due to this minimal local configuration and the distributed configuration database, the deployment of additional Ocean servers can be achieved by using e.g. data center scripts, etc.
+The `ConfigDBConfigurationCollection` collection gets automatically created. After both files are present and the MongoDB database or database cluster is running, Ocean is able to start. The database can and should be empty. Ocean does the configuration automatically. Due to this minimal local configuration and the distributed configuration database, the deployment of additional Ocean servers can be achieved by using e.g. data center scripts, etc.
 
 In case you setting up an additional Ocean server, you are done. After a few minutes, the ICCC components are connected to each others. The further setup steps in case of a new environment:
 * Start Ocean the first time. Ocean will connect to the configuration database. After the setup of all necessary database indexes and after the creation of the configuration collection (i.e. table), Ocean stops working. This is fine: Ocean cannot connect to the customer and logging database.
