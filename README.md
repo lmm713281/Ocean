@@ -87,7 +87,7 @@ exit
    * `OceanUtilizeCPUs`: How many CPUs should Ocean utilise? At the moment, Ocean uses one value for all servers. Later on, this will be replaced by a per-machine configuration table/collection to enable the usage of heterogeneous servers.
    * `LogUseConsoleLogging`: Do you wan to use the console logging? Use it for your first steps and disable it for the production usage. Use the distributed database logging instead!
    * `LogUseDatabaseLogging`: Is the database logging enabled? Yes, you should enable it.
-* In case of using Ocean to provide some websites: Use the admin's web interface (http://127.0.0.1:60000/) to upload the necessary files, e.g. `templates.zip` (your HTML templates, see http://golang.org/pkg/html/template/), `staticFiles.zip` (e.g. to provide static images, CSS, JavaScript, XML, JSON data) and a `web.zip` (to separately manage web frameworks like e.g. jQuery, Bootstrap, etc.)
+* In case of using Ocean to provide some websites: Use the admin's web interface (http://127.0.0.1:60000/) to upload the necessary files, e.g. `templates.zip` (your HTML templates, see http://golang.org/pkg/html/template/), `staticFiles.zip` (e.g. to provide static images, CSS, JavaScript, XML, JSON data) and a `web.zip` (to separately manage web frameworks like e.g. jQuery, Bootstrap, etc.) See also https://github.com/SommerEngineering/Example003 for an example.
 * Finnaly, start Ocean again. The system should now run fine. Please have a look at the ICCC startup logging messages.
 
 ### Use Ocean as distributed messaging broker
