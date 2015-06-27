@@ -24,8 +24,10 @@ var Overview = `
     <div class="w-row">
       <div class="w-col w-col-4"><a class="button adminbutton" href="/log">Logging Viewer</a>
       </div>
-      <div class="w-col w-col-4"></div>
-      <div class="w-col w-col-4"></div>
+      <div class="w-col w-col-4"><a class="button adminbutton" href="/upload">Upload a file</a>
+      </div>
+      <div class="w-col w-col-4"><a class="button adminbutton" href="/configuration">Configuration</a>
+      </div>
     </div>
   </div>
   <script type="text/javascript" src="/admin/js/jquery.min.js"></script>

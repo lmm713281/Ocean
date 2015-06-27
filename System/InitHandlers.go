@@ -37,7 +37,7 @@ func InitHandlers() {
 	Handlers.AddPublicHandler(`/ICCC`, ICCC.ICCCHandler)
 
 	//
-	// Private Handlers:
+	// Private/Admin Handlers:
 	//
 
 	// Handler for the web frameworks like e.g. jQuery, Bootstrap, etc.
@@ -58,7 +58,13 @@ func InitHandlers() {
 	// Handler for the web logging:
 	Handlers.AddAdminHandler(`/log`, Web.HandlerWebLog)
 
-	// Handler for the web logging's CSS and JS:
+	// Handler for the file upload:
+	Handlers.AddAdminHandler(`/upload`, Admin.HandlerFileUpload)
+
+	// Handler for the configuration view:
+	Handlers.AddAdminHandler(`/configuration`, Admin.HandlerConfiguration)
+
+	// Handler for the admin area:
 	Handlers.AddAdminHandler(`/admin/css/normalize.css`, Admin.HandlerCSSNormalize)
 	Handlers.AddAdminHandler(`/admin/css/webflow.css`, Admin.HandlerCSSWebflow)
 	Handlers.AddAdminHandler(`/admin/css/admin.css`, Admin.HandlerCSSAdmin)

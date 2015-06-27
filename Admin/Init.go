@@ -22,4 +22,12 @@ func init() {
 	if _, err := AdminTemplates.Parse(Templates.Overview); err != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNamePARSE, `Was not able to parse the template for the admin overview.`, err.Error())
 	}
+
+	if _, err := AdminTemplates.Parse(Templates.FileUpload); err != nil {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNamePARSE, `Was not able to parse the template for the file upload.`, err.Error())
+	}
+
+	if _, err := AdminTemplates.Parse(Templates.Configuration); err != nil {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNamePARSE, `Was not able to parse the template for the configuration.`, err.Error())
+	}
 }
