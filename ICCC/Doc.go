@@ -7,9 +7,9 @@ To be able to marshal / parse the data back to objects, some additional informat
 
 Example 01:
 name=str:Surname
-value=Sommer
+value=U29tbWVy
 
-The HTTP form name is 'str:Surname' and the value is 'Sommer'. The 'str' is the indicator for the data type, in this case it is a string.
+The HTTP form name is 'str:Surname' and the value is 'Sommer' as base64 encoded string. The 'str' is the indicator for the data type, in this case it is a string.
 
 Known data types are:
 * str := string
@@ -23,18 +23,17 @@ Known data types are:
 * str[] := string array
 * f64[] := 64 bit float array
 
-Formatting of the corresponding values (each value is a string => HTTP). Plase note:
-For the arrays, the name will repeated for each value.
-* str := the plain UTF8 string
-* int := the integer e.g. '13894612'
-* f64 := the float with nine digits e.g. 9.48 gets '9.480000000'
-* bool := 'true' or 'false' (lower case)
-* ui8 := the byte as hexadecimal string e.g. 255 gets 'ff'
-* ui8[] := the bytes as hexdecimal strings e.g. 0 255 0 gets ui8[]:name:00 ui8[]:name:ff ui8[]:name:00
-* int[] := 64 bit integer array e.g. 1 2 gets int[]:name:1 int[]:name:2
-* bool[] := a boolean array e.g. true true gets bool[]:name:true bool[]:name:true
-* str[] := string array e.g. 'a' 'abc' gets str[]:name:a str[]:name:abc
-* f64[] := 64 bit float array e.g. 1.1 1.2 gets f64[]:name:1.100000000 f64[]:name:1.2000000000
+Formatting of the corresponding values (each value is at the end a base64 string).
+* str := the plain UTF8 string as URL encoded. These bytes are getting base64 encoded.
+* int := the little endian representation of the int. These bytes are getting base64 encoded.
+* f64 := the little endian representation of the float. These bytes are getting base64 encoded.
+* bool := the byte 0x1 or 0x0 for true and false. These byte will be base64 encoded.
+* ui8 := These byte will be base64 encoded.
+* ui8[] := These bytes are getting base64 encoded.
+* int[] := the little endian representation of the integers. These bytes are getting base64 encoded.
+* bool[] := the bools are getting converted to bytes (0x1 or 0x0 for true and false). These bytes are getting base64 encoded.
+* str[] := each string will be URL encoded. Afterwards, join all strings by \n. These bytes are getting base64 encoded.
+* f64[] := the little endian representation of the floats. These bytes are getting base64 encoded.
 
 The format of a message is:
 command=COMMAND
