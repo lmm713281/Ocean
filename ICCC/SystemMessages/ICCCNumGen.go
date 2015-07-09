@@ -5,6 +5,6 @@ type ICCCNumGenNext struct {
 }
 
 // The response to the NumGen request.
-type ICCCAnswerNumGen struct {
+type ICCCNumGenNextAnswer struct {
 	Number int64
 }

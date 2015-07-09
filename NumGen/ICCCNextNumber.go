@@ -32,7 +32,7 @@ func ICCCNextNumber(data map[string][]string) (result map[string][]string) {
 		nextNumber := GetUniqueID()
 
 		// An answer is necessary:
-		answer := SystemMessages.ICCCAnswerNumGen{}
+		answer := SystemMessages.ICCCNumGenNextAnswer{}
 		answer.Number = nextNumber
 		return ICCC.Message2Data(``, ``, answer)
 	} else {

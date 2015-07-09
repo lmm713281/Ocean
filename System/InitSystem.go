@@ -97,7 +97,8 @@ func initSystem() {
 	// The logging subsystem is not registered here, because it will be automated called at the end
 
 	// Register all system ICCC commands:
-	ICCC.Registrar(ICCC.ChannelSYSTEM, `System::Start`, icccSystemStart)
+	ICCC.Registrar(ICCC.ChannelSYSTEM, `System::OceanStart`, icccOceanStartUpMessage)
+	ICCC.Registrar(ICCC.ChannelSYSTEM, `System::ComponentStart`, icccComponentStartUpMessage)
 	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::RegisterHost`, ICCC.ICCCRegisterHost)
 	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::RegisterCommand`, ICCC.ICCCRegisterCommand)
 	ICCC.Registrar(ICCC.ChannelNUMGEN, `NumGen::Next`, NumGen.ICCCNextNumber)
