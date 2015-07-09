@@ -96,6 +96,9 @@ For this case, you can now start your other ICCC components. This are e.g. some 
 ### Use Ocean as framework e.g. for websites
 For this case, an example project with documentation is available here: https://github.com/SommerEngineering/Example003
 
+## Further Documentation
+If you are interested about more internals, please feel free to read the comments within the source code. Additional, the whole system architecture gets successive documented by using UML. You find the current version here: https://github.com/SommerEngineering/Ocean/blob/master/Ocean.pdf
+
 ## License
 Ocean's source code is available under a BSD 2-clause license. The used third-party components have different licenses:
 
