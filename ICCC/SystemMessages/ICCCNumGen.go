@@ -4,7 +4,7 @@ package SystemMessages
 type ICCCNumGenNext struct {
 }
 
-// The response to the Numgen request.
+// The response to the NumGen request.
 type ICCCAnswerNumGen struct {
 	Number int64
 }
