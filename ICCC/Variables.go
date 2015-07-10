@@ -27,6 +27,8 @@ var (
 	listenersLock             sync.RWMutex                                                  = sync.RWMutex{}                                                                       // The mutex for the listener cache
 	cacheListenerDatabase     *list.List                                                    = nil                                                                                  // The globally cache for all listeners from all servers
 	cacheListenerDatabaseLock sync.RWMutex                                                  = sync.RWMutex{}                                                                       // The mutex for the globally cache
+	cacheHostDatabase         *list.List                                                    = nil                                                                                  // The cache for all hosts entries
+	cacheHostDatabaseLock     sync.RWMutex                                                  = sync.RWMutex{}                                                                       // The read-write mutex for the host cache
 	startCacheTimerLock       sync.Mutex                                                    = sync.Mutex{}                                                                         // Mutex for the start timer
 	cacheTimerRunning         bool                                                          = false                                                                                // Is the timer running?
 	correctAddressWithPort    string                                                        = ``                                                                                   // The IP address and port of the this local server

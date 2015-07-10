@@ -8,12 +8,12 @@ import (
 )
 
 // The receiver function for the ICCC message, that registers a host.
-func ICCCRegisterHost(data map[string][]string) (result map[string][]string) {
+func ICCCRegisterHostReceiver(data map[string][]string) (result map[string][]string) {
 
 	// Recover from errors:
 	defer func() {
 		if err := recover(); err != nil {
-			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, fmt.Sprintf("Was not able to execute the ICCC register host message. %s", err))
+			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, "Was not able to execute the ICCC register host message.")
 			result = make(map[string][]string, 0)
 			return
 		}
@@ -28,10 +28,13 @@ func ICCCRegisterHost(data map[string][]string) (result map[string][]string) {
 		messageData := obj.(SystemMessages.ICCCRegisterHost)
 
 		// Provide a log entry:
-		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: Should register another host.`, messageData.Hostname, messageData.IPAddressPort)
+		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: Register another host.`, fmt.Sprintf("hostname=%s", messageData.Hostname), fmt.Sprintf("ipAddressPort=%s", messageData.IPAddressPort))
 
 		// Execute the command:
 		registerHost2Database(messageData.Hostname, messageData.IPAddressPort)
+
+		// Update the caches:
+		InitCacheNow()
 
 		// An answer is necessary:
 		return Message2Data(``, ``, SystemMessages.AnswerACK)

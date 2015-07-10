@@ -97,11 +97,17 @@ func initSystem() {
 	// The logging subsystem is not registered here, because it will be automated called at the end
 
 	// Register all system ICCC commands:
-	ICCC.Registrar(ICCC.ChannelSYSTEM, `System::OceanStart`, icccOceanStartUpMessage)
-	ICCC.Registrar(ICCC.ChannelSYSTEM, `System::ComponentStart`, icccComponentStartUpMessage)
-	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::RegisterHost`, ICCC.ICCCRegisterHost)
-	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::RegisterCommand`, ICCC.ICCCRegisterCommand)
-	ICCC.Registrar(ICCC.ChannelNUMGEN, `NumGen::Next`, NumGen.ICCCNextNumber)
+	ICCC.Registrar(ICCC.ChannelSTARTUP, `System::OceanStart`, icccOceanStartUpMessageReceiver)
+	ICCC.Registrar(ICCC.ChannelSTARTUP, `System::ComponentStart`, icccComponentStartUpMessageReceiver)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::RegisterHost`, ICCC.ICCCRegisterHostReceiver)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::RegisterListener`, ICCC.ICCCRegisterListenerReceiver)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::DeleteListener`, ICCC.ICCCDeleteListenerReceiver)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::DeleteHost`, ICCC.ICCCDeleteHostReceiver)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::ListenerUpdate`, ICCC.ICCCListenerUpdateReceiver)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::Ping`, ICCC.ICCCPingReceiver)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::GetHosts`, ICCC.ICCCGetHostsReceiver)
+	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::GetListeners`, ICCC.ICCCGetListenersReceiver)
+	ICCC.Registrar(ICCC.ChannelNUMGEN, `NumGen::Next`, NumGen.ICCCNextNumberReceiver)
 
 	// Start the ICCC Listener Cache:
 	ICCC.InitCacheNow() // Blocking, until the job is done

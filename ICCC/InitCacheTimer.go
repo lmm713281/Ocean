@@ -1,5 +1,9 @@
 package ICCC
 
+import (
+	"time"
+)
+
 // Setup and starts the cache timer.
 func initCacheTimer() {
 	startCacheTimerLock.Lock()
@@ -11,11 +15,15 @@ func initCacheTimer() {
 		cacheTimerRunning = true
 	}
 
-	// Start another thread with the timer logic:
+	// Start another thread with the timer-logic:
 	go func() {
 		// Endless loop:
 		for {
-			cacheTimerLogic(true)
+			// Execute the logic:
+			cacheTimerLogic()
+
+			// Wait five minutes:
+			time.Sleep(time.Duration(5) * time.Minute)
 		}
 	}()
 }

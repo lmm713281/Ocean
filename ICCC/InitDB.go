@@ -52,15 +52,11 @@ func initDB() {
 	//
 	// Index for hosts:
 	//
-	collectionHosts.EnsureIndexKey(`Hostname`, `IPAddressPort`)
+	collectionHosts.EnsureIndexKey(`Hostname`)
+	collectionHosts.EnsureIndexKey(`IPAddressPort`)
 
 	indexName2 := mgo.Index{}
-	indexName2.Key = []string{`Hostname`}
+	indexName2.Key = []string{`Hostname`, `IPAddressPort`}
 	indexName2.Unique = true
 	collectionHosts.EnsureIndex(indexName2)
-
-	indexName3 := mgo.Index{}
-	indexName3.Key = []string{`IPAddressPort`}
-	indexName3.Unique = true
-	collectionHosts.EnsureIndex(indexName3)
 }

@@ -8,8 +8,8 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-// The internal function to register a command to ICCC.
-func registerCommand2Database(channel, command, ipAddressPort string, isActive bool) {
+// The internal function to register an listener to ICCC.
+func registerListener2Database(channel, command, ipAddressPort string, isActive bool) {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Register this ICCC command in to the database.`, `channel=`+channel, `command=`+command, `IPAddressPort=`+ipAddressPort, fmt.Sprintf("isActive=%v", isActive))
 
 	entry := Scheme.Listener{}

@@ -7,13 +7,13 @@ import (
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 )
 
-// The receiver function for the ICCC message, that registers a command.
-func ICCCRegisterCommand(data map[string][]string) (result map[string][]string) {
+// The receiver function for the ICCC message, that registers a listener.
+func ICCCRegisterListenerReceiver(data map[string][]string) (result map[string][]string) {
 
 	// Recover from errors:
 	defer func() {
 		if err := recover(); err != nil {
-			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, fmt.Sprintf("Was not able to execute the ICCC register command message. %s", err))
+			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, "Was not able to execute the ICCC register listener message.")
 			result = make(map[string][]string, 0)
 			return
 		}
@@ -28,10 +28,13 @@ func ICCCRegisterCommand(data map[string][]string) (result map[string][]string) 
 		messageData := obj.(SystemMessages.ICCCRegisterListener)
 
 		// Provide a log entry:
-		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: Should register another command.`, `channel=`+messageData.Channel, `command=`+messageData.Command, `IPAddressPort=`+messageData.IPAddressPort, fmt.Sprintf(`isActive=%v`, messageData.IsActive))
+		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: Should register another listener.`, `channel=`+messageData.Channel, `command=`+messageData.Command, `IPAddressPort=`+messageData.IPAddressPort, fmt.Sprintf(`isActive=%v`, messageData.IsActive))
 
 		// Execute the command:
-		registerCommand2Database(messageData.Channel, messageData.Command, messageData.IPAddressPort, messageData.IsActive)
+		registerListener2Database(messageData.Channel, messageData.Command, messageData.IPAddressPort, messageData.IsActive)
+
+		// Update the caches:
+		InitCacheNow()
 
 		// An answer is necessary:
 		return Message2Data(``, ``, SystemMessages.AnswerACK)

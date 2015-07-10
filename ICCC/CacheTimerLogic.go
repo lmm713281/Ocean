@@ -7,43 +7,61 @@ import (
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"github.com/SommerEngineering/Ocean/Shutdown"
 	"gopkg.in/mgo.v2/bson"
-	"time"
 )
 
-// Internal function for the timer logic thread.
-func cacheTimerLogic(waiting bool) {
+// Internal function for the timer-logic thread.
+func cacheTimerLogic() {
 
 	// Case: This server goes down now.
 	if Shutdown.IsDown() {
 		return
 	}
 
-	// Define the query and get the iterator:
-	lastCount := cacheListenerDatabase.Len()
-	selection := bson.D{{`IsActive`, true}}
-	entriesIterator := collectionListener.Find(selection).Iter()
+	// Get the current counts:
+	lastCountListener := cacheListenerDatabase.Len()
+	lastCountHosts := cacheHostDatabase.Len()
 
-	entry := Scheme.Listener{}
+	// Define the queries:
+	selectionListeners := bson.D{{`IsActive`, true}}
+	selectionHosts := bson.D{}
+
+	// Get the iterators:
+	entriesIteratorListeners := collectionListener.Find(selectionListeners).Iter()
+	entriesIteratorHosts := collectionHosts.Find(selectionHosts).Iter()
+
+	//
+	// Execute the listeners first:
+	//
+
+	entryListener := Scheme.Listener{}
 	cacheListenerDatabaseLock.Lock()
 
 	// Re-init the cache:
 	cacheListenerDatabase.Init()
 
 	// Loop over all entries
-	for entriesIterator.Next(&entry) {
-		cacheListenerDatabase.PushBack(entry)
+	for entriesIteratorListeners.Next(&entryListener) {
+		cacheListenerDatabase.PushBack(entryListener)
 	}
 
 	cacheListenerDatabaseLock.Unlock()
-	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameEXECUTE, `The listener cache was refreshed with the values from the database.`, fmt.Sprintf(`last count=%d`, lastCount), fmt.Sprintf(`new count=%d`, cacheListenerDatabase.Len()))
+	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameEXECUTE, `The listener cache was refreshed with the values from the database.`, fmt.Sprintf(`last count=%d`, lastCountListener), fmt.Sprintf(`new count=%d`, cacheListenerDatabase.Len()))
 
-	// In case, that this function runs at a thread, we want to wait:
-	if waiting {
-		nextDuration := time.Duration(5) * time.Minute
-		if cacheListenerDatabase.Len() == 0 {
-			nextDuration = time.Duration(10) * time.Second
-		}
+	//
+	// Execute now the hosts:
+	//
 
-		time.Sleep(nextDuration)
+	entryHost := Scheme.Host{}
+	cacheHostDatabaseLock.Lock()
+
+	// Re-init the cache:
+	cacheHostDatabase.Init()
+
+	// Loop over all entries
+	for entriesIteratorHosts.Next(&entryHost) {
+		cacheHostDatabase.PushBack(entryHost)
 	}
+
+	cacheHostDatabaseLock.Unlock()
+	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameEXECUTE, `The host cache was refreshed with the values from the database.`, fmt.Sprintf(`last count=%d`, lastCountHosts), fmt.Sprintf(`new count=%d`, cacheHostDatabase.Len()))
 }

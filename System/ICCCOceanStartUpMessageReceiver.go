@@ -9,12 +9,12 @@ import (
 )
 
 // The receiver function for the ICCC message, that an Ocean server is up and running.
-func icccOceanStartUpMessage(data map[string][]string) (result map[string][]string) {
+func icccOceanStartUpMessageReceiver(data map[string][]string) (result map[string][]string) {
 
 	// Recover from errors:
 	defer func() {
 		if err := recover(); err != nil {
-			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, fmt.Sprintf("Was not able to execute the ICCC Ocean server startup message. %s", err))
+			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, "Was not able to execute the ICCC Ocean server startup message.")
 			result = make(map[string][]string, 0)
 			return
 		}
@@ -29,13 +29,12 @@ func icccOceanStartUpMessage(data map[string][]string) (result map[string][]stri
 		messageData := obj.(SystemMessages.ICCCOceanStartUpMessage)
 
 		// Provide a log entry:
-		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: The Ocean server is now up and ready.`, messageData.PublicIPAddressPort, messageData.AdminIPAddressPort)
+		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: The Ocean server is now up and ready.`, fmt.Sprintf("public server=%s", messageData.PublicIPAddressPort), fmt.Sprintf("admin server=%s", messageData.AdminIPAddressPort))
 
 		// An answer is necessary:
 		return ICCC.Message2Data("", "", SystemMessages.AnswerACK)
 	} else {
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: Was not able to create the message.`)
-		fmt.Println(`[Error] ICCC message: Was not able to create the message.`)
 	}
 
 	// In any other error case:

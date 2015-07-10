@@ -35,5 +35,5 @@ func (a ShutdownFunction) Shutdown() {
 	// Disconnect the database:
 	db.Logout()
 	dbSession.Close()
-	Log.LogShort(senderName, LM.CategoryAPP, LM.LevelWARN, LM.MessageNameSHUTDOWN, `Done shutting down now all ICCC listener for this host.`)
+	Log.LogShort(senderName, LM.CategoryAPP, LM.LevelWARN, LM.MessageNameSHUTDOWN, `Done shutting down all ICCC listener for this host.`)
 }

@@ -1,6 +1,6 @@
 package SystemMessages
 
-// The message to register a command/listener to ICCC.
+// The message to register an listener to ICCC.
 type ICCCRegisterListener struct {
 	Channel       string // The channel for the provided command
 	Command       string // The provided command

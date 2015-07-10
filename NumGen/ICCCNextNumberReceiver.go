@@ -1,7 +1,6 @@
 package NumGen
 
 import (
-	"fmt"
 	"github.com/SommerEngineering/Ocean/ICCC"
 	"github.com/SommerEngineering/Ocean/ICCC/SystemMessages"
 	"github.com/SommerEngineering/Ocean/Log"
@@ -9,12 +8,12 @@ import (
 )
 
 // The receiver function for the ICCC message, that registers a command.
-func ICCCNextNumber(data map[string][]string) (result map[string][]string) {
+func ICCCNextNumberReceiver(data map[string][]string) (result map[string][]string) {
 
 	// Recover from errors:
 	defer func() {
 		if err := recover(); err != nil {
-			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, fmt.Sprintf("Was not able to execute the ICCC next number command message. %s", err))
+			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNamePARSE, "Was not able to execute the ICCC next number command message.")
 			result = make(map[string][]string, 0)
 			return
 		}

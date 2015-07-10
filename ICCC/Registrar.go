@@ -12,7 +12,7 @@ func Registrar(channel, command string, callback func(data map[string][]string) 
 	defer listenersLock.Unlock()
 
 	// Write the command to the database:
-	registerLocalCommand2Database(channel, command)
+	registerLocalListener2Database(channel, command)
 
 	// Register the command at the local cache:
 	listeners[fmt.Sprintf(`%s::%s`, channel, command)] = callback
