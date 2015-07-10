@@ -9,8 +9,8 @@ import (
 	"net/url"
 )
 
-// The HTTP handler for the local ICCC commands. Will used in case, that another server
-// want to utelise an command from this server.
+// The HTTP handler for the local ICCC listeners. Will used in case, that another server
+// want to utelise an listener from this server.
 func ICCCHandler(response http.ResponseWriter, request *http.Request) {
 
 	// Cannot parse the form?
@@ -23,9 +23,9 @@ func ICCCHandler(response http.ResponseWriter, request *http.Request) {
 	// Read the data out of the request:
 	messageData := map[string][]string(request.PostForm)
 
-	// The data must contain at least three fields (command, channel & communication password)
+	// The data must contain at least three fields (command, channel & checksum)
 	if len(messageData) < 3 {
-		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameNETWORK, `The ICCC message contains not enough data: At least the channel, command and password is required!`)
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameNETWORK, `The ICCC message contains not enough data: At least the channel, command and checksum is required!`)
 		http.NotFound(response, request)
 		return
 	}
@@ -33,11 +33,17 @@ func ICCCHandler(response http.ResponseWriter, request *http.Request) {
 	// Read the meta data:
 	channel := messageData[`channel`][0]
 	command := messageData[`command`][0]
-	password := messageData[`InternalCommPassword`][0]
+	receivedChecksum := messageData[`checksum`][0]
 
-	// Check the password:
-	if password != Tools.InternalCommPassword() {
-		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityCritical, LM.ImpactNone, LM.MessageNamePASSWORD, `Received a ICCC message with wrong password!`, request.RemoteAddr)
+	// Remove the checksum as preparation for the re-hash:
+	delete(messageData, `checksum`)
+
+	// Re-hash the received message:
+	receivedMessageHash := signMessage(messageData).Get(`checksum`)
+
+	// Check the checksums:
+	if receivedChecksum != receivedMessageHash {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityCritical, LM.ImpactNone, LM.MessageNamePASSWORD, `Received a ICCC message with wrong checksum!`, request.RemoteAddr, fmt.Sprintf("channel=%s", channel), fmt.Sprintf("command=%s", command))
 		http.NotFound(response, request)
 		return
 	}
