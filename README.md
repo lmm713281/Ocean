@@ -83,7 +83,7 @@ exit
    * `AdminWebServerBinding`: Where should the admin/private web server connected? You should use this only at local and trusted networks.
    * `AdminWebServerEnabled`: Is the admin/private web server enabled?
    * `PublicWebServerPort`: Which port should the public web server use? If you use another web server at the front (e.g. a hardware load balancer, nginx, etc.) you can use the default. If you want to use Ocean directly to the public, use port 80.
-   * `InternalCommPassword`: Replase this value with e.g. a UUID or a good password. It will be used e.g. for the ICCC communication. Therefore, it will be used for the communication between the Ocean's servers.
+   * `InternalCommPassword`: Replase this value with e.g. a UUID or a good password. It will be used e.g. for the ICCC communication. Therefore, it will be used for the communication between the Ocean's servers. Keep this value secure.
    * `OceanUtilizeCPUs`: How many CPUs should Ocean utilise? At the moment, Ocean uses one value for all servers. Later on, this will be replaced by a per-machine configuration table/collection to enable the usage of heterogeneous servers.
    * `LogUseConsoleLogging`: Do you wan to use the console logging? Use it for your first steps and disable it for the production usage. Use the distributed database logging instead!
    * `LogUseDatabaseLogging`: Is the database logging enabled? Yes, you should enable it.
