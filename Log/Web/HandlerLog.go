@@ -39,13 +39,21 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 	data.Sender = DeviceDatabase.ReadSenderNames()
 	data.MessageNames = DeviceDatabase.ReadMessageNames()
 
+	// Get the current page as number:
+	currentPage := request.FormValue(`CurrentPage`)
+	if currentPage != `` {
+		if number, err := strconv.Atoi(currentPage); err != nil {
+			Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityNone, LM.ImpactNone, LM.MessageNameEXECUTE, `Was not able to parse the page number.`, err.Error())
+		} else {
+			currentPageNumber = number
+		}
+	}
+
 	// To less parameters?
 	if countParameters < 9 {
 		// Initial view => first page (latest logs)
 		data.Events, lastPageNumber = readLatest()
 		data.SetLiveView = true
-		data.CurrentPage = `1`
-		data.LastPage = fmt.Sprintf("%d", lastPageNumber)
 		if currentPageNumber+1 > lastPageNumber {
 			data.NextPage = fmt.Sprintf("%d", lastPageNumber)
 		} else {
@@ -53,6 +61,13 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 		}
 
 		data.PreviousPage = `1`
+		data.CurrentLevel = `*`
+		data.CurrentTimeRange = `*`
+		data.CurrentCategory = `*`
+		data.CurrentImpact = `*`
+		data.CurrentSeverity = `*`
+		data.CurrentMessageName = `*`
+		data.CurrentSender = `*`
 	} else {
 		// Case: Custom view
 		currentLevel := request.FormValue(`Level`)
@@ -62,17 +77,7 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 		currentSeverity := request.FormValue(`Severity`)
 		currentMessageName := request.FormValue(`MSGName`)
 		currentSender := request.FormValue(`Sender`)
-		currentPage := request.FormValue(`CurrentPage`)
 		currentLiveView := request.FormValue(`LiveView`)
-
-		// Get the current page as number:
-		if currentPage != `` {
-			if number, err := strconv.Atoi(currentPage); err != nil {
-				Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityNone, LM.ImpactNone, LM.MessageNameEXECUTE, `Was not able to parse the page number.`, err.Error())
-			} else {
-				currentPageNumber = number
-			}
-		}
 
 		// Store the events for the template:
 		data.Events, lastPageNumber = readCustom(currentTimeRange, currentLevel, currentCategory, currentImpact, currentSeverity, currentMessageName, currentSender, currentPageNumber)
@@ -126,33 +131,33 @@ func HandlerWebLog(response http.ResponseWriter, request *http.Request) {
 		} else {
 			data.CurrentSender = `*`
 		}
+	}
 
-		// Calculate the current, last, previous and next page:
-		if currentPage != `` {
-			data.CurrentPage = fmt.Sprintf("%d", currentPageNumber)
-			data.LastPage = fmt.Sprintf("%d", lastPageNumber)
-			if currentPageNumber+1 > lastPageNumber {
-				data.NextPage = fmt.Sprintf("%d", lastPageNumber)
-			} else {
-				data.NextPage = fmt.Sprintf("%d", currentPageNumber+1)
-			}
-
-			if currentPageNumber > 1 {
-				data.PreviousPage = fmt.Sprintf("%d", currentPageNumber-1)
-			} else {
-				data.PreviousPage = `1`
-			}
-			data.CurrentPage = currentPage
+	// Calculate the current, last, previous and next page:
+	if currentPage != `` {
+		data.CurrentPage = fmt.Sprintf("%d", currentPageNumber)
+		data.LastPage = fmt.Sprintf("%d", lastPageNumber)
+		if currentPageNumber+1 > lastPageNumber {
+			data.NextPage = fmt.Sprintf("%d", lastPageNumber)
 		} else {
-			data.CurrentPage = `1`
-			data.LastPage = fmt.Sprintf("%d", lastPageNumber)
-			if currentPageNumber+1 > lastPageNumber {
-				data.NextPage = fmt.Sprintf("%d", lastPageNumber)
-			} else {
-				data.NextPage = `2`
-			}
+			data.NextPage = fmt.Sprintf("%d", currentPageNumber+1)
+		}
+
+		if currentPageNumber > 1 {
+			data.PreviousPage = fmt.Sprintf("%d", currentPageNumber-1)
+		} else {
 			data.PreviousPage = `1`
 		}
+		data.CurrentPage = currentPage
+	} else {
+		data.CurrentPage = `1`
+		data.LastPage = fmt.Sprintf("%d", lastPageNumber)
+		if currentPageNumber+1 > lastPageNumber {
+			data.NextPage = fmt.Sprintf("%d", lastPageNumber)
+		} else {
+			data.NextPage = `2`
+		}
+		data.PreviousPage = `1`
 	}
 
 	// Write the MIME type and execute the template:
