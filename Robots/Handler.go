@@ -18,5 +18,5 @@ func HandlerRobots(response http.ResponseWriter, request *http.Request) {
 	}
 
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameNETWORK, `The robots.txt was requested.`, request.RemoteAddr)
-	fmt.Fprintf(response, `%s`, robotsContent)
+	fmt.Fprintf(response, "%s", robotsContent)
 }
