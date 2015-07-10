@@ -29,6 +29,7 @@ var Overview = `
       <div class="w-col w-col-4"><a class="button adminbutton" href="/configuration">Configuration</a>
       </div>
     </div>
+  <div class="admintextblock">The current Ocean's version is: {{.Version}}</div>
   </div>
   <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
   <script type="text/javascript" src="/admin/js/webflow.js"></script>

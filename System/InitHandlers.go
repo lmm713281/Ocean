@@ -11,6 +11,7 @@ import (
 	"github.com/SommerEngineering/Ocean/Log/Web"
 	"github.com/SommerEngineering/Ocean/Robots"
 	"github.com/SommerEngineering/Ocean/StaticFiles"
+	"github.com/SommerEngineering/Ocean/System/Version"
 	"github.com/SommerEngineering/Ocean/WebContent"
 )
 
@@ -57,6 +58,9 @@ func InitHandlers() {
 
 	// Handler for the web logging:
 	Handlers.AddAdminHandler(`/log`, Web.HandlerWebLog)
+
+	// Handler for the access to Ocean's version:
+	Handlers.AddAdminHandler(`/version`, Version.HandlerVersion)
 
 	// Handler for the file upload:
 	Handlers.AddAdminHandler(`/upload`, Admin.HandlerFileUpload)

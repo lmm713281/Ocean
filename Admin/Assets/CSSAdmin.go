@@ -267,6 +267,15 @@ p {
 .filterformcontainer {
   text-align: center;
 }
+.introtext {
+  margin-bottom: 30px;
+  color: black;
+  font-size: 20px;
+}
+.admintextblock {
+  margin-top: 16px;
+  color: black;
+}
 @media (max-width: 991px) {
   .icons.oneback {
     margin-left: 113px;

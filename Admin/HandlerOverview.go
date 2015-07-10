@@ -5,6 +5,7 @@ import (
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"github.com/SommerEngineering/Ocean/MimeTypes"
 	"github.com/SommerEngineering/Ocean/Shutdown"
+	"github.com/SommerEngineering/Ocean/System/Version"
 	"net/http"
 )
 
@@ -17,9 +18,13 @@ func HandlerOverview(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	// Get the data ready:
+	data := AdminWebOverview{}
+	data.Version = Version.GetVersion()
+
 	// Write the MIME type and execute the template:
 	MimeTypes.Write2HTTP(response, MimeTypes.TypeWebHTML)
-	if executeError := AdminTemplates.ExecuteTemplate(response, `Overview`, nil); executeError != nil {
+	if executeError := AdminTemplates.ExecuteTemplate(response, `Overview`, data); executeError != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactCritical, LM.MessageNameEXECUTE, `Was not able to execute the admin's overview template.`, executeError.Error())
 	}
 }

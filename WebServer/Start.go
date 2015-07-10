@@ -6,12 +6,14 @@ import (
 	"github.com/SommerEngineering/Ocean/ICCC/SystemMessages"
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/System/Version"
 )
 
 func Start() {
 
 	// Tell the whole cluster, that we are up and ready:
 	data := SystemMessages.ICCCOceanStartUpMessage{}
+	data.OceanVersion = Version.GetVersion()
 
 	// Start the public web server:
 	if serverPublic != nil {

@@ -29,7 +29,7 @@ func icccOceanStartUpMessageReceiver(data map[string][]string) (result map[strin
 		messageData := obj.(SystemMessages.ICCCOceanStartUpMessage)
 
 		// Provide a log entry:
-		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: The Ocean server is now up and ready.`, fmt.Sprintf("public server=%s", messageData.PublicIPAddressPort), fmt.Sprintf("admin server=%s", messageData.AdminIPAddressPort))
+		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: The Ocean server is now up and ready.`, fmt.Sprintf("public server=%s", messageData.PublicIPAddressPort), fmt.Sprintf("admin server=%s", messageData.AdminIPAddressPort), fmt.Sprintf("Ocean's version=%s", messageData.OceanVersion))
 
 		// An answer is necessary:
 		return ICCC.Message2Data("", "", SystemMessages.AnswerACK)

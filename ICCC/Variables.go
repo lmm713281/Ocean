@@ -14,6 +14,7 @@ const (
 	ChannelSHUTDOWN string = `System::Shutdown` // A channel for system shutdown messages.
 	ChannelSTARTUP  string = `System::Startup`  // A channel for system startup messages.
 	ChannelICCC     string = `System::ICCC`     // A common ICCC channel.
+	ChannelPING     string = `System::Ping`     // A channel for pings.
 )
 
 var (
