@@ -15,6 +15,7 @@ const (
 	ChannelSTARTUP  string = `System::Startup`  // A channel for system startup messages.
 	ChannelICCC     string = `System::ICCC`     // A common ICCC channel.
 	ChannelPING     string = `System::Ping`     // A channel for pings.
+	ChannelLOGGING  string = `System::Logging`  // A channel for send log events to the logging system
 )
 
 var (

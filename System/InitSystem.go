@@ -6,6 +6,7 @@ import (
 	"github.com/SommerEngineering/Ocean/CustomerDB"
 	"github.com/SommerEngineering/Ocean/ICCC"
 	"github.com/SommerEngineering/Ocean/Log"
+	"github.com/SommerEngineering/Ocean/Log/ICCCLog"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"github.com/SommerEngineering/Ocean/NumGen"
 	"github.com/SommerEngineering/Ocean/Shutdown"
@@ -109,6 +110,7 @@ func initSystem() {
 	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::GetHosts`, ICCC.ICCCGetHostsReceiver)
 	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::GetListeners`, ICCC.ICCCGetListenersReceiver)
 	ICCC.Registrar(ICCC.ChannelNUMGEN, `NumGen::Next`, NumGen.ICCCNextNumberReceiver)
+	ICCC.Registrar(ICCC.ChannelLOGGING, `Logging::NewLogEvent`, ICCCLog.ICCCNewLogEventReceiver)
 
 	// Start the ICCC Listener Cache:
 	ICCC.InitCacheNow() // Blocking, until the job is done
