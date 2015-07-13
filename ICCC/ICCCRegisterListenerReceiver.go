@@ -31,7 +31,7 @@ func ICCCRegisterListenerReceiver(data map[string][]string) (result map[string][
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: Should register another listener.`, `channel=`+messageData.Channel, `command=`+messageData.Command, `IPAddressPort=`+messageData.IPAddressPort, fmt.Sprintf(`isActive=%v`, messageData.IsActive))
 
 		// Execute the command:
-		registerListener2Database(messageData.Channel, messageData.Command, messageData.IPAddressPort, messageData.IsActive)
+		registerListener2Database(messageData.Channel, messageData.Command, messageData.IPAddressPort, messageData.IsActive, messageData.Kind)
 
 		// Update the caches:
 		InitCacheNow()

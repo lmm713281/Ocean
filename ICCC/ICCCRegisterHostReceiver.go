@@ -31,7 +31,7 @@ func ICCCRegisterHostReceiver(data map[string][]string) (result map[string][]str
 		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: Register another host.`, fmt.Sprintf("hostname=%s", messageData.Hostname), fmt.Sprintf("ipAddressPort=%s", messageData.IPAddressPort))
 
 		// Execute the command:
-		registerHost2Database(messageData.Hostname, messageData.IPAddressPort)
+		registerHost2Database(messageData.Hostname, messageData.IPAddressPort, messageData.Kind)
 
 		// Update the caches:
 		InitCacheNow()

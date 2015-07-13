@@ -9,4 +9,5 @@ type ICCCGetListenersAnswer struct {
 	Channels         []string
 	Commands         []string
 	IPAddressesPorts []string
+	Kinds            []byte
 }

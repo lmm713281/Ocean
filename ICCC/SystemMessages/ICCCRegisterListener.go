@@ -6,4 +6,5 @@ type ICCCRegisterListener struct {
 	Command       string // The provided command
 	IsActive      bool   // Is the command active?
 	IPAddressPort string // The IP address and port for the end-point
+	Kind          byte   // Ocean || Component
 }

@@ -8,12 +8,13 @@ import (
 )
 
 // Function to register a server to the ICCC.
-func registerHost2Database(hostname, ipAddressPort string) {
+func registerHost2Database(hostname, ipAddressPort string, kind byte) {
 
 	// Create the host entry:
 	host := Scheme.Host{}
 	host.Hostname = hostname
 	host.IPAddressPort = ipAddressPort
+	host.Kind = kind
 
 	// The query to find already existing entries:
 	selection := bson.D{{`Hostname`, host.Hostname}, {`IPAddressPort`, host.IPAddressPort}}

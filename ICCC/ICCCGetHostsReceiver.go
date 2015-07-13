@@ -35,6 +35,7 @@ func ICCCGetHostsReceiver(data map[string][]string) (result map[string][]string)
 		answerMessage := SystemMessages.ICCCGetHostsAnswer{}
 		answerMessage.Hostnames = make([]string, countHosts, countHosts)
 		answerMessage.IPAddressesPorts = make([]string, countHosts, countHosts)
+		answerMessage.Kinds = make([]byte, countHosts, countHosts)
 
 		// Loop over all hosts which are currently available at the cache:
 		n := 0
@@ -42,6 +43,7 @@ func ICCCGetHostsReceiver(data map[string][]string) (result map[string][]string)
 			host := entry.Value.(Scheme.Host)
 			answerMessage.Hostnames[n] = host.Hostname
 			answerMessage.IPAddressesPorts[n] = host.IPAddressPort
+			answerMessage.Kinds[n] = host.Kind
 			n++
 		}
 

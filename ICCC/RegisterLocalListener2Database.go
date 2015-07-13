@@ -8,5 +8,5 @@ func registerLocalListener2Database(channel, command string) {
 		there would be no server which can execute the ICCC command.
 		Therefore, every Ocean server registers the own listeners directly.
 	*/
-	registerListener2Database(channel, command, correctAddressWithPort, true)
+	registerListener2Database(channel, command, correctAddressWithPort, true, KindOCEAN)
 }

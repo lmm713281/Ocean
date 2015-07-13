@@ -6,4 +6,5 @@ type Listener struct {
 	Command       string `bson:"Command"`
 	IsActive      bool   `bson:"IsActive"`
 	IPAddressPort string `bson:"IPAddressPort"`
+	Kind          byte   `bson:"Kind"`
 }

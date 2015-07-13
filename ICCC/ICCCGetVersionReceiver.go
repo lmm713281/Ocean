@@ -28,7 +28,7 @@ func ICCCGetVersionReceiver(data map[string][]string) (result map[string][]strin
 
 		// Prepare the answer:
 		answer := SystemMessages.ICCCGetVersionAnswer{}
-		answer.Kind = `Ocean`
+		answer.Kind = KindOCEAN
 		answer.Name = Tools.ThisHostname()
 		answer.Version = Version.GetVersion()
 

@@ -8,7 +8,7 @@ import (
 )
 
 // Function to write a message to any listener.
-func WriteMessage2Any(channel, command string, message interface{}, answerPrototype interface{}) (result interface{}) {
+func WriteMessage2Any(channel, command string, kind byte, message interface{}, answerPrototype interface{}) (result interface{}) {
 	cacheListenerDatabaseLock.RLock()
 	defer cacheListenerDatabaseLock.RUnlock()
 
@@ -22,10 +22,17 @@ func WriteMessage2Any(channel, command string, message interface{}, answerProtot
 	for entry := cacheListenerDatabase.Front(); entry != nil; entry = entry.Next() {
 		listener := entry.Value.(Scheme.Listener)
 
-		// If the channel and the command matches, store the listener:
-		if listener.Channel == channel && listener.Command == command {
-			entries = entries[:len(entries)+1]
-			entries[counter] = listener
+		// If the channel, command and kind matches, store the listener:
+		if kind == KindALL {
+			if listener.Channel == channel && listener.Command == command {
+				entries = entries[:len(entries)+1]
+				entries[counter] = listener
+			}
+		} else {
+			if listener.Channel == channel && listener.Command == command && listener.Kind == kind {
+				entries = entries[:len(entries)+1]
+				entries[counter] = listener
+			}
 		}
 	}
 

@@ -9,7 +9,7 @@ import (
 )
 
 // The internal function to register an listener to ICCC.
-func registerListener2Database(channel, command, ipAddressPort string, isActive bool) {
+func registerListener2Database(channel, command, ipAddressPort string, isActive bool, kind byte) {
 	Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `Register this ICCC command in to the database.`, `channel=`+channel, `command=`+command, `IPAddressPort=`+ipAddressPort, fmt.Sprintf("isActive=%v", isActive))
 
 	entry := Scheme.Listener{}
@@ -17,6 +17,7 @@ func registerListener2Database(channel, command, ipAddressPort string, isActive 
 	entry.Command = command
 	entry.IsActive = isActive
 	entry.IPAddressPort = ipAddressPort
+	entry.Kind = kind
 
 	//
 	// Case: Exists?

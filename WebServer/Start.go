@@ -30,7 +30,7 @@ func Start() {
 	}
 
 	// Notify the whole cluster, that this server is now up and ready:
-	answers := ICCC.WriteMessage2All(ICCC.ChannelSTARTUP, `System::OceanStart`, data, SystemMessages.ICCCDefaultAnswer{})
+	answers := ICCC.WriteMessage2All(ICCC.ChannelSTARTUP, `System::OceanStart`, ICCC.KindALL, data, SystemMessages.ICCCDefaultAnswer{})
 	for n, obj := range answers {
 		if obj != nil {
 			answer := obj.(SystemMessages.ICCCDefaultAnswer)

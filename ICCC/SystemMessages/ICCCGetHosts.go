@@ -8,4 +8,5 @@ type ICCCGetHosts struct {
 type ICCCGetHostsAnswer struct {
 	Hostnames        []string
 	IPAddressesPorts []string
+	Kinds            []byte
 }

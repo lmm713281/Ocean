@@ -16,6 +16,9 @@ const (
 	ChannelICCC     string = `System::ICCC`     // A common ICCC channel.
 	ChannelPING     string = `System::Ping`     // A channel for pings.
 	ChannelLOGGING  string = `System::Logging`  // A channel for send log events to the logging system
+	KindOCEAN       byte   = 0x0
+	KindComponent   byte   = 0x1
+	KindALL         byte   = 0xFF
 )
 
 var (

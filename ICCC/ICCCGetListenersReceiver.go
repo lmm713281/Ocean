@@ -36,6 +36,7 @@ func ICCCGetListenersReceiver(data map[string][]string) (result map[string][]str
 		answerMessage.Channels = make([]string, countListeners, countListeners)
 		answerMessage.Commands = make([]string, countListeners, countListeners)
 		answerMessage.IPAddressesPorts = make([]string, countListeners, countListeners)
+		answerMessage.Kinds = make([]byte, countListeners, countListeners)
 
 		// Loop over all hosts which are currently available at the cache:
 		n := 0
@@ -44,6 +45,7 @@ func ICCCGetListenersReceiver(data map[string][]string) (result map[string][]str
 			answerMessage.Channels[n] = listener.Channel
 			answerMessage.Commands[n] = listener.Command
 			answerMessage.IPAddressesPorts[n] = listener.IPAddressPort
+			answerMessage.Kinds[n] = listener.Kind
 			n++
 		}
 

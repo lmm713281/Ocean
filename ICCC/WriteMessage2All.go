@@ -7,7 +7,7 @@ import (
 )
 
 // Function to broadcast a message to all listeners.
-func WriteMessage2All(channel, command string, message interface{}, answerPrototype interface{}) (results []interface{}) {
+func WriteMessage2All(channel, command string, kind byte, message interface{}, answerPrototype interface{}) (results []interface{}) {
 	cacheListenerDatabaseLock.RLock()
 	defer cacheListenerDatabaseLock.RUnlock()
 
@@ -21,9 +21,15 @@ func WriteMessage2All(channel, command string, message interface{}, answerProtot
 	for entry := cacheListenerDatabase.Front(); entry != nil; entry = entry.Next() {
 		listener := entry.Value.(Scheme.Listener)
 
-		// If the channel and the command matches, deliver the message:
-		if listener.Channel == channel && listener.Command == command {
-			matchingListener = append(matchingListener, listener)
+		// If the channel, command and kind matches, deliver the message:
+		if kind == KindALL {
+			if listener.Channel == channel && listener.Command == command {
+				matchingListener = append(matchingListener, listener)
+			}
+		} else {
+			if listener.Channel == channel && listener.Command == command && listener.Kind == kind {
+				matchingListener = append(matchingListener, listener)
+			}
 		}
 	}
 

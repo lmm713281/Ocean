@@ -12,5 +12,5 @@ func registerThisHost2Database() {
 		there would be no server which can execute the ICCC command.
 		Therefore, every Ocean server registers the own host directly.
 	*/
-	registerHost2Database(Tools.ThisHostname(), correctAddressWithPort)
+	registerHost2Database(Tools.ThisHostname(), correctAddressWithPort, KindOCEAN)
 }

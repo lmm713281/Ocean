@@ -28,6 +28,7 @@ func initDB() {
 	//
 	// Take care about the indexes for ICCCListener:
 	//
+	collectionListener.EnsureIndexKey(`Kind`)
 	collectionListener.EnsureIndexKey(`Command`)
 	collectionListener.EnsureIndexKey(`Command`, `IsActive`)
 
@@ -52,6 +53,7 @@ func initDB() {
 	//
 	// Index for hosts:
 	//
+	collectionHosts.EnsureIndexKey(`Kind`)
 	collectionHosts.EnsureIndexKey(`Hostname`)
 	collectionHosts.EnsureIndexKey(`IPAddressPort`)
 
