@@ -42,6 +42,6 @@ channel=CHANNEL
 checksum=[the SHA512 checksum of the message]
 
 Constrains to the environment:
-The web server cannot reorder the fields of the request or response. The order of fields at the data object (message) must correspond with the order of fields inside the HTTP message. Therefore, a reorder is not possible at the moment. Also, the three field names 'command', 'channel' and 'checksum' are reserved, thus, you cannot use these names.
+The three field names 'command', 'channel' and 'checksum' are reserved, thus, you cannot use these names.
 */
 package ICCC
