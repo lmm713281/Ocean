@@ -39,6 +39,7 @@ func ICCCListenerUpdateReceiver(data map[string][]string) (result map[string][]s
 		updatedObject.Command = messageData.Command
 		updatedObject.IPAddressPort = messageData.IPAddressPort
 		updatedObject.IsActive = messageData.IsActiveNew
+		updatedObject.Kind = messageData.Kind
 
 		// Update the entry:
 		if errUpdate := collectionListener.Update(selectionUpdate, updatedObject); errUpdate != nil {

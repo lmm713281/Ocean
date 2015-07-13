@@ -6,4 +6,5 @@ type ICCCListenerUpdate struct {
 	Command       string
 	IPAddressPort string
 	IsActiveNew   bool
+	Kind          byte
 }
