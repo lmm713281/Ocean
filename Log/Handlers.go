@@ -121,10 +121,16 @@ func clearEntry(entry Meta.Entry) (result Meta.Entry) {
 // Remove white spaces from the parameters.
 func clearParameters(oldParameters []string) (result []string) {
 	for n := 0; n < len(oldParameters); n++ {
+		// Remove white spaces:
 		oldParameters[n] = removeWhitespaces(oldParameters[n])
+
+		// Is content left after removing?
+		if oldParameters[n] != `` {
+			// Yes, some content is still there. Thus, commit this entry:
+			result = append(result, oldParameters[n])
+		}
 	}
 
-	result = oldParameters
 	return
 }
 
