@@ -6,6 +6,7 @@ import (
 	"github.com/SommerEngineering/Ocean/Tools"
 	"net/url"
 	"sort"
+	"strings"
 )
 
 // Sign a message to secure it.
@@ -32,7 +33,7 @@ func signMessage(data map[string][]string) (result url.Values) {
 	// Now, loop over all the data:
 	for _, key := range keys {
 		// Get the value:
-		value := data[key]
+		value := data[key][0]
 
 		// Hash each key and value:
 		fmt.Fprintf(hash, "key=%s :: value=%s\n", key, value)
@@ -42,6 +43,6 @@ func signMessage(data map[string][]string) (result url.Values) {
 	result = url.Values(data)
 
 	// Append the sign:
-	result.Add(`checksum`, fmt.Sprintf("%x", hash.Sum(nil)))
+	result.Add(`checksum`, strings.ToUpper(fmt.Sprintf("%x", hash.Sum(nil))))
 	return
 }
