@@ -30,6 +30,7 @@ func ICCCNewLogEventReceiver(data map[string][]string) (result map[string][]stri
 
 		// Provide a log entry:
 		logEntry := LM.Entry{}
+		logEntry.Project = Log.GetProjectName()
 		logEntry.Sender = LM.Sender(messageData.Sender)
 		logEntry.Category = LM.ParseCategory(messageData.Category)
 		logEntry.Level = LM.ParseLevel(messageData.Level)
