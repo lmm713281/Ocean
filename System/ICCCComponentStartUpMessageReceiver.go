@@ -29,7 +29,7 @@ func icccComponentStartUpMessageReceiver(data map[string][]string) (result map[s
 		messageData := obj.(SystemMessages.ICCCComponentStartUpMessage)
 
 		// Provide a log entry:
-		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: The external component is now up and ready.`, fmt.Sprintf("ipAddressPort=%s", messageData.IPAddressPort), fmt.Sprintf("name=", messageData.Name), fmt.Sprintf("version=", messageData.Version))
+		Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameSTARTUP, `ICCC message: The external component is now up and ready.`, fmt.Sprintf("ipAddressPort='%s'", messageData.IPAddressPort), fmt.Sprintf("name='%s'", messageData.Name), fmt.Sprintf("version='%s'", messageData.Version))
 
 		// An answer is necessary:
 		return ICCC.Message2Data("", "", SystemMessages.AnswerACK)
