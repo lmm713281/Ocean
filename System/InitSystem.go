@@ -105,7 +105,7 @@ func initSystem() {
 	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::DeleteListener`, ICCC.ICCCDeleteListenerReceiver)
 	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::DeleteHost`, ICCC.ICCCDeleteHostReceiver)
 	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::ListenerUpdate`, ICCC.ICCCListenerUpdateReceiver)
-	ICCC.Registrar(ICCC.ChannelICCC, `Ping::Ping`, ICCC.ICCCPingReceiver)
+	ICCC.Registrar(ICCC.ChannelPING, `Ping::Ping`, ICCC.ICCCPingReceiver)
 	ICCC.Registrar(ICCC.ChannelSYSTEM, `System::Version`, ICCC.ICCCGetVersionReceiver)
 	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::GetHosts`, ICCC.ICCCGetHostsReceiver)
 	ICCC.Registrar(ICCC.ChannelICCC, `ICCC::GetListeners`, ICCC.ICCCGetListenersReceiver)

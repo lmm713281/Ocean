@@ -56,7 +56,7 @@ func ICCCHandler(response http.ResponseWriter, request *http.Request) {
 
 	if listener == nil {
 		// Case: No such listener
-		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNameCONFIGURATION, `Was not able to find the correct listener for these ICCC message.`, `channel=`+channel, `command`+command, `hostname=`+Tools.ThisHostname())
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelWARN, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNameCONFIGURATION, `Was not able to find the correct listener for these ICCC message.`, `channel=`+channel, `command=`+command, `hostname=`+Tools.ThisHostname())
 		http.NotFound(response, request)
 	} else {
 		// Case: Everything is fine => deliver the message and read the answer:
