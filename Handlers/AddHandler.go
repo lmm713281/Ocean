@@ -2,9 +2,10 @@ package Handlers
 
 import (
 	"fmt"
+	"net/http"
+
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
-	"net/http"
 )
 
 // Function to add a new public handler.
