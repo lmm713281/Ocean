@@ -18,7 +18,7 @@ func initDatabase() {
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Printf("[Error] Was not able to connect to the logging database: %s. Please read https://github.com/SommerEngineering/Ocean.\n", err)
-			os.Exit(0)
+			os.Exit(2)
 		}
 	}()
 
@@ -57,7 +57,7 @@ func initDatabase() {
 	if newSession, errDial := mgo.Dial(databaseHost); errDial != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `It was not possible to connect to the MongoDB host `+databaseHost, errDial.Error())
 		fmt.Printf("[Error] Was not able to connect to the logging database: %s. Please read https://github.com/SommerEngineering/Ocean.\n", errDial.Error())
-		os.Exit(0)
+		os.Exit(2)
 	} else {
 		logDBSession = newSession
 	}
@@ -69,7 +69,7 @@ func initDatabase() {
 	if errLogin := logDB.Login(databaseUsername, databasePassword); errLogin != nil {
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityUnknown, LM.ImpactUnknown, LM.MessageNameDATABASE, `It was not possible to login the user `+databaseUsername, errLogin.Error())
 		fmt.Printf("[Error] Was not able to connect to the logging database: %s. Please read https://github.com/SommerEngineering/Ocean.\n", errLogin.Error())
-		os.Exit(0)
+		os.Exit(2)
 	}
 
 	// Get the collection:

@@ -49,11 +49,11 @@ The second configuration file is **configuration.json**. It contains the configu
 
 ```JSON
 {
-	"ConfigDBHostname" : "127.0.0.1:27017",
-	"ConfigDBDatabase" : "MyOcean",
-	"ConfigDBConfigurationCollection" : "Configuration",
-	"ConfigDBConfigurationCollectionUsername" : "MyOceanConfig",
-	"ConfigDBConfigurationCollectionPassword" : "PWD"
+   "ConfigDBHostname" : "127.0.0.1:27017",
+   "ConfigDBDatabase" : "MyOcean",
+   "ConfigDBConfigurationCollection" : "Configuration",
+   "ConfigDBConfigurationCollectionUsername" : "MyOceanConfig",
+   "ConfigDBConfigurationCollectionPassword" : "PWD"
 }
 ```
 The `ConfigDBConfigurationCollection` collection gets automatically created. After both files are present and the MongoDB database or database cluster is running, Ocean is able to start. The database can and should be empty. Ocean does the configuration automatically. Due to this minimal local configuration and the distributed configuration database, the deployment of additional Ocean servers can be achieved by using e.g. data center scripts, etc.
