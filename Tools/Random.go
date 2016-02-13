@@ -20,6 +20,5 @@ func RandomFloat64() (rnd float64) {
 // Gets a random UUID (v4).
 func RandomGUID() (guidString string) {
 	guidString = uuid.NewV4().String()
-	guidString = guidString[1 : len(guidString)-1]
 	return
 }
