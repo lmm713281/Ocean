@@ -16,7 +16,7 @@ func sendMessage(listener Scheme.Listener, data map[string][]string) (result map
 	valuesHTTP := signMessage(data)
 
 	// Try to deliver the message:
-	if response, err := http.PostForm(`http://`+listener.IPAddressPort+`/ICCC`, valuesHTTP); err != nil {
+	if response, err := http.PostForm(activeProtocol+listener.Hostname+`/ICCC`, valuesHTTP); err != nil {
 		// Case: Was not possible to deliver.
 		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.SeverityCritical, LM.ImpactUnknown, LM.MessageNameNETWORK, `Was not able to send the ICCC message.`, err.Error())
 	} else {

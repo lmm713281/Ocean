@@ -21,6 +21,7 @@ func checkConfiguration() {
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerWriteTimeoutSeconds`, `10`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerMaxHeaderLenBytes`, `10485760`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`PublicWebServerPort`, `50000`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`PublicWebServerHostname`, `www.my-site.domain`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`PublicWebServerReadTimeoutSeconds`, `10`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`PublicWebServerWriteTimeoutSeconds`, `10`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`PublicWebServerMaxHeaderLenBytes`, `1048576`)

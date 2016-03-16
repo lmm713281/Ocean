@@ -37,4 +37,5 @@ var (
 	startCacheTimerLock       sync.Mutex                                                    = sync.Mutex{}                                                                         // Mutex for the start timer
 	cacheTimerRunning         bool                                                          = false                                                                                // Is the timer running?
 	correctAddressWithPort    string                                                        = ``                                                                                   // The IP address and port of the this local server
+	activeProtocol            string                                                        = `http://`
 )

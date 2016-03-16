@@ -2,9 +2,11 @@ package ICCC
 
 import (
 	"container/list"
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"github.com/SommerEngineering/Ocean/Tools"
+	"strings"
 )
 
 // Init this package.
@@ -21,6 +23,13 @@ func init() {
 
 	// Using the local IP address:
 	correctAddressWithPort = Tools.LocalIPAddressAndPort()
+
+	// Determine the correct protocol:
+	if publicTLSEnabled := ConfigurationDB.Read(`PublicWebServerUseTLS`); strings.ToLower(publicTLSEnabled) == `true` {
+		activeProtocol = "https://"
+	} else {
+		activeProtocol = "http://"
+	}
 
 	// Init the database:
 	initDB()
