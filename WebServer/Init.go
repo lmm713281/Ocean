@@ -6,8 +6,12 @@ import (
 	"github.com/SommerEngineering/Ocean/Handlers"
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
+	"github.com/SommerEngineering/Ocean/StaticFiles"
 	"github.com/SommerEngineering/Ocean/Tools"
+	"io/ioutil"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -64,6 +68,32 @@ func init() {
 		serverPublic.MaxHeaderBytes = maxHeaderBytes
 	}
 
+	// Is TLS configured?
+	if publicTLSEnabled := ConfigurationDB.Read(`PublicWebServerUseTLS`); strings.ToLower(publicTLSEnabled) == `true` {
+
+		// TLS is enabled. Copy the certificate and private key to the source directory.
+		publicTLSCertificate := StaticFiles.FindAndReadFileINTERNAL(ConfigurationDB.Read(`PublicWebServerTLSCertificateName`))
+		publicTLSPrivateKey := StaticFiles.FindAndReadFileINTERNAL(ConfigurationDB.Read(`PublicWebServerTLSPrivateKey`))
+
+		// Access to the working directory?
+		currentDir, dirError := os.Getwd()
+		if dirError != nil {
+			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.MessageNameCONFIGURATION, `Was not able to read the working directory. Thus, cannot store the TLS certificates!`, dirError.Error())
+		} else {
+			// Build the filenames:
+			pathCertificate := filepath.Join(currentDir, ConfigurationDB.Read(`PublicWebServerTLSCertificateName`))
+			pathPrivateKey := filepath.Join(currentDir, ConfigurationDB.Read(`PublicWebServerTLSPrivateKey`))
+
+			// Write the files:
+			if writeError := ioutil.WriteFile(pathCertificate, publicTLSCertificate, 0660); writeError != nil {
+				Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.MessageNameCONFIGURATION, `Was not able to write the TLS certificate to the working directory.`, writeError.Error())
+			}
+			if writeError := ioutil.WriteFile(pathPrivateKey, publicTLSPrivateKey, 0660); writeError != nil {
+				Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.MessageNameCONFIGURATION, `Was not able to write the TLS private key to the working directory.`, writeError.Error())
+			}
+		}
+	}
+
 	// Is the private web server (i.e. administration server) enabled?
 	if strings.ToLower(ConfigurationDB.Read(`AdminWebServerEnabled`)) == `true` {
 
@@ -104,6 +134,32 @@ func init() {
 		} else {
 			Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelINFO, LM.MessageNameCONFIGURATION, fmt.Sprintf("The admin web server's max. header size was set to %d bytes.", maxHeaderBytes))
 			serverAdmin.MaxHeaderBytes = maxHeaderBytes
+		}
+
+		// Is TLS configured?
+		if adminTLSEnabled := ConfigurationDB.Read(`AdminWebServerUseTLS`); strings.ToLower(adminTLSEnabled) == `true` {
+
+			// TLS is enabled. Copy the certificate and private key to the source directory.
+			adminTLSCertificate := StaticFiles.FindAndReadFileINTERNAL(ConfigurationDB.Read(`AdminWebServerTLSCertificateName`))
+			adminTLSPrivateKey := StaticFiles.FindAndReadFileINTERNAL(ConfigurationDB.Read(`AdminWebServerTLSPrivateKey`))
+
+			// Access to the working directory?
+			currentDir, dirError := os.Getwd()
+			if dirError != nil {
+				Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.MessageNameCONFIGURATION, `Was not able to read the working directory. Thus, cannot store the TLS certificates!`, dirError.Error())
+			} else {
+				// Build the filenames:
+				pathCertificate := filepath.Join(currentDir, ConfigurationDB.Read(`AdminWebServerTLSCertificateName`))
+				pathPrivateKey := filepath.Join(currentDir, ConfigurationDB.Read(`AdminWebServerTLSPrivateKey`))
+
+				// Write the files:
+				if writeError := ioutil.WriteFile(pathCertificate, adminTLSCertificate, 0660); writeError != nil {
+					Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.MessageNameCONFIGURATION, `Was not able to write the TLS certificate to the working directory.`, writeError.Error())
+				}
+				if writeError := ioutil.WriteFile(pathPrivateKey, adminTLSPrivateKey, 0660); writeError != nil {
+					Log.LogShort(senderName, LM.CategorySYSTEM, LM.LevelERROR, LM.MessageNameCONFIGURATION, `Was not able to write the TLS private key to the working directory.`, writeError.Error())
+				}
+			}
 		}
 	} else {
 		// Private web server is disabled:

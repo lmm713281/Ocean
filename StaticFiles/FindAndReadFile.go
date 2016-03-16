@@ -3,14 +3,50 @@ package StaticFiles
 import (
 	"archive/zip"
 	"bytes"
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 	"github.com/SommerEngineering/Ocean/Shutdown"
 	"io/ioutil"
+	"strings"
 )
 
 // Try to read a static file.
 func FindAndReadFile(filename string) (result []byte) {
+
+	// Case: The system goes down.
+	if Shutdown.IsDown() {
+		return
+	}
+
+	//
+	// Ensure that the TLS keys are secure and save:
+	//
+	if strings.ToLower(filename) == strings.ToLower(ConfigurationDB.Read(`AdminWebServerTLSCertificateName`)) {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityNone, LM.ImpactNone, LM.MessageNameREQUEST, `Someone tried to read the TLS certificate of the admin server. The attempt was inhibited.`)
+		return
+	}
+
+	if strings.ToLower(filename) == strings.ToLower(ConfigurationDB.Read(`AdminWebServerTLSPrivateKey`)) {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityNone, LM.ImpactNone, LM.MessageNameREQUEST, `Someone tried to read the TLS certificate's private key of the admin server. The attempt was inhibited.`)
+		return
+	}
+
+	if strings.ToLower(filename) == strings.ToLower(ConfigurationDB.Read(`PublicWebServerTLSCertificateName`)) {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityNone, LM.ImpactNone, LM.MessageNameREQUEST, `Someone tried to read the TLS certificate of the public server. The attempt was inhibited.`)
+		return
+	}
+
+	if strings.ToLower(filename) == strings.ToLower(ConfigurationDB.Read(`PublicWebServerTLSPrivateKey`)) {
+		Log.LogFull(senderName, LM.CategorySYSTEM, LM.LevelSECURITY, LM.SeverityNone, LM.ImpactNone, LM.MessageNameREQUEST, `Someone tried to read the TLS certificate's private key of the public server. The attempt was inhibited.`)
+		return
+	}
+
+	result = FindAndReadFileINTERNAL(filename)
+	return
+}
+
+func FindAndReadFileINTERNAL(filename string) (result []byte) {
 
 	// Case: The system goes down.
 	if Shutdown.IsDown() {
