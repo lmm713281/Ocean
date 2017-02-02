@@ -14,6 +14,7 @@ func checkConfiguration() {
 	CheckSingleConfigurationPresentsAndAddIfMissing(`DefaultLanguageCode`, `en-GB`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerBinding`, `127.0.0.1:60000`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerEnabled`, `True`)
+	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerPassword`, ``)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerUseTLS`, `False`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerTLSCertificateName`, `certificateAdmin.pem`)
 	CheckSingleConfigurationPresentsAndAddIfMissing(`AdminWebServerTLSPrivateKey`, `privateKeyAdmin.pem`)

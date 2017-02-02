@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/SommerEngineering/Ocean/ConfigurationDB"
 	"github.com/SommerEngineering/Ocean/Log"
 	LM "github.com/SommerEngineering/Ocean/Log/Meta"
 )
@@ -33,5 +34,5 @@ func AddAdminHandler(pattern string, handler func(http.ResponseWriter, *http.Req
 	}()
 
 	// Add the handler:
-	muxAdmin.HandleFunc(pattern, handler)
+	muxAdmin.HandleFunc(pattern, BasicAuth(handler, `admin`, ConfigurationDB.Read(`AdminWebServerEnabled`), `Please enter your username and password for this site`))
 }
