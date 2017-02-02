@@ -34,5 +34,5 @@ func AddAdminHandler(pattern string, handler func(http.ResponseWriter, *http.Req
 	}()
 
 	// Add the handler:
-	muxAdmin.HandleFunc(pattern, BasicAuth(handler, `admin`, ConfigurationDB.Read(`AdminWebServerEnabled`), `Please enter your username and password for this site`))
+	muxAdmin.HandleFunc(pattern, BasicAuth(handler, `admin`, ConfigurationDB.Read(`AdminWebServerPassword`), `Please enter your username and password for this site`))
 }
